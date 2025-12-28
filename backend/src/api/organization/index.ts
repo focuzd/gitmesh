@@ -25,4 +25,9 @@ export default (app) => {
     `/tenant/:tenantId/organization/:organizationId/no-merge`,
     safeWrap(require('./organizationNotMerge').default),
   )
+
+  app.post(
+    `/tenant/:tenantId/organization/refresh-counts`,
+    safeWrap(require('./organizationRefreshCounts').default),
+  )
 }

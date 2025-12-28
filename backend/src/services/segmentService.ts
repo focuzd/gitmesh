@@ -209,6 +209,32 @@ export default class SegmentService extends LoggerBase {
     return result
   }
 
+  async list() {
+    const segmentRepository = new SegmentRepository(this.options)
+    
+    // Get all project groups with their nested projects and subprojects
+    const projectGroups = await segmentRepository.queryProjectGroups({})
+    
+    // Flatten all segments into a single array
+    const allSegments = []
+    
+    for (const projectGroup of projectGroups.rows) {
+      allSegments.push(projectGroup)
+      
+      if (projectGroup.projects) {
+        for (const project of projectGroup.projects) {
+          allSegments.push(project)
+          
+          if (project.subprojects) {
+            allSegments.push(...project.subprojects)
+          }
+        }
+      }
+    }
+    
+    return allSegments
+  }
+
   async createActivityType(
     data: SegmentActivityTypesCreateData,
     platform: string = PlatformType.OTHER,

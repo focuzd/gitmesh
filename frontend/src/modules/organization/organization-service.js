@@ -80,19 +80,21 @@ export class OrganizationService {
     return response.data;
   }
 
-  static async find(id) {
+  static async find(id, segmentId) {
     const sampleTenant = AuthCurrentTenant.getSampleTenantData();
     const tenantId = sampleTenant?.id || AuthCurrentTenant.get();
-
+    if (!segmentId) {
+      throw new Error('segmentId is required');
+    }
     const response = await authAxios.get(
       `/tenant/${tenantId}/organization/${id}`,
       {
+        params: { segmentId },
         headers: {
           Authorization: sampleTenant?.token,
         },
       },
     );
-
     return response.data;
   }
 
@@ -152,5 +154,15 @@ export class OrganizationService {
       },
     )
       .then(({ data }) => Promise.resolve(data));
+  }
+
+  static async refreshCounts() {
+    const tenantId = AuthCurrentTenant.get();
+
+    const response = await authAxios.post(
+      `/tenant/${tenantId}/organization/refresh-counts`,
+    );
+
+    return response.data;
   }
 }
