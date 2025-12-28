@@ -17,92 +17,7 @@
       <app-menu :class="{ 'absolute z-50 h-full shadow-2xl': isMobile, 'hidden': isMobile && collapsed }" />
       <el-container v-if="currentTenant" class="bg-black is-vertical flex-col overflow-hidden w-full">
         <el-main id="main-page-wrapper" class="relative bg-black !pt-0 h-full overflow-auto">
-          <div
-            class="bg-black"
-            :class="{
-              'pt-6': showBanner,
-            }"
-          >
-          <banner
-            v-if="showSampleDataAlert"
-            variant="alert"
-          >
-            <div
-              class="flex items-center justify-center grow text-sm font-mono"
-            >
-              This workspace is using sample data. Connect
-              your first integration to start fetching real
-              data
-              <router-link :to="{ name: 'integration' }">
-                <el-button
-                  class="btn btn--sm bg-orange-500 hover:bg-orange-600 border-orange-500 text-black font-bold ml-4"
-                  :loading="loading"
-                >
-                  Connect integration
-                </el-button>
-              </router-link>
-            </div>
-          </banner>
-          <banner
-            v-if="showIntegrationsErrorAlert"
-            variant="alert"
-          >
-            <div
-              class="flex items-center justify-center grow text-sm font-mono"
-            >
-              Currently you have integrations with
-              connectivity issues
-              <router-link
-                :to="{ name: 'integration' }"
-                class="btn btn--sm bg-orange-500 hover:bg-orange-600 border-orange-500 text-black font-bold ml-4"
-              >
-                Go to Integrations
-              </router-link>
-            </div>
-          </banner>
-
-          <banner
-            v-if="showIntegrationsNoDataAlert"
-            variant="alert"
-          >
-            <div
-              class="flex items-center justify-center grow text-sm font-mono"
-            >
-              Currently you have integrations that are not
-              receiving activities
-              <router-link
-                :to="{ name: 'integration' }"
-                class="btn btn--sm bg-orange-500 hover:bg-orange-600 border-orange-500 text-black font-bold ml-4"
-              >
-                Go to Integrations
-              </router-link>
-            </div>
-          </banner>
-
-          <banner
-            v-if="showIntegrationsInProgressAlert"
-            variant="info"
-          >
-            <div
-              class="flex items-center justify-center grow text-sm font-mono"
-            >
-              <div
-                v-loading="true"
-                class="w-4 h-4 mr-2"
-              />
-              <span class="font-semibold mr-1">{{
-                integrationsInProgressToString
-              }}
-                integration{{
-                  integrationsInProgress.length > 1
-                    ? 's are'
-                    : ' is'
-                }}
-                getting set up.</span>
-              Sit back and relax. We will send you an email
-              when it’s done.
-            </div>
-          </banner>
+          <div class="bg-black">
 
           <banner
             v-if="showIntegrationsNeedReconnectAlert"
@@ -147,7 +62,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Banner from '@/shared/banner/banner.vue';
 import AppMenu from '@/modules/layout/components/menu.vue';
 import TabBar from '@/modules/layout/components/tab-bar.vue';
 import { useTabsStore } from '@/modules/layout/store/tabs';
@@ -159,7 +73,6 @@ export default {
 
   components: {
     AppMenu,
-    Banner,
     TabBar,
   },
 
@@ -196,52 +109,8 @@ export default {
       currentUser: 'auth/currentUser',
       currentTenant: 'auth/currentTenant',
       integrationsInProgress: 'integration/inProgress',
-      integrationsWithErrors: 'integration/withErrors',
-      integrationsWithNoData: 'integration/withNoData',
-      integrationsNeedReconnect: 'integration/needsReconnect',
-      showSampleDataAlert: 'tenant/showSampleDataAlert',
-      showIntegrationsErrorAlert:
-        'tenant/showIntegrationsErrorAlert',
-      showIntegrationsNoDataAlert:
-        'tenant/showIntegrationsNoDataAlert',
-      showIntegrationsInProgressAlert:
-        'tenant/showIntegrationsInProgressAlert',
-      showIntegrationsNeedReconnectAlert:
-        'tenant/showIntegrationsNeedReconnectAlert',
-      showOrganizationsAlertBanner: 'tenant/showOrganizationsAlertBanner',
-      showBanner: 'tenant/showBanner',
     }),
 
-    integrationsInProgressToString() {
-      const arr = this.integrationsInProgress.map(
-        (i) => i.name,
-      );
-      if (arr.length === 1) {
-        return arr[0];
-      } if (arr.length === 2) {
-        return `${arr[0]} and ${arr[1]}`;
-      }
-      return (
-        `${arr.slice(0, arr.length - 1).join(', ')
-        }, and ${
-          arr.slice(-1)}`
-      );
-    },
-    integrationsNeedReconnectToString() {
-      const arr = this.integrationsNeedReconnect.map(
-        (i) => i.name,
-      );
-      if (arr.length === 1) {
-        return arr[0];
-      } if (arr.length === 2) {
-        return `${arr[0]} and ${arr[1]}`;
-      }
-      return (
-        `${arr.slice(0, arr.length - 1).join(', ')
-        }, and ${
-          arr.slice(-1)}`
-      );
-    },
     cachedViews() {
       return this.tabsStore.tabs.map((t) => t.name);
     },

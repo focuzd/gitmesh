@@ -543,7 +543,7 @@ export const DEFAULT_ACTIVITY_TYPE_SETTINGS: DefaultActivityTypes = {
     [HackerNewsActivityType.COMMENT]: {
       display: {
         default:
-          'commented on <a href="{attributes.parentUrl}" target="_blank">{attributes.parentTitle}</a>',
+          '<span style="color: #fff">commented on</span> <a href="{attributes.parentUrl}" target="_blank">{attributes.parentTitle}</a>',
         short: 'commented',
         channel: '{channel}',
         formatter: {

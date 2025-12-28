@@ -8,11 +8,11 @@
       </cr-filter-search>
       <el-button
         v-if="isDeveloperModeActive && developerModeEnabled()"
-        class="btn btn-brand--secondary !bg-purple-100 !text-purple-600 ml-2"
+        class="btn btn-brand--secondary !bg-black !text-blue-400 ml-2"
         @click="copyToClipboard"
       >
         <i class="ri-clipboard-line" />
-        <span>Copy JSON query</span>
+        <span>Copy JSON</span>
       </el-button>
     </div>
     <div class="flex items-center flex-wrap">

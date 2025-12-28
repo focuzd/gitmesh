@@ -1,6 +1,6 @@
 <template>
-  <app-page-wrapper size="full-width">
-    <div class="member-list-page">
+  <app-page-wrapper size="full-width" class="!bg-black">
+    <div class="member-list-page !bg-black min-h-screen">
       <div class="mb-10">
         <div class="flex items-center justify-between">
           <h4 class="text-white font-mono text-2xl font-bold">

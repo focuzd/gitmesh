@@ -5,15 +5,26 @@
 
     <div class="relative w-full max-w-sm z-10">
       
-      <div class="mb-6 text-center flex flex-col items-center">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-white font-sans text-xl font-bold tracking-tight">GitMesh</span>
+      <div class="mb-10 text-center flex flex-col items-center">
+        <div class="relative group cursor-default mb-6">
+          <div class="flex items-center justify-center gap-3">
+            <div class="h-[1px] w-6 bg-zinc-800 group-hover:w-10 group-hover:bg-orange-500 transition-all duration-500"></div>
+            <span class="text-white font-sans text-2xl font-black tracking-[0.2em] uppercase italic">
+              Git<span class="text-orange-500">Mesh</span>
+            </span>
+            <div class="h-[1px] w-6 bg-zinc-800 group-hover:w-10 group-hover:bg-orange-500 transition-all duration-500"></div>
+          </div>
         </div>
 
-        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-md">
-            <span class="text-white font-mono text-[10px]">root@gitmesh</span>
-            <span class="text-white font-mono text-[10px]">:</span>
-            <span class="text-orange-500 font-mono text-[10px]">~/signin</span>
+        <div class="inline-flex items-stretch border border-zinc-800 bg-zinc-950 shadow-[0_0_15px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div class="px-2 py-1 bg-zinc-900 border-r border-zinc-800 flex items-center">
+              <span class="text-zinc-500 font-mono text-[9px] uppercase tracking-tighter">System</span>
+            </div>
+            <div class="px-3 py-1.5 flex items-center gap-2">
+                <span class="text-zinc-200 font-mono text-[10px] tracking-tight">root@gitmesh</span>
+                <span class="text-zinc-600 font-mono text-[10px]">:</span>
+                <span class="text-orange-500 font-mono text-[10px] font-bold">~/signin</span>
+            </div>
         </div>
       </div>
 
@@ -27,7 +38,7 @@
       >
         <el-form-item :prop="fields.email.name" class="!mb-0">
           <template #label>
-            <span class="text-zinc-200 font-mono text-[10px] uppercase tracking-wider">Email</span>
+            <span class="text-zinc-200 font-mono text-[10px] uppercase tracking-wider">Email Address</span>
           </template>
           <el-input
             id="email"
@@ -40,7 +51,7 @@
           />
           <template #error="{ error }">
             <div class="text-orange-500 text-[10px] font-mono mt-0.5 leading-none">
-              > {{ error }}
+              > ERR: {{ error }}
             </div>
           </template>
         </el-form-item>
@@ -48,14 +59,14 @@
         <el-form-item :prop="fields.password.name" class="!mb-0">
            <template #label>
             <div class="flex justify-between items-center w-full">
-              <span class="text-zinc-200 font-mono text-[10px] uppercase tracking-wider">Password</span>
+              <span class="text-zinc-200 font-mono text-[10px] uppercase tracking-wider">Security Key</span>
               <button
                 type="button"
                 @click="$router.push({ name: 'forgotPassword' })"
-                class="text-zinc-200 hover:text-orange-500 text-[10px] font-mono transition-colors px-0 border-none bg-transparent cursor-pointer underline decoration-zinc-800 hover:decoration-orange-500/50"
+                class="text-zinc-500 hover:text-orange-500 text-[9px] font-mono transition-colors px-0 border-none bg-transparent cursor-pointer uppercase tracking-tighter"
                 style="outline: none;"
               >
-                recover?
+                [ recover_access ]
               </button>
             </div>
           </template>
@@ -76,64 +87,68 @@
           </el-input>
           <template #error="{ error }">
             <div class="text-orange-500 text-[10px] font-mono mt-0.5 leading-none">
-               > <span v-if="error === 'Password is invalid'">Invalid</span>
-               <span v-else>{{ error }}</span>
+               > <span v-if="error === 'Password is invalid'">AUTH_FAILED</span>
+               <span v-else>ERR: {{ error }}</span>
             </div>
           </template>
         </el-form-item>
 
-        <div class="space-y-3 pt-2">
-          
+        <div class="space-y-3 pt-4">
           <button
             type="submit"
             :disabled="loading"
-            class="w-full bg-orange-600 hover:bg-orange-500 text-black h-10 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+            class="group w-full bg-orange-600 hover:bg-orange-500 text-black h-11 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.2em] relative overflow-hidden"
           >
+            <div class="absolute inset-0 w-full h-full bg-white/10 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+            
             <span v-if="loading" class="animate-spin w-3 h-3 border-2 border-black border-t-transparent rounded-full"></span>
-            <span v-else class="flex items-center gap-2">
-               :: <app-i18n code="auth.signin" />
+            <span v-else class="flex items-center gap-2 relative z-10">
+               EXECUTE_SIGNIN
             </span>
           </button>
 
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center pt-2">
              <el-checkbox
               id="remember-me"
               v-model="model[fields.rememberMe.name]"
               class="terminal-checkbox"
             >
-              <span class="text-zinc-200 text-[11px] font-mono leading-none">Remember session</span>
+              <span class="text-zinc-400 text-[10px] font-mono uppercase tracking-widest">Persist Session</span>
             </el-checkbox>
           </div>
         </div>
       </el-form>
 
-      <div class="relative py-5">
+      <div class="relative py-8">
         <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-zinc-700"></div>
+          <div class="w-full border-t border-zinc-900"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-black px-2 text-[9px] font-mono text-zinc-600 uppercase tracking-[0.3em]">Oauth_Gateway</span>
         </div>
       </div>
       
       <div class="grid grid-cols-2 gap-3">
         <a
           :href="socialOauthLink('github')"
-          class="flex items-center justify-center gap-2 px-4 h-10 border border-zinc-700 hover:border-orange-500 hover:bg-zinc-900/30 text-zinc-400 hover:text-orange-500 transition-all group"
+          class="flex items-center justify-center gap-2 px-4 h-10 border border-zinc-800 hover:border-orange-500/50 hover:bg-zinc-900/30 text-zinc-500 hover:text-orange-500 transition-all"
         >
-          <i class="ri-github-fill text-lg transition-colors" />
+          <i class="ri-github-fill text-lg" />
         </a>
         <a
           :href="socialOauthLink('google')"
-          class="flex items-center justify-center gap-2 px-4 h-10 border border-zinc-700 hover:border-orange-500 hover:bg-zinc-900/30 text-zinc-400 hover:text-orange-500 transition-all group"
+          class="flex items-center justify-center gap-2 px-4 h-10 border border-zinc-800 hover:border-orange-500/50 hover:bg-zinc-900/30 text-zinc-500 hover:text-orange-500 transition-all"
         >
-          <i class="ri-google-fill text-lg transition-colors" />
+          <i class="ri-google-fill text-lg" />
         </a>
       </div>
 
-      <div class="text-center mt-6 flex items-center justify-center gap-4">
-        <router-link :to="{ name: 'signup' }" class="text-zinc-200 hover:text-orange-500 text-xs font-mono transition-colors">
-          [ create_account ]
+      <div class="text-center mt-8 flex items-center justify-center gap-6">
+        <router-link :to="{ name: 'signup' }" class="text-zinc-500 hover:text-orange-500 text-[10px] font-mono transition-colors uppercase tracking-widest">
+          // create_account
         </router-link>
-        <router-link :to="{ path: '/' }" class="text-zinc-200 hover:text-orange-500 text-xs font-mono transition-colors">
-          [ home ]
+        <router-link :to="{ path: '/' }" class="text-zinc-500 hover:text-orange-500 text-[10px] font-mono transition-colors uppercase tracking-widest">
+          // home
         </router-link>
       </div>
 
@@ -205,64 +220,74 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;600;700;900&display=swap');
 
 .font-sans { font-family: 'Inter', sans-serif; }
 .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
 
 :deep(.el-form-item) {
   margin-bottom: 0;
 }
 
 :deep(.el-form-item__label) {
-  padding-bottom: 2px !important;
+  padding-bottom: 4px !important;
   line-height: 1.2 !important;
 }
 
 /* COMPACT INPUT STYLES */
 :deep(.terminal-input .el-input__wrapper) {
-  background-color: transparent !important;
-  box-shadow: 0 0 0 1px #3f3f46 !important; /* zinc-700 */
+  background-color: #09090b !important; /* zinc-950 */
+  box-shadow: 0 0 0 1px #18181b !important; /* zinc-900 */
   border-radius: 0;
   padding: 0px 0px; 
-  height: 40px; 
-  transition: all 0.2s ease;
+  height: 42px; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :deep(.terminal-input .el-input__wrapper:hover) {
-  box-shadow: 0 0 0 1px #52525b !important; /* zinc-600 */
+  box-shadow: 0 0 0 1px #27272a !important; /* zinc-800 */
 }
 
 :deep(.terminal-input .el-input__wrapper.is-focus) {
   box-shadow: 0 0 0 1px #ea580c !important; /* orange-600 */
+  background-color: #000000 !important;
 }
 
 :deep(.terminal-input .el-input__inner) {
   color: #ffffff; 
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   height: 100%;
-  padding-left: 10px;
+  padding-left: 12px;
 }
 
 :deep(.terminal-input .el-input__inner::placeholder) {
-    color: #52525b; 
-    opacity: 1;
+    color: #3f3f46; 
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
 }
 
 /* Checkbox Tweaks */
 :deep(.terminal-checkbox .el-checkbox__inner) {
   background-color: transparent;
-  border-color: #52525b;
+  border-color: #27272a;
   border-radius: 0;
-  width: 14px; 
-  height: 14px; 
+  width: 12px; 
+  height: 12px; 
 }
 
 :deep(.terminal-checkbox .el-checkbox__inner::after) {
   border-color: #000;
   top: 1px;
-  left: 4px;
+  left: 3px;
+  width: 3px;
+  height: 6px;
 }
 
 :deep(.terminal-checkbox .el-checkbox__input.is-checked .el-checkbox__inner) {
@@ -271,7 +296,7 @@ export default {
 }
 
 :deep(.terminal-checkbox .el-checkbox__label) {
-  color: #71717a !important;
+  color: #52525b !important;
 }
 :deep(.terminal-checkbox .el-checkbox__input.is-checked + .el-checkbox__label) {
   color: #ea580c !important;

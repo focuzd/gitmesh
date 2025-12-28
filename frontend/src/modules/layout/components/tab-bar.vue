@@ -51,6 +51,148 @@
         </span>
       </el-tooltip>
     </div>
+
+    <!-- Notifications Icon -->
+    <div class="ml-auto px-4 flex items-center relative">
+      <el-popover
+        placement="bottom-end"
+        :width="400"
+        trigger="click"
+        popper-class="notifications-popover"
+      >
+        <template #reference>
+          <div class="relative cursor-pointer p-2 hover:bg-zinc-800 rounded transition-colors">
+            <i class="ri-notification-3-line text-lg text-zinc-400 hover:text-white" />
+            <span
+              v-if="hasNotifications"
+              class="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"
+            />
+          </div>
+        </template>
+        <div class="max-h-[400px] overflow-y-auto">
+          <!-- Sample Data Alert -->
+          <div
+            v-if="showSampleDataAlert"
+            class="p-3 mb-2 bg-orange-500/10 border border-orange-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <i class="ri-alert-line text-orange-500 mr-2 mt-0.5" />
+              <div class="flex-1">
+                <div class="text-zinc-200 mb-2">
+                  This workspace is using sample data. Connect your first integration to start fetching real data.
+                </div>
+                <router-link :to="{ name: 'integration' }">
+                  <el-button size="small" class="bg-orange-500 hover:bg-orange-600 border-orange-500 text-black">
+                    Connect integration
+                  </el-button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrations Error Alert -->
+          <div
+            v-if="showIntegrationsErrorAlert"
+            class="p-3 mb-2 bg-orange-500/10 border border-orange-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <i class="ri-alert-line text-orange-500 mr-2 mt-0.5" />
+              <div class="flex-1">
+                <div class="text-zinc-200 mb-2">
+                  Currently you have integrations with connectivity issues.
+                </div>
+                <router-link :to="{ name: 'integration' }">
+                  <el-button size="small" class="bg-orange-500 hover:bg-orange-600 border-orange-500 text-black">
+                    Go to Integrations
+                  </el-button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrations No Data Alert -->
+          <div
+            v-if="showIntegrationsNoDataAlert"
+            class="p-3 mb-2 bg-orange-500/10 border border-orange-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <i class="ri-alert-line text-orange-500 mr-2 mt-0.5" />
+              <div class="flex-1">
+                <div class="text-zinc-200 mb-2">
+                  Currently you have integrations that are not receiving activities.
+                </div>
+                <router-link :to="{ name: 'integration' }">
+                  <el-button size="small" class="bg-orange-500 hover:bg-orange-600 border-orange-500 text-black">
+                    Go to Integrations
+                  </el-button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrations In Progress Alert -->
+          <div
+            v-if="showIntegrationsInProgressAlert"
+            class="p-3 mb-2 bg-blue-500/10 border border-blue-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <div class="w-4 h-4 mr-2 mt-0.5">
+                <i class="ri-loader-4-line text-blue-500 animate-spin" />
+              </div>
+              <div class="flex-1 text-zinc-200">
+                <span class="font-semibold">{{ integrationsInProgressToString }}</span>
+                {{ integrationsInProgress.length > 1 ? 'integrations are' : 'integration is' }}
+                getting set up. Sit back and relax. We will send you an email when it's done.
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrations Need Reconnect Alert -->
+          <div
+            v-if="showIntegrationsNeedReconnectAlert"
+            class="p-3 mb-2 bg-orange-500/10 border border-orange-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <i class="ri-alert-line text-orange-500 mr-2 mt-0.5" />
+              <div class="flex-1">
+                <div class="text-zinc-200 mb-2">
+                  {{ integrationsNeedReconnectToString }} integration
+                  need{{ integrationsNeedReconnect.length > 1 ? '' : 's' }} to be reconnected due to a change in their API.
+                </div>
+                <router-link :to="{ name: 'integration' }">
+                  <el-button size="small" class="bg-orange-500 hover:bg-orange-600 border-orange-500 text-black">
+                    Go to Integrations
+                  </el-button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+
+          <!-- Organizations Alert -->
+          <div
+            v-if="showOrganizationsAlertBanner"
+            class="p-3 mb-2 bg-orange-500/10 border border-orange-500/20 rounded text-sm"
+          >
+            <div class="flex items-start">
+              <i class="ri-alert-line text-orange-500 mr-2 mt-0.5" />
+              <div class="flex-1 text-zinc-200">
+                We're currently experiencing several issues with Organizations and are sorry for the inconvenience.
+                You can expect major improvements by Tuesday, Aug 15th. 🚧
+              </div>
+            </div>
+          </div>
+
+          <!-- No Notifications -->
+          <div
+            v-if="!hasNotifications"
+            class="p-4 text-center text-zinc-500 text-sm"
+          >
+            <i class="ri-notification-off-line text-2xl mb-2" />
+            <div>No notifications</div>
+          </div>
+        </div>
+      </el-popover>
+    </div>
   </div>
 </template>
 
@@ -59,12 +201,14 @@ import { watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTabsStore } from '../store/tabs';
 import { storeToRefs } from 'pinia';
+import { useStore } from 'vuex';
 import pageStatus from '@/config/page-status.json';
 
 const route = useRoute();
 const router = useRouter();
 const tabsStore = useTabsStore();
 const { tabs, activeTabPath } = storeToRefs(tabsStore);
+const store = useStore();
 
 const isDevMode = import.meta.env.DEV;
 const badge = computed(() => {
@@ -74,6 +218,45 @@ const badge = computed(() => {
   }
   // Fallback to route meta badge if not in config
   return route.meta?.badge;
+});
+
+// Notification-related computed properties
+const integrationsInProgress = computed(() => store.getters['integration/inProgress']);
+const integrationsNeedReconnect = computed(() => store.getters['integration/needsReconnect']);
+const showSampleDataAlert = computed(() => store.getters['tenant/showSampleDataAlert']);
+const showIntegrationsErrorAlert = computed(() => store.getters['tenant/showIntegrationsErrorAlert']);
+const showIntegrationsNoDataAlert = computed(() => store.getters['tenant/showIntegrationsNoDataAlert']);
+const showIntegrationsInProgressAlert = computed(() => store.getters['tenant/showIntegrationsInProgressAlert']);
+const showIntegrationsNeedReconnectAlert = computed(() => store.getters['tenant/showIntegrationsNeedReconnectAlert']);
+const showOrganizationsAlertBanner = computed(() => store.getters['tenant/showOrganizationsAlertBanner']);
+
+const hasNotifications = computed(() => {
+  return showSampleDataAlert.value || 
+         showIntegrationsErrorAlert.value || 
+         showIntegrationsNoDataAlert.value || 
+         showIntegrationsInProgressAlert.value || 
+         showIntegrationsNeedReconnectAlert.value || 
+         showOrganizationsAlertBanner.value;
+});
+
+const integrationsInProgressToString = computed(() => {
+  const arr = integrationsInProgress.value.map((i: any) => i.name);
+  if (arr.length === 1) {
+    return arr[0];
+  } else if (arr.length === 2) {
+    return `${arr[0]} and ${arr[1]}`;
+  }
+  return `${arr.slice(0, arr.length - 1).join(', ')}, and ${arr.slice(-1)}`;
+});
+
+const integrationsNeedReconnectToString = computed(() => {
+  const arr = integrationsNeedReconnect.value.map((i: any) => i.name);
+  if (arr.length === 1) {
+    return arr[0];
+  } else if (arr.length === 2) {
+    return `${arr[0]} and ${arr[1]}`;
+  }
+  return `${arr.slice(0, arr.length - 1).join(', ')}, and ${arr.slice(-1)}`;
 });
 
 // Watch route changes to add tabs
@@ -119,5 +302,18 @@ const isSleeping = (tab: any) => {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+</style>
+
+<style>
+.notifications-popover {
+  background-color: #18181b !important;
+  border: 1px solid #3f3f46 !important;
+  padding: 0 !important;
+}
+
+.notifications-popover .el-popper__arrow::before {
+  background-color: #18181b !important;
+  border: 1px solid #3f3f46 !important;
 }
 </style>

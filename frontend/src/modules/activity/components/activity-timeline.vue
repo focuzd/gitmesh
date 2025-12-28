@@ -1,5 +1,5 @@
 <template>
-  <div class="activity-timeline">
+  <div class="activity-timeline bg-black text-white px-0 sm:px-4">
     <div class="my-6">
       <el-input
         v-model="query"
@@ -99,7 +99,7 @@
               </div>
               <app-activity-content
                 v-if="activity.title || activity.body"
-                class="text-sm bg-zinc-800 rounded-lg p-4"
+                class="text-sm bg-zinc-900 text-white rounded-xl p-5 mb-4 shadow-sm border border-zinc-800"
                 :activity="activity"
                 :show-more="true"
               >

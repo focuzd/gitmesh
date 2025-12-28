@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-10">
+  <div class="flex flex-col gap-2 bg-black text-white">
     <div class="flex-grow">
       <div v-if="(activity.title || displayTitleBody) || activity.body">
         <div

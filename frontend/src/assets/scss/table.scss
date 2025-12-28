@@ -1,3 +1,10 @@
+.el-table__body tr,
+.el-table__body td,
+.el-table__header tr,
+.el-table__header th {
+  background-color: #000 !important;
+  color: #fff !important;
+}
 .el-table {
   width: 100%;
   border: none;

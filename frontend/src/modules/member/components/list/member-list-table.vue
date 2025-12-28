@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-list-table !bg-black">
     <div
       v-if="loading"
       class="h-16 !relative !min-h-5 flex justify-center items-center"
