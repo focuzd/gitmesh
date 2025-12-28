@@ -1,7 +1,7 @@
 <template>
   <app-page-wrapper>
     <div class="pb-6">
-      <h4 class="mb-1">
+      <h4 class="mb-1 mt-8">
         Welcome to GitMesh 🐾
       </h4>
       <p class="text-xs leading-5 text-gray-300">

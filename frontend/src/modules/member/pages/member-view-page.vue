@@ -26,7 +26,7 @@
           class="col-span-2"
         />
         <div class="panel w-full col-span-2">
-          <el-tabs v-model="tab">
+          <el-tabs v-model="tab" id="internal-multitab-bar">
             <el-tab-pane
               label="Activities"
               name="activities"
@@ -52,6 +52,7 @@
               <app-member-view-notes :member="member" />
             </el-tab-pane>
           </el-tabs>
+          <div style="margin-bottom: 20px;"></div>
         </div>
       </div>
     </div>

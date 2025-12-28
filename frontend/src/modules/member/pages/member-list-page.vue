@@ -3,7 +3,7 @@
     <div class="member-list-page !bg-black min-h-screen">
       <div class="mb-10">
         <div class="flex items-center justify-between">
-          <h4 class="text-white font-mono text-2xl font-bold">
+          <h4 class="text-white font-mono text-2xl font-bold mt-8">
             Contacts
           </h4>
           <div class="flex items-center">
@@ -14,7 +14,7 @@
                 name: 'memberMergeSuggestions',
               }"
             >
-              <button :disabled="isEditLockedForSampleData" type="button" class="btn btn--bordered btn--md flex items-center border-zinc-700 bg-zinc-900 hover:border-zinc-600">
+              <button :disabled="isEditLockedForSampleData" type="button" class="btn btn--bordered btn--md flex items-center border-zinc-700 bg-zinc-900 hover:border-zinc-600 mt-8">
                 <span class="ri-shuffle-line text-base mr-2 text-white" />
                 <span class="text-white font-mono">Merge suggestions</span>
                 <span
@@ -38,7 +38,7 @@
               }"
             >
               <el-button
-                class="btn btn--primary btn--md"
+                class="btn btn--primary btn--md mt-8"
                 :disabled="isCreateLockedForSampleData"
               >
                 Add contact

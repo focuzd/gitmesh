@@ -1,10 +1,10 @@
 <template>
   <app-page-wrapper>
-    <div class="settings">
+    <div class="settings mt-8">
       <h4>
         Manage workspace
       </h4>
-      <el-tabs v-model="computedActiveTab" class="mt-10">
+      <el-tabs v-model="computedActiveTab" class="mt-10" id="internal-multitab-bar">
         <el-tab-pane
           v-if="hasUsersModule"
           label="Users & Permissions"
@@ -25,6 +25,7 @@
           <app-plans-page v-if="activeTab === 'plans'" />
         </el-tab-pane>
       </el-tabs>
+      <div style="margin-bottom: 20px;"></div>
     </div>
   </app-page-wrapper>
 </template>
@@ -101,6 +102,15 @@ export default {
 </script>
 
 <style lang="scss">
+#internal-multitab-bar {
+  min-height: 56px;
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) {
+  #internal-multitab-bar {
+    min-height: 68px;
+  }
+}
 .el-tabs {
   &__item {
     @apply font-normal text-black;

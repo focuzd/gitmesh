@@ -1,6 +1,6 @@
 <template>
   <app-page-wrapper>
-    <h4 class="text-white font-mono text-2xl font-bold mb-4">Integrations</h4>
+    <h4 class="text-white font-mono text-2xl font-bold mb-2 mt-8">Integrations</h4>
     <div class="flex items-center justify-between">
       <div class="text-xs text-zinc-400 font-mono">
         Connect with all data sources that are relevant to

@@ -59,7 +59,7 @@
     </div>
 
     <div class="dashboard-tabs">
-      <el-tabs v-model="tab">
+      <el-tabs v-model="tab" id="internal-multitab-bar">
         <el-tab-pane
           label="Trending conversations"
           name="trending"
@@ -151,4 +151,13 @@ export default {
     @apply -mx-6 #{!important};
   }
 }
+ #internal-multitab-bar {
+   min-height: 56px;
+   margin-bottom: 24px;
+ }
+ @media (min-width: 768px) {
+   #internal-multitab-bar {
+     min-height: 68px;
+   }
+ }
 </style>

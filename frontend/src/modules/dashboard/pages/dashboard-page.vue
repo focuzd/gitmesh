@@ -15,12 +15,12 @@
             class="py-8 -mx-4 px-4 sticky -top-6 bg-black z-20 flex items-center justify-between border-b border-zinc-700"
           >
             <h4
-              class="leading-8 font-semibold transition-all duration-100 text-white font-mono"
+              class="leading-8 font-semibold transition-all duration-100 text-white font-mono mt-8"
               :class="scrolled ? 'text-base' : 'text-xl'"
             >
               {{ currentTenant?.name }} team overview
             </h4>
-            <div class="text-sm flex items-center gap-2">
+            <div class="text-sm flex items-center gap-2 mt-8">
               <i class="text-orange-500 ri-time-line text-base" />
               <span class="text-zinc-400 font-mono text-xs">Data on this page is refreshed every 15 min.</span>
             </div>
@@ -54,7 +54,7 @@
       }"
     >
       <app-dashboard-guides v-if="!isQuickstartEnabled()" />
-      <app-dashboard-integrations class="mb-10" />
+      <app-dashboard-integrations class="mb-10 mt-8" />
       <app-dashboard-task />
     </aside>
   </div>

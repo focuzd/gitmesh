@@ -3,7 +3,7 @@
     <div class="activity-list-page">
       <div class="flex justify-between">
         <div>
-          <h4 class="text-white font-mono text-2xl font-bold">
+          <h4 class="text-white font-mono text-2xl font-bold mt-8">
             Activities
           </h4>
           <div class="text-xs text-zinc-400 font-mono mb-10 mt-2">
@@ -13,14 +13,14 @@
         </div>
         <div class="flex">
           <el-button
-            class="btn btn--transparent btn--md text-white border-zinc-700 bg-zinc-900 hover:border-zinc-600 mr-4"
+            class="btn btn--transparent btn--md text-white border-zinc-700 bg-zinc-900 hover:border-zinc-600 mr-4 mt-8"
             @click="isActivityTypeDrawerOpen = true"
           >
             <i class="ri-settings-3-line text-lg mr-2 text-orange-500" />
             <span class="font-mono">Activity types</span>
           </el-button>
           <el-button
-            class="btn btn--primary btn--md bg-orange-500 hover:bg-orange-600 border-orange-500"
+            class="btn btn--primary btn--md bg-orange-500 hover:bg-orange-600 border-orange-500 mt-8"
             @click="isActivityDrawerOpen = true"
           >
             <span class="font-mono text-black font-bold">Add activity</span>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="relative">
-        <el-tabs :model-value="activeView" class="mb-6" @update:model-value="changeView">
+        <el-tabs :model-value="activeView" class="mb-6" @update:model-value="changeView" id="internal-multitab-bar">
           <el-tab-pane
             label="Activities"
             name="activity"
@@ -39,6 +39,7 @@
             name="conversation"
           />
         </el-tabs>
+        <div style="margin-bottom: 20px;"></div>
       </div>
       <app-activity-list
         v-if="activeView === 'activity'"
@@ -108,4 +109,14 @@ const edit = (activity) => {
 };
 </script>
 
-<style></style>
+<style scoped>
+#internal-multitab-bar {
+  min-height: 56px;
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) {
+  #internal-multitab-bar {
+    min-height: 68px;
+  }
+}
+</style>

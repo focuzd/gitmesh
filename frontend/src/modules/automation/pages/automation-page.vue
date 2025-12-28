@@ -1,7 +1,7 @@
 <template>
   <app-page-wrapper>
     <div class="settings">
-      <h4 class="text-white font-mono text-2xl font-bold mb-6">
+      <h4 class="text-white font-mono text-2xl font-bold mb-2 mt-8">
         Automations
       </h4>
       <app-automation-list />

@@ -23,7 +23,7 @@
           />
         </div>
         <div class="panel w-full col-span-2">
-          <el-tabs v-model="tab">
+          <el-tabs v-model="tab" id="internal-multitab-bar">
             <el-tab-pane
               label="Current contacts"
               name="contacts"
@@ -55,6 +55,7 @@
               />
             </el-tab-pane>
           </el-tabs>
+          <div style="margin-bottom: 20px;"></div>
         </div>
       </div>
     </div>
@@ -96,8 +97,14 @@ onMounted(() => {
 });
 </script>
 
-<script>
-export default {
-  name: 'organizationView',
-};
-</script>
+<style scoped>
+#internal-multitab-bar {
+  min-height: 56px;
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) {
+  #internal-multitab-bar {
+    min-height: 68px;
+  }
+}
+</style>

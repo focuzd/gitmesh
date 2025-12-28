@@ -4,7 +4,7 @@
       <div class="mb-10">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <h4 class="text-white font-mono text-2xl font-bold">Organizations</h4>
+            <h4 class="text-white font-mono text-2xl font-bold mt-8">Organizations</h4>
           </div>
           <div class="flex items-center">
             <router-link
@@ -14,7 +14,7 @@
                 name: 'organizationMergeSuggestions',
               }"
             >
-              <button :disabled="isEditLockedForSampleData" type="button" class="btn btn--bordered btn--md flex items-center border-zinc-700 bg-zinc-900 hover:border-zinc-600">
+              <button :disabled="isEditLockedForSampleData" type="button" class="btn btn--bordered btn--md flex items-center border-zinc-700 bg-zinc-900 hover:border-zinc-600 mt-8">
                 <span class="ri-shuffle-line text-base mr-2 text-white" />
                 <span class="text-white font-mono">Merge suggestions</span>
                 <span
@@ -34,7 +34,7 @@
               }"
             >
               <el-button
-                class="btn btn--primary btn--md"
+                class="btn btn--primary btn--md mt-8"
                 :disabled="isCreateLockedForSampleData"
               >
                 Add organization

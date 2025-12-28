@@ -3,14 +3,14 @@
     <div class="mb-10">
       <div class="flex items-center justify-between">
         <div>
-          <h4 class="text-zinc-100 font-semibold text-2xl mb-2">Developers Telemetry</h4>
+          <h4 class="text-zinc-100 font-semibold text-2xl mb-2 mt-8">Developers Telemetry</h4>
           <div class="text-sm text-zinc-400">
             Engineering telemetry that tracks team capacity, active work, and individual contribution in real time.
           </div>
         </div>
         <el-button
           v-if="!!count"
-          class="btn btn--primary btn--md"
+          class="btn btn--primary btn--md mt-8"
           @click="isCreatingReport = true"
         >
           <i class="ri-add-line mr-2"></i>

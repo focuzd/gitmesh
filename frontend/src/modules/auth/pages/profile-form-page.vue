@@ -1,7 +1,7 @@
 <template>
   <app-page-wrapper size="narrow">
     <div class="profile-form-page">
-      <h4 class="mb-6">
+      <h4 class="mb-4 mt-8">
         Account settings
       </h4>
       <el-container
