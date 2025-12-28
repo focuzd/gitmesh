@@ -2081,7 +2081,7 @@ class OrganizationRepository {
             max(a.timestamp)                                                            as "lastActive",
             min(a.timestamp) filter ( where a.timestamp <> '1970-01-01T00:00:00.000Z' ) as "joinedAt"
           from leaf_segment_ids ls
-          join mv_activities_cube a on a."segmentId" = ls.id and a."organizationId" = :id
+          join activities a on a."segmentId" = ls.id and a."organizationId" = :id and a."tenantId" = :tenantId
           group by a."organizationId"
         ),
         organization_segments as (

@@ -64,6 +64,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { SegmentService } from '@/modules/organization/segment-service';
 
 import AppActivityTimeline from '@/modules/activity/components/activity-timeline.vue';
 import AppOrganizationViewHeader from '@/modules/organization/components/view/organization-view-header.vue';
@@ -79,6 +81,7 @@ const props = defineProps({
     default: null,
   },
 });
+const route = useRoute();
 
 const organizationStore = useOrganizationStore();
 const { organization } = storeToRefs(organizationStore);
@@ -87,9 +90,21 @@ const { fetchOrganization } = organizationStore;
 const loading = ref(true);
 const tab = ref('contacts');
 
-onMounted(() => {
+onMounted(async () => {
   try {
-    fetchOrganization(props.id);
+    let segmentId = route.query.segmentId || route.params.segmentId;
+    if (!segmentId) {
+      // Fetch segments for the tenant and use the first one as default
+      const segments = await SegmentService.list();
+      if (segments && segments.length > 0) {
+        segmentId = segments[0].id;
+      } else {
+        Message.error('No segments found for this tenant.');
+        loading.value = false;
+        return;
+      }
+    }
+    await fetchOrganization(props.id, segmentId);
   } catch (e) {
     Message.error('Something went wrong');
   }

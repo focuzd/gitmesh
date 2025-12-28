@@ -51,9 +51,19 @@
         </div>
       </div>
       <div class="flex items-center">
+        <el-button
+          type="primary"
+          size="small"
+          @click="refreshCounts"
+          :loading="refreshing"
+          class="mr-2 bg-black"
+        >
+          <i class="ri-refresh-line" />
+        </el-button>
         <app-organization-dropdown
           :organization="organization"
           @merge="isMergeDialogOpen = organization"
+          class="bg-black hover:bg-black hover:border hover:border-white"
         />
       </div>
     </div>
@@ -178,6 +188,10 @@ import AppOrganizationBadge from '@/modules/organization/components/organization
 import AppOrganizationDropdown from '@/modules/organization/components/organization-dropdown.vue';
 import AppOrganizationHeadline from '@/modules/organization/components/organization-headline..vue';
 import AppOrganizationMergeDialog from '@/modules/organization/components/organization-merge-dialog.vue';
+import { OrganizationService } from '@/modules/organization/organization-service';
+import { useOrganizationStore } from '@/modules/organization/store/pinia';
+import { useRoute } from 'vue-router';
+import Message from '@/shared/message/message';
 import revenueRange from '../../config/enrichment/revenueRange';
 
 const props = defineProps({
@@ -187,9 +201,15 @@ const props = defineProps({
   },
 });
 
+const route = useRoute();
+const organizationStore = useOrganizationStore();
+const { fetchOrganization } = organizationStore;
+
 const showMore = ref(false);
 const descriptionRef = ref(null);
 const isMergeDialogOpen = ref(null);
+const refreshing = ref(false);
+
 const displayShowMore = computed(() => {
   if (!props.organization.description) {
     return false;
@@ -204,6 +224,25 @@ const toggleContent = () => {
     descriptionRef.value?.classList.remove('line-clamp-4');
   } else {
     descriptionRef.value?.classList.add('line-clamp-4');
+  }
+};
+
+const refreshCounts = async () => {
+  try {
+    refreshing.value = true;
+    await OrganizationService.refreshCounts();
+    
+    // Refetch the organization data to get updated counts
+    const segmentId = route.query.segmentId || route.params.segmentId;
+    if (segmentId) {
+      await fetchOrganization(props.organization.id, segmentId);
+    }
+    
+    Message.success('Organization counts refreshed successfully');
+  } catch (error) {
+    Message.error('Failed to refresh organization counts');
+  } finally {
+    refreshing.value = false;
   }
 };
 

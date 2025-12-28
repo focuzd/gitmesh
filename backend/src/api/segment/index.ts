@@ -1,6 +1,9 @@
 import { safeWrap } from '../../middlewares/errorMiddleware'
 
 export default (app) => {
+  // list all segments
+  app.get(`/tenant/:tenantId/segment`, safeWrap(require('./segmentList').default))
+
   app.post(
     `/tenant/:tenantId/segment/projectGroup`,
     safeWrap(require('./segmentCreateProjectGroup').default),
