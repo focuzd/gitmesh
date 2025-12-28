@@ -13,6 +13,7 @@
     <CommunityAnnouncement />
     <CommunityHero />
     <CommunityQuickStart />
+    <CommunityAbout />
     <CommunityFooter />
   </div>
 </template>
@@ -28,6 +29,7 @@ import CommunityHeader from '@/components/landing/CommunityHeader.vue';
 import CommunityAnnouncement from '@/components/landing/CommunityAnnouncement.vue';
 import CommunityHero from '@/components/landing/CommunityHero.vue';
 import CommunityQuickStart from '@/components/landing/CommunityQuickStart.vue';
+import CommunityAbout from '@/components/landing/CommunityAbout.vue';
 import CommunityFooter from '@/components/landing/CommunityFooter.vue';
 
 // Premium Components (Dynamic Import)
