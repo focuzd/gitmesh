@@ -32,9 +32,13 @@
                     : report.name
                 }}
               </h1>
-              <div class=" text-sm flex items-center gap-2">
-                <i class="text-zinc-200 ri-time-line text-base" />
-                <span class="text-zinc-200">Data on this page is refreshed every 15 min.</span>
+              <div class="relative mt-8 group flex items-center">
+                <div
+                class="absolute right-6 top-1/2 -translate-y-1/2 bg-zinc-800 text-zinc-400 font-mono text-xs px-3 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-30"
+                >
+                Data on this page is refreshed every 15 min
+                </div>
+                <i class="text-orange-500 ri-time-line text-base cursor-pointer" />
               </div>
             </div>
           </div>

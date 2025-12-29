@@ -43,7 +43,7 @@ const connect = () => {
     verticalConfirmButtonClass: 'h-10 bg-orange-600 hover:bg-orange-500 text-black font-mono text-xs font-bold uppercase w-full mb-3 tracking-wider border-none rounded-none',
     
     cancelButtonText: 'INVITE AN ADMIN',
-    verticalCancelButtonClass: 'h-10 bg-black border border-zinc-700 hover:border-zinc-500 text-zinc-400 hover:text-white font-mono text-xs font-bold uppercase w-full tracking-wider transition-colors rounded-none',
+    verticalCancelButtonClass: 'h-10 bg-black hover:bg-black border border-zinc-700 hover:border-zinc-500 text-zinc-400 hover:text-white font-mono text-xs font-bold uppercase w-full tracking-wider transition-colors rounded-none',
     
     vertical: true,
     distinguishCancelAndClose: true,

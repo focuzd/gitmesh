@@ -33,7 +33,7 @@
         </div>
       </el-form>
       <div
-        class="bg-gray-50 rounded-b-md flex items-center justify-end py-4 px-6"
+        class="bg-zinc-800 rounded-b-md flex items-center justify-end py-4 px-6"
       >
         <el-button
           class="btn btn--bordered btn--md mr-3"

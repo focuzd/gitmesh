@@ -7,7 +7,7 @@
   <div v-else-if="!error" class="absolute left-0 right-0">
     <div
       ref="header"
-      class="w-full bg-gray-50 border-gray-200 pt-4 sticky top-[-20px] z-10"
+      class="w-full bg-zinc-900 border-zinc-700 pt-4 sticky top-[-20px] z-10"
       :class="{
         'border-b': !isHeaderOnTop,
         shadow: isHeaderOnTop,
@@ -29,9 +29,13 @@
             {{ currentTemplate.name }}
           </h1>
           <div class="flex items-center gap-9">
-            <div class=" text-sm flex items-center gap-2">
-              <i class="text-gray-500 ri-time-line text-base" />
-              <span class="text-gray-500">Data on this page is refreshed every 15 min.</span>
+            <div class="relative mt-8 group flex items-center">
+              <div
+              class="absolute right-6 top-1/2 -translate-y-1/2 bg-zinc-800 text-zinc-400 font-mono text-xs px-3 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-30"
+              >
+              Data on this page is refreshed every 15 min
+              </div>
+              <i class="text-orange-500 ri-time-line text-base cursor-pointer" />
             </div>
             <div
               v-if="report.public"

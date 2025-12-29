@@ -7,7 +7,7 @@
     />
     <div v-else-if="!error">
       <div
-        class="mb-4 h-24 flex items-center flex-shrink-0 sticky top-0 z-30 bg-black
+        class="mb-4 h-24 flex items-center flex-shrink-0 sticky top-0 z-30 bg-zinc-900
         border-b border-zinc-700 transition-all ease-in-out duration-300 justify-center"
       >
         <div class="max-w-5xl mx-5 w-full">

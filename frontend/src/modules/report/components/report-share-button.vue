@@ -34,7 +34,7 @@
         <div class="mt-6 relative">
           <div
             v-if="!model"
-            class="absolute inset-0 bg-gray-50 opacity-60 z-10 -m-4"
+            class="absolute inset-0 bg-zinc-800 opacity-60 z-10 -m-4"
           />
           <div
             class="font-medium text-gray-200 text-sm mb-1"

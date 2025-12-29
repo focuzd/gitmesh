@@ -62,7 +62,7 @@ export default {
   &-title {
     @apply h-16 mb-6;
     .el-input__wrapper {
-      @apply rounded-none border-0 border-b border-gray-200 py-6 text-lg font-semibold bg-transparent w-full px-0 shadow-none ring-0;
+      @apply rounded-none border-0 border-b border-zinc-700 py-6 text-lg font-semibold bg-transparent w-full px-0 shadow-none ring-0;
       transition: all 0.2s ease;
 
       &:hover {

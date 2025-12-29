@@ -21,7 +21,7 @@ services:
       - gitmesh-bridge-test
 
   open-search-test:
-    image: opensearchproject/opensearch:2.7.0
+    image: opensearchproject/opensearch:3.4.0
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
