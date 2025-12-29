@@ -23,7 +23,7 @@
     "@gitmesh/types": "file:../../libs/types",
     "@gitmesh/opensearch": "file:../../libs/opensearch",
     "@gitmesh/integrations": "file:../../libs/integrations",
-    "@opensearch-project/opensearch": "^1.2.0",
+    "@opensearch-project/opensearch": "^3.5.1",
     "@types/config": "^3.3.0",
     "@types/node": "^18.16.3",
     "config": "^3.3.9",

@@ -23,7 +23,7 @@
     "@gitmesh/logging": "file:../logging",
     "@gitmesh/redis": "file:../redis",
     "@gitmesh/types": "file:../types",
-    "@opensearch-project/opensearch": "^1.2.0",
+    "@opensearch-project/opensearch": "^3.5.1",
     "axios": "^1.6.0"
   }
 }
