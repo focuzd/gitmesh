@@ -14,12 +14,12 @@ const common_1 = require("@gitmesh/common");
  */
 exports.default = async (req, res) => {
     new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberRead);
-    const { specId, projectId } = req.params;
+    const { specId, projectId, tenantId } = req.params;
     const spec = await req.database.devtelSpecDocuments.findOne({
         where: {
             id: specId,
             projectId,
-            deletedAt: null,
+            tenantId,
         },
         include: [
             {

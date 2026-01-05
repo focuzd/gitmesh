@@ -13,15 +13,17 @@ const permissionChecker_1 = __importDefault(require("../../../services/user/perm
  */
 exports.default = async (req, res) => {
     new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberRead);
-    const { projectId } = req.params;
+    const { projectId, tenantId } = req.params;
     const { status, limit = 50, offset = 0 } = req.query;
+    
     const where = {
         projectId,
-        deletedAt: null,
+        tenantId,
     };
     if (status) {
         where.status = status;
     }
+    
     const { rows, count } = await req.database.devtelSpecDocuments.findAndCountAll({
         where,
         include: [
@@ -35,6 +37,7 @@ exports.default = async (req, res) => {
         limit: parseInt(limit, 10),
         offset: parseInt(offset, 10),
     });
+    
     await req.responseHandler.success(req, res, { rows, count });
 };
 //# sourceMappingURL=specList.js.map

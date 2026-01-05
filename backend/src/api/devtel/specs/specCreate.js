@@ -14,18 +14,18 @@ const common_1 = require("@gitmesh/common");
  */
 exports.default = async (req, res) => {
     new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberCreate);
-    const { projectId } = req.params;
+    const { projectId, tenantId } = req.params;
     const { title, content, status = 'draft' } = req.body;
     if (!title || typeof title !== 'string') {
         throw new common_1.Error400(req.language, 'devtel.spec.titleRequired');
     }
     const spec = await req.database.devtelSpecDocuments.create({
+        tenantId,
         projectId,
         authorId: req.currentUser.id,
         title,
         content: content || {},
         status,
-        createdById: req.currentUser.id,
     });
     // Create initial version
     await req.database.devtelSpecVersions.create({

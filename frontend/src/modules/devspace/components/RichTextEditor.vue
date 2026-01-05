@@ -74,7 +74,7 @@ export default {
   },
   props: {
     modelValue: {
-      type: String,
+      type: [String, Object],
       default: '',
     },
     placeholder: {
@@ -101,10 +101,10 @@ export default {
       ],
       editable: props.editable,
       onUpdate: ({ editor }) => {
-        emit('update:modelValue', editor.getHTML())
+        emit('update:modelValue', editor.getJSON())
       },
       onBlur: ({ editor }) => {
-        emit('blur', editor.getHTML())
+        emit('blur', editor.getJSON())
       },
     })
 
@@ -115,7 +115,8 @@ export default {
   watch: {
     modelValue(value) {
       // JSON parity check to avoid cursor jumping
-      const isSame = this.editor.getHTML() === value
+      const currentContent = this.editor.getJSON()
+      const isSame = JSON.stringify(currentContent) === JSON.stringify(value)
       if (isSame) {
         return
       }

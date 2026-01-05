@@ -13,14 +13,14 @@ const permissionChecker_1 = __importDefault(require("../../../services/user/perm
  */
 exports.default = async (req, res) => {
     new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberRead);
-    const { projectId } = req.params;
+    const { projectId, tenantId } = req.params;
     const { query, status, limit = 50, offset = 0 } = req.body;
     // For now, do a simple ILIKE search
     // TODO: Implement OpenSearch when ready
     const { Op } = require('sequelize');
     const where = {
         projectId,
-        deletedAt: null,
+        tenantId,
     };
     if (query) {
         where.title = { [Op.iLike]: `%${query}%` };

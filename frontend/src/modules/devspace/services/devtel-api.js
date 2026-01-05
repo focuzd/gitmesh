@@ -366,12 +366,14 @@ export default class DevtelService {
     }
 
     static async createSpec(projectId, data) {
-        const tenantId = getTenantId();
-        const response = await authAxios.post(
-            `/tenant/${tenantId}/devtel/projects/${projectId}/specs`,
-            data
-        );
-        return response.data;
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.post(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/specs`,
+                data
+            );
+            return response.data;
+        }, 'Create Spec');
     }
 
     static async updateSpec(projectId, specId, data) {
@@ -384,11 +386,13 @@ export default class DevtelService {
     }
 
     static async deleteSpec(projectId, specId) {
-        const tenantId = getTenantId();
-        const response = await authAxios.delete(
-            `/tenant/${tenantId}/devtel/projects/${projectId}/specs/${specId}`
-        );
-        return response.data;
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.delete(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/specs/${specId}`
+            );
+            return response.data;
+        }, 'Delete Spec');
     }
 
     static async listSpecVersions(projectId, specId) {
