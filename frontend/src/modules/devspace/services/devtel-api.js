@@ -345,6 +345,14 @@ export default class DevtelService {
         return response.data;
     }
 
+    static async getContributionActivity(projectId) {
+        const tenantId = getTenantId();
+        const response = await authAxios.get(
+            `/tenant/${tenantId}/devtel/projects/${projectId}/capacity/contributions`
+        );
+        return response.data;
+    }
+
     // ============================================
     // Specs
     // ============================================

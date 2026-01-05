@@ -54,6 +54,7 @@ exports.default = (app) => {
     app.get(`/tenant/:tenantId/devtel/capacity`, (0, errorMiddleware_1.safeWrap)(require('./capacity/capacityOverview').default));
     app.get(`/tenant/:tenantId/devtel/capacity/timeline`, (0, errorMiddleware_1.safeWrap)(require('./capacity/capacityTimeline').default));
     app.put(`/tenant/:tenantId/devtel/capacity/assignments/:assignmentId`, (0, errorMiddleware_1.safeWrap)(require('./capacity/assignmentUpdate').default));
+    app.get(`/tenant/:tenantId/devtel/projects/:projectId/capacity/contributions`, (0, errorMiddleware_1.safeWrap)(require('./capacity/contributionActivity').default));
     // ============================================
     // Spec Routes
     // ============================================

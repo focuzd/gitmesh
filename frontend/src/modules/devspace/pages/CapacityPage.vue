@@ -106,12 +106,18 @@
         </div>
       </div>
 
-       <!-- GitHub Heatmap (Placeholder/Mock) -->
+       <!-- Contribution Activity Heatmap -->
        <div class="heatmap-section">
          <h2>Contribution Activity</h2>
          <div class="heatmap-container">
             <div class="heatmap-grid">
-                <div v-for="i in 365" :key="i" class="heatmap-cell" :class="getRandomHeatmapClass()"></div>
+                <div 
+                  v-for="(day, index) in contributionData" 
+                  :key="day.date" 
+                  class="heatmap-cell" 
+                  :class="getHeatmapClass(index)"
+                  :title="`${day.date}: ${day.count} contributions`"
+                ></div>
             </div>
             <div class="heatmap-legend">
                 <span>Less</span>
@@ -152,6 +158,7 @@ export default {
       overview: {},
       teamMembers: [],
       timeline: [],
+      contributionData: [],
     };
   },
   computed: {
@@ -169,9 +176,10 @@ export default {
       if (!this.projectId) return;
       this.loading = true;
       try {
-        const [capacityData, timelineData] = await Promise.all([
+        const [capacityData, timelineData, contributionData] = await Promise.all([
           DevtelService.getCapacityOverview(this.projectId),
           DevtelService.getCapacityTimeline(this.projectId),
+          DevtelService.getContributionActivity(this.projectId),
         ]);
         
         // Backend returns { capacity: [...], workspace: {...} }
@@ -214,6 +222,9 @@ export default {
             }))
           ),
         }));
+        
+        // Store contribution data
+        this.contributionData = contributionData.contributions || [];
       } catch (e) {
         console.error('Failed to fetch capacity', e);
         this.$message.error('Failed to load capacity data');
@@ -250,13 +261,19 @@ export default {
             }
         }
     },
-    getRandomHeatmapClass() {
-        const r = Math.random();
-        if (r > 0.9) return 'l4';
-        if (r > 0.7) return 'l3';
-        if (r > 0.5) return 'l2';
-        if (r > 0.3) return 'l1';
-        return 'l0';
+    getHeatmapClass(index) {
+        if (!this.contributionData || !this.contributionData[index]) {
+            return 'l0';
+        }
+        
+        const count = this.contributionData[index].count;
+        
+        // Determine intensity level based on contribution count
+        if (count === 0) return 'l0';
+        if (count <= 2) return 'l1';
+        if (count <= 5) return 'l2';
+        if (count <= 10) return 'l3';
+        return 'l4';
     }
   },
 };
