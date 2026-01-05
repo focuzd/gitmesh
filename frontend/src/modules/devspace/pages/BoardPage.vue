@@ -3,7 +3,6 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="header-left">
-        <h1>Issues Board</h1>
         <span class="issue-count" v-if="total > 0">{{ total }} issues</span>
       </div>
       <div class="header-right">
@@ -16,13 +15,14 @@
           style="width: 200px"
           @input="debouncedSearch"
         />
-        <el-button size="small" @click="showFilters = !showFilters">
+        <el-button 
+          size="small" 
+          @click="showFilters = !showFilters"
+          class="filter-toggle-btn"
+          :type="showFilters ? 'primary' : 'default'"
+        >
           <i class="ri-filter-3-line"></i>
           Filters
-        </el-button>
-        <el-button type="primary" size="small" @click="$emit('create-issue')">
-          <i class="ri-add-line"></i>
-          New Issue
         </el-button>
       </div>
     </div>
@@ -94,22 +94,23 @@
       </el-button>
     </div>
 
-    <div class="kanban-board">
+    <div class="kanban-board" :class="{ 'kanban-board-empty': !isLoading && (total === 0 || !hasAnyIssues) }">
+      <!-- Debug info (remove in production) -->
+      <!-- Debug: isLoading={{ isLoading }}, total={{ total }}, hasAnyIssues={{ hasAnyIssues }} -->
+      
       <!-- Loading State -->
       <board-skeleton v-if="isLoading" />
 
       <!-- Empty State -->
       <empty-state
-        v-else-if="!isLoading && total === 0"
+        v-else-if="!isLoading && (total === 0 || !hasAnyIssues)"
         icon="ri-kanban-view-line"
         title="No issues yet"
         description="Create your first issue to start tracking work on this project. Issues help you organize and prioritize your team's work."
-        action-text="Create Issue"
-        @action="$emit('create-issue')"
       />
 
       <!-- Board Content -->
-      <div v-else class="board-content">
+      <template v-else-if="!isLoading && total > 0 && hasAnyIssues">
         <div
           v-for="column in columns"
           :key="column.id"
@@ -171,7 +172,7 @@
             </template>
           </draggable>
         </div>
-      </div>
+      </template>
     </div>
 
     <!-- Issue Detail Panel -->
@@ -233,6 +234,11 @@ export default {
 
     // Track locally updating issues to prevent socket echo conflicts
     const locallyUpdatingIssues = ref(new Set());
+
+    const hasAnyIssues = computed(() => {
+      const statusCounts = Object.values(issuesByStatus.value || {});
+      return statusCounts.some(issues => issues && issues.length > 0);
+    });
 
     // Computed
     const isLoading = computed(() => store.getters['issues/isLoading']);
@@ -420,6 +426,7 @@ export default {
       filters,
       isLoading,
       total,
+      hasAnyIssues,
       issuesByStatus,
       selectedIssue,
       cycles,
@@ -462,13 +469,6 @@ export default {
   gap: 12px;
 }
 
-.header-left h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-  color: var(--el-text-color-primary);
-}
-
 .issue-count {
   color: var(--el-text-color-secondary);
   font-size: 14px;
@@ -480,14 +480,39 @@ export default {
   gap: 8px;
 }
 
+.header-right .el-input {
+  height: 32px;
+}
+
+.header-right .el-input .el-input__wrapper {
+  height: 32px;
+}
+
+.filter-toggle-btn {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 15px !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.filter-toggle-btn i {
+  font-size: 14px;
+}
+
 .filter-bar {
   display: flex;
+  align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  padding: 12px;
-  background-color: transparent;
-  border: 1px solid var(--el-border-color);
-  border-radius: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(32, 32, 32, 0.1) 100%);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .kanban-board {
@@ -496,6 +521,18 @@ export default {
   gap: 16px;
   overflow-x: auto;
   padding-bottom: 16px;
+}
+
+.kanban-board-empty {
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0 !important;
+  overflow-x: visible !important;
+}
+
+.kanban-board-empty .kanban-column {
+  display: none !important;
 }
 
 .kanban-column {
