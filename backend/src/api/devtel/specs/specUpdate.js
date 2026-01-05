@@ -14,19 +14,19 @@ const common_1 = require("@gitmesh/common");
  */
 exports.default = async (req, res) => {
     new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberEdit);
-    const { specId, projectId } = req.params;
+    const { specId, projectId, tenantId } = req.params;
     const { title, content, status } = req.body;
     const spec = await req.database.devtelSpecDocuments.findOne({
         where: {
             id: specId,
             projectId,
-            deletedAt: null,
+            tenantId,
         },
     });
     if (!spec) {
         throw new common_1.Error400(req.language, 'devtel.spec.notFound');
     }
-    const updateData = { updatedById: req.currentUser.id };
+    const updateData = {};
     if (title !== undefined)
         updateData.title = title;
     if (status !== undefined)

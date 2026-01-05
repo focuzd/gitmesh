@@ -19,6 +19,7 @@ export default async (req, res) => {
     }
 
     const spec = await req.database.devtelSpecDocuments.create({
+        tenantId: req.currentTenant.id,
         projectId,
         authorId: req.currentUser.id,
         title,

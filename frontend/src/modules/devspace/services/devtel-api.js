@@ -197,7 +197,7 @@ export default class DevtelService {
         const tenantId = getTenantId();
         const response = await authAxios.get(
             `/tenant/${tenantId}/devtel/projects/${projectId}/cycles`,
-            { params }
+            { params: { ...params, includeStats: true } }
         );
         return response.data;
     }
@@ -233,11 +233,32 @@ export default class DevtelService {
     }
 
     static async deleteCycle(projectId, cycleId) {
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.delete(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/cycles/${cycleId}`
+            );
+            return response.data;
+        }, 'Delete Cycle');
+    }
+
+    static async listArchivedCycles(projectId, params = {}) {
         const tenantId = getTenantId();
-        const response = await authAxios.delete(
-            `/tenant/${tenantId}/devtel/projects/${projectId}/cycles/${cycleId}`
+        const response = await authAxios.get(
+            `/tenant/${tenantId}/devtel/projects/${projectId}/cycles/archived`,
+            { params }
         );
         return response.data;
+    }
+
+    static async restoreCycle(projectId, cycleId) {
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.post(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/cycles/${cycleId}/restore`
+            );
+            return response.data;
+        }, 'Restore Cycle');
     }
 
     static async getCycleBurndown(projectId, cycleId) {
@@ -324,6 +345,17 @@ export default class DevtelService {
         return response.data;
     }
 
+    static async moveIncompleteIssues(projectId, toCycleId, fromCycleId) {
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.post(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/cycles/${toCycleId}/move-incomplete`,
+                { fromCycleId }
+            );
+            return response.data;
+        }, 'Move Incomplete Issues');
+    }
+
     // ============================================
     // Capacity
     // ============================================
@@ -341,6 +373,14 @@ export default class DevtelService {
         const response = await authAxios.get(
             `/tenant/${tenantId}/devtel/capacity/timeline`,
             { params }
+        );
+        return response.data;
+    }
+
+    static async getContributionActivity(projectId) {
+        const tenantId = getTenantId();
+        const response = await authAxios.get(
+            `/tenant/${tenantId}/devtel/projects/${projectId}/capacity/contributions`
         );
         return response.data;
     }
@@ -366,12 +406,14 @@ export default class DevtelService {
     }
 
     static async createSpec(projectId, data) {
-        const tenantId = getTenantId();
-        const response = await authAxios.post(
-            `/tenant/${tenantId}/devtel/projects/${projectId}/specs`,
-            data
-        );
-        return response.data;
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.post(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/specs`,
+                data
+            );
+            return response.data;
+        }, 'Create Spec');
     }
 
     static async updateSpec(projectId, specId, data) {
@@ -384,11 +426,13 @@ export default class DevtelService {
     }
 
     static async deleteSpec(projectId, specId) {
-        const tenantId = getTenantId();
-        const response = await authAxios.delete(
-            `/tenant/${tenantId}/devtel/projects/${projectId}/specs/${specId}`
-        );
-        return response.data;
+        return withErrorHandling(async () => {
+            const tenantId = getTenantId();
+            const response = await authAxios.delete(
+                `/tenant/${tenantId}/devtel/projects/${projectId}/specs/${specId}`
+            );
+            return response.data;
+        }, 'Delete Spec');
     }
 
     static async listSpecVersions(projectId, specId) {
@@ -428,7 +472,7 @@ export default class DevtelService {
         const tenantId = getTenantId();
         const response = await authAxios.get(
             `/tenant/${tenantId}/devtel/team/analytics`,
-            { params }
+            { params: { ...params, projectId } }
         );
         return response.data;
     }

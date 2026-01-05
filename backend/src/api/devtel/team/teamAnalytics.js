@@ -17,15 +17,22 @@ exports.default = async (req, res) => {
         new permissionChecker_1.default(req).validateHas(permissions_1.default.values.memberRead);
         const workspaceService = new devtelWorkspaceService_1.default(req);
         const workspace = await workspaceService.getForCurrentTenant();
+        // Get projectId from query params
+        const { projectId } = req.query;
         // Get completed issues by user in last 30 days
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const whereClause = {
+            status: 'done',
+            updatedAt: { [req.database.Sequelize.Op.gte]: thirtyDaysAgo },
+            deletedAt: null,
+        };
+        // Filter by projectId if provided
+        if (projectId) {
+            whereClause.projectId = projectId;
+        }
         const completedByUser = await req.database.devtelIssues.findAll({
-            where: {
-                status: 'done',
-                updatedAt: { [req.database.Sequelize.Op.gte]: thirtyDaysAgo },
-                deletedAt: null,
-            },
+            where: whereClause,
             attributes: [
                 'assigneeId',
                 [req.database.sequelize.fn('COUNT', '*'), 'count'],
@@ -52,6 +59,7 @@ exports.default = async (req, res) => {
         }, {});
         const analytics = {
             period: '30 days',
+            projectId: projectId || null,
             completionsByUser: completedByUser.map((item) => ({
                 user: userMap[item.assigneeId] || { id: item.assigneeId },
                 completedCount: parseInt(item.count, 10),

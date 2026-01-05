@@ -24,9 +24,10 @@
         <el-col :span="12">
            <el-form-item label="Priority" prop="priority">
              <el-select v-model="form.priority" style="width: 100%">
-               <el-option label="Low" value="low" />
-               <el-option label="Medium" value="medium" />
+               <el-option label="Urgent" value="urgent" />
                <el-option label="High" value="high" />
+               <el-option label="Medium" value="medium" />
+               <el-option label="Low" value="low" />
              </el-select>
            </el-form-item>
         </el-col>

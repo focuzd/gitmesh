@@ -3,7 +3,6 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="header-left">
-        <h1>Issues Board</h1>
         <span class="issue-count" v-if="total > 0">{{ total }} issues</span>
       </div>
       <div class="header-right">
@@ -16,13 +15,14 @@
           style="width: 200px"
           @input="debouncedSearch"
         />
-        <el-button size="small" @click="showFilters = !showFilters">
+        <el-button 
+          size="small" 
+          @click="showFilters = !showFilters"
+          class="filter-toggle-btn"
+          :type="showFilters ? 'primary' : 'default'"
+        >
           <i class="ri-filter-3-line"></i>
           Filters
-        </el-button>
-        <el-button type="primary" size="small" @click="$emit('create-issue')">
-          <i class="ri-add-line"></i>
-          New Issue
         </el-button>
       </div>
     </div>
@@ -40,7 +40,7 @@
         @change="applyFilters"
       >
         <el-option
-          v-for="member in teamMembers"
+          v-for="member in assignableMembers"
           :key="member.id"
           :label="member.name"
           :value="member.id"
@@ -94,22 +94,23 @@
       </el-button>
     </div>
 
-    <div class="kanban-board">
+    <div class="kanban-board" :class="{ 'kanban-board-empty': !isLoading && (total === 0 || !hasAnyIssues) }">
+      <!-- Debug info (remove in production) -->
+      <!-- Debug: isLoading={{ isLoading }}, total={{ total }}, hasAnyIssues={{ hasAnyIssues }} -->
+      
       <!-- Loading State -->
       <board-skeleton v-if="isLoading" />
 
       <!-- Empty State -->
       <empty-state
-        v-else-if="!isLoading && total === 0"
+        v-else-if="!isLoading && (total === 0 || !hasAnyIssues)"
         icon="ri-kanban-view-line"
         title="No issues yet"
         description="Create your first issue to start tracking work on this project. Issues help you organize and prioritize your team's work."
-        action-text="Create Issue"
-        @action="$emit('create-issue')"
       />
 
       <!-- Board Content -->
-      <div v-else class="board-content">
+      <template v-else-if="!isLoading && total > 0 && hasAnyIssues">
         <div
           v-for="column in columns"
           :key="column.id"
@@ -143,10 +144,11 @@
                 </div>
                 <div class="card-title">{{ issue.title }}</div>
                 <div class="card-footer">
-                  <div class="assignee" v-if="issue.assignee">
-                    <el-avatar :size="20" :src="issue.assignee.avatarUrl">
-                      {{ issue.assignee.name?.[0] || issue.assignee.email?.[0] || 'U' }}
+                  <div class="assignee" v-if="issue.assignee || issue.assigneeMember">
+                    <el-avatar :size="20" :src="issue.assignee?.avatarUrl || issue.assigneeMember?.attributes?.avatarUrl?.default">
+                      {{ (issue.assignee?.fullName || issue.assigneeMember?.displayName)?.[0] || 'U' }}
                     </el-avatar>
+                    <el-tag v-if="issue.assigneeMember && !issue.assignee" size="small" type="info" class="not-joined-badge">NJ</el-tag>
                   </div>
                   <div class="card-meta">
                     <span v-if="issue.estimatedHours" class="hours">
@@ -171,17 +173,17 @@
             </template>
           </draggable>
         </div>
-      </div>
+      </template>
     </div>
 
     <!-- Issue Detail Panel -->
     <el-drawer
       v-model="showIssuePanel"
-      :title="null"
-      :with-header="false"
+      :title="'Issue Details'"
       size="600px"
       @close="clearSelectedIssue"
       class="issue-drawer"
+      :close-on-click-modal="true"
     >
       <div v-if="selectedIssue" class="drawer-content">
           <issue-detail-panel :issue-id="selectedIssue.id" />
@@ -234,6 +236,11 @@ export default {
     // Track locally updating issues to prevent socket echo conflicts
     const locallyUpdatingIssues = ref(new Set());
 
+    const hasAnyIssues = computed(() => {
+      const statusCounts = Object.values(issuesByStatus.value || {});
+      return statusCounts.some(issues => issues && issues.length > 0);
+    });
+
     // Computed
     const isLoading = computed(() => store.getters['issues/isLoading']);
     const total = computed(() => store.getters['issues/total']);
@@ -241,6 +248,8 @@ export default {
     const selectedIssue = computed(() => store.getters['issues/selectedIssue']);
     const cycles = computed(() => store.getters['cycles/cycles']);
     const teamMembers = computed(() => store.getters['devspace/teamMembers']);
+    // Only users (not contacts) can be assigned to issues
+    const assignableMembers = computed(() => teamMembers.value.filter(m => m.isUser !== false));
     const hasActiveFilters = computed(() => 
       filters.value.priority.length > 0 || filters.value.cycleId || filters.value.assigneeIds.length > 0
     );
@@ -331,7 +340,7 @@ export default {
         await Promise.all([
             store.dispatch('cycles/fetchCycles', activeProjectId.value),
             store.dispatch('issues/fetchIssues', activeProjectId.value),
-            store.dispatch('devspace/fetchTeamMembers', activeProjectId.value),
+            store.dispatch('devspace/fetchTeamMembers'),
         ]);
       }
       
@@ -420,10 +429,12 @@ export default {
       filters,
       isLoading,
       total,
+      hasAnyIssues,
       issuesByStatus,
       selectedIssue,
       cycles,
       teamMembers,
+      assignableMembers,
       hasActiveFilters,
       hasActiveProject,
       getColumnIssues,
@@ -462,13 +473,6 @@ export default {
   gap: 12px;
 }
 
-.header-left h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-  color: var(--el-text-color-primary);
-}
-
 .issue-count {
   color: var(--el-text-color-secondary);
   font-size: 14px;
@@ -480,14 +484,39 @@ export default {
   gap: 8px;
 }
 
+.header-right .el-input {
+  height: 32px;
+}
+
+.header-right .el-input .el-input__wrapper {
+  height: 32px;
+}
+
+.filter-toggle-btn {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 15px !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.filter-toggle-btn i {
+  font-size: 14px;
+}
+
 .filter-bar {
   display: flex;
+  align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  padding: 12px;
-  background-color: transparent;
-  border: 1px solid var(--el-border-color);
-  border-radius: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(32, 32, 32, 0.1) 100%);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .kanban-board {
@@ -496,6 +525,18 @@ export default {
   gap: 16px;
   overflow-x: auto;
   padding-bottom: 16px;
+}
+
+.kanban-board-empty {
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0 !important;
+  overflow-x: visible !important;
+}
+
+.kanban-board-empty .kanban-column {
+  display: none !important;
 }
 
 .kanban-column {
@@ -692,5 +733,27 @@ export default {
 
 :deep(.issue-drawer .el-drawer__body) {
     padding: 0;
+}
+
+:deep(.issue-drawer .el-drawer) {
+  border-left: 2px solid #3f3f46;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+:deep(.issue-drawer .el-drawer__header) {
+  margin-bottom: 0;
+  padding: 20px;
+  border-bottom: 1px solid var(--el-border-color-light);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+:deep(.issue-drawer .el-drawer__close-btn) {
+  font-size: 24px;
+  color: var(--el-text-color-secondary);
+}
+
+:deep(.issue-drawer .el-drawer__close-btn:hover) {
+  color: var(--el-text-color-primary);
 }
 </style>

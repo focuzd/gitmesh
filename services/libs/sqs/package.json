@@ -19,8 +19,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.332.0",
-    "@aws-sdk/types": "^3.329.0",
+    "@aws-sdk/client-sqs": "3.332.0",
+    "@aws-sdk/types": "3.329.0",
     "@gitmesh/common": "file:../common",
     "@gitmesh/logging": "file:../logging",
     "@gitmesh/tracing": "file:../tracing",

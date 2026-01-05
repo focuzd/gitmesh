@@ -90,9 +90,12 @@ const mutations = {
                 if (oldIndex !== undefined && oldIndex !== -1) {
                     state.issuesByStatus[oldStatus].splice(oldIndex, 1);
                 }
-                // Add to new status
-                if (state.issuesByStatus[issue.status]) {
-                    state.issuesByStatus[issue.status].push(issue);
+                // Add to new status only if not already there (prevent duplication from drag-drop)
+                const alreadyInNewStatus = state.issuesByStatus[issue.status]?.findIndex((i) => i.id === issue.id);
+                if (alreadyInNewStatus === -1 || alreadyInNewStatus === undefined) {
+                    if (state.issuesByStatus[issue.status]) {
+                        state.issuesByStatus[issue.status].push(issue);
+                    }
                 }
             } else {
                 // Just update in place

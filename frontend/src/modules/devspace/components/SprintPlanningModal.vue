@@ -29,8 +29,9 @@
                    <div class="card-meta">
                      <span class="id">#{{ element.id?.slice(0, 6) }}</span>
                      <span class="points" v-if="element.storyPoints || element.estimatedHours">
-                        {{ element.storyPoints || element.estimatedHours }} pts
+                        {{ parseFloat(element.storyPoints) || parseFloat(element.estimatedHours) || 0 }} pts
                      </span>
+                     <span class="points no-points" v-else>0 pts</span>
                    </div>
                 </div>
               </div>
@@ -50,9 +51,23 @@
           <h3>{{ cycle?.name || 'Sprint' }}</h3>
           <div class="cycle-meta">
              <span class="count">{{ cycleIssues.length }} issues</span>
-             <span class="capacity" :class="{ 'over-capacity': totalPoints > capacity }">
-                {{ totalPoints }} / {{ capacity }} pts
-             </span>
+             <div class="capacity-editor">
+                <span v-if="!isEditingCapacity" class="capacity" :class="{ 'over-capacity': capacity > 0 && totalPoints > capacity }" @click="isEditingCapacity = true">
+                  {{ totalPoints }}{{ capacity > 0 ? ` / ${capacity}` : '' }} pts
+                </span>
+                <el-input-number 
+                  v-else
+                  v-model="capacity" 
+                  size="small" 
+                  :min="0"
+                  :precision="1"
+                  :controls="false"
+                  @blur="saveCapacity"
+                  @keyup.enter="saveCapacity"
+                  placeholder="Set capacity"
+                  style="width: 120px"
+                />
+             </div>
           </div>
         </div>
         <div class="column-content">
@@ -63,6 +78,7 @@
             class="issue-list cycle-list"
             :animation="200"
             ghost-class="ghost-card"
+            @change="handleCycleChange"
           >
             <template #item="{ element }">
               <div class="planning-card">
@@ -71,8 +87,9 @@
                    <div class="card-meta">
                      <span class="id">#{{ element.id?.slice(0, 6) }}</span>
                      <span class="points" v-if="element.storyPoints || element.estimatedHours">
-                        {{ element.storyPoints || element.estimatedHours }} pts
+                        {{ parseFloat(element.storyPoints) || parseFloat(element.estimatedHours) || 0 }} pts
                      </span>
+                     <span class="points no-points" v-else>0 pts</span>
                    </div>
                 </div>
               </div>
@@ -119,44 +136,120 @@ export default {
     const backlogIssues = ref([]);
     const cycleIssues = ref([]);
     const saving = ref(false);
-    const capacity = ref(20); // TODO: Fetch from settings or team capacity
+    const capacity = ref(0); // Dynamic capacity from cycle settings
+    const updateTrigger = ref(0); // Force reactivity trigger
+    const isEditingCapacity = ref(false);
 
     const totalPoints = computed(() => {
-        return cycleIssues.value.reduce((sum, issue) => {
-            return sum + (issue.storyPoints || issue.estimatedHours || 0);
+        // Access updateTrigger to force recomputation
+        updateTrigger.value;
+        
+        console.log('[SprintPlanning] Computing total points for', cycleIssues.value.length, 'issues');
+        const total = cycleIssues.value.reduce((sum, issue) => {
+            const points = parseFloat(issue.storyPoints) || parseFloat(issue.estimatedHours) || 0;
+            console.log('[SprintPlanning] Issue:', issue.title, 'Points:', points, 'storyPoints:', issue.storyPoints, 'estimatedHours:', issue.estimatedHours);
+            return sum + points;
         }, 0);
+        console.log('[SprintPlanning] Total calculated:', total);
+        return Math.round(total * 10) / 10; // Round to 1 decimal place
     });
+    
+    const handleCycleChange = (event) => {
+        console.log('[SprintPlanning] Cycle changed:', event);
+        console.log('[SprintPlanning] Current cycle issues:', cycleIssues.value.length);
+        // Force recomputation of totalPoints
+        updateTrigger.value++;
+    };
+    
+    // Watch for changes in cycleIssues
+    watch(cycleIssues, (newVal) => {
+        console.log('[SprintPlanning] Cycle issues changed:', newVal.length, 'issues');
+        console.log('[SprintPlanning] Issues:', newVal.map(i => ({ title: i.title, points: i.storyPoints || i.estimatedHours })));
+    }, { deep: true });
+
+    const fetchData = async () => {
+        try {
+            console.log('[SprintPlanning] Fetching issues for project:', props.projectId);
+            
+            // Fetch all issues from the project
+            const response = await DevtelService.listIssues(props.projectId, {});
+            
+            console.log('[SprintPlanning] Raw response:', response);
+            
+            // Handle different response formats
+            let allIssues = [];
+            if (Array.isArray(response)) {
+                allIssues = response;
+            } else if (response && response.rows) {
+                allIssues = response.rows;
+            } else if (response && response.data) {
+                allIssues = Array.isArray(response.data) ? response.data : response.data.rows || [];
+            }
+            
+            console.log('[SprintPlanning] All issues:', allIssues);
+            console.log('[SprintPlanning] Sample issue:', allIssues[0]);
+            
+            // Separate into those already in this cycle and others
+            if (props.cycle) {
+                // Set capacity from cycle
+                capacity.value = props.cycle.targetCapacity || 0;
+                
+                // Issues already assigned to this cycle
+                cycleIssues.value = allIssues.filter(i => i.cycleId === props.cycle.id);
+                
+                // Backlog issues: includes issues with no cycle AND incomplete issues from other cycles
+                // This allows carrying over unfinished work from previous sprints
+                backlogIssues.value = allIssues.filter(i => 
+                    (i.cycleId !== props.cycle.id) && 
+                    (i.status !== 'done' || !i.cycleId)
+                );
+            } else {
+                backlogIssues.value = allIssues.filter(i => 
+                    !i.cycleId && (i.status === 'backlog' || i.status === 'todo')
+                );
+                cycleIssues.value = [];
+            }
+            
+            console.log('[SprintPlanning] Backlog issues:', backlogIssues.value);
+            console.log('[SprintPlanning] Cycle issues:', cycleIssues.value);
+        } catch (e) {
+            console.error('[SprintPlanning] Failed to load issues:', e);
+            ElMessage.error('Failed to load issues for planning: ' + e.message);
+        }
+    };
 
     // Fetch data when modal opens
     watch(() => props.modelValue, async (val) => {
       if (val && props.cycle) {
+        console.log('[SprintPlanning] Modal opened for cycle:', props.cycle);
+        await fetchData();
+      }
+    }, { immediate: true });
+    
+    // Also fetch on mount if already open
+    onMounted(async () => {
+      if (props.modelValue && props.cycle) {
+        console.log('[SprintPlanning] Modal mounted, fetching data');
         await fetchData();
       }
     });
 
-    const fetchData = async () => {
-        try {
-            // Fetch backlog issues (status=backlog or no cycle)
-            // Ideally we filter by no assigned cycle, but backend might not stick strictly. 
-            // For now fetch all candidates.
-            const allIssues = await DevtelService.listIssues(props.projectId, { status: ['backlog', 'todo'] }); // Adjust filters as needed
-            
-            // Separate into those already in this cycle and others
-            if (props.cycle) {
-                // Assuming issue object has cycleId property
-                cycleIssues.value = allIssues.filter(i => i.cycleId === props.cycle.id);
-                backlogIssues.value = allIssues.filter(i => i.cycleId !== props.cycle.id);
-            } else {
-                backlogIssues.value = allIssues;
-                cycleIssues.value = [];
-            }
-        } catch (e) {
-            ElMessage.error('Failed to load issues for planning');
-        }
-    };
-
     const handleClose = () => {
       visible.value = false;
+    };
+
+    const saveCapacity = async () => {
+        isEditingCapacity.value = false;
+        if (!props.cycle) return;
+        
+        try {
+            await DevtelService.updateCycle(props.projectId, props.cycle.id, {
+                targetCapacity: capacity.value
+            });
+            ElMessage.success('Capacity updated');
+        } catch (e) {
+            ElMessage.error('Failed to update capacity');
+        }
     };
 
     const savePlan = async () => {
@@ -182,8 +275,11 @@ export default {
       saving,
       capacity,
       totalPoints,
+      isEditingCapacity,
       handleClose,
-      savePlan
+      savePlan,
+      saveCapacity,
+      handleCycleChange
     };
   }
 };
@@ -245,6 +341,12 @@ export default {
     background: var(--el-color-success-light-9);
     padding: 2px 6px;
     border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.capacity:hover {
+    background: var(--el-color-success-light-8);
 }
 
 .capacity.over-capacity {
@@ -252,14 +354,22 @@ export default {
     background: var(--el-color-danger-light-9);
 }
 
+.capacity-editor {
+    display: flex;
+    align-items: center;
+}
+
 .column-content {
     flex: 1;
     overflow-y: auto;
     padding: 12px;
+    min-height: 0; /* Allow flex child to shrink */
 }
 
 .issue-list {
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .planning-card {
@@ -299,6 +409,11 @@ export default {
     justify-content: space-between;
     font-size: 11px;
     color: var(--el-text-color-secondary);
+}
+
+.card-meta .no-points {
+    color: var(--el-text-color-placeholder);
+    font-style: italic;
 }
 
 .divider {

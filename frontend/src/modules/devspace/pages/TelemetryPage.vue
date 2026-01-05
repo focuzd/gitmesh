@@ -1,9 +1,13 @@
 <template>
   <div class="telemetry-page devspace-page">
     <div class="page-header">
-      <h1>Developer Telemetry</h1>
-      <p class="subtitle" v-if="activeProjectId">Real-time metrics for current project</p>
-      <p class="subtitle" v-else>Select a project to view metrics</p>
+      <div>
+        <h1>Developer Telemetry</h1>
+        <p class="subtitle" v-if="activeProjectId && currentProject">
+          Real-time metrics for <strong>{{ currentProject.name }}</strong>
+        </p>
+        <p class="subtitle" v-else>Select a project to view metrics</p>
+      </div>
     </div>
 
     <div v-if="loading" class="loading-state">
@@ -72,6 +76,7 @@ import { ElMessage } from 'element-plus';
 
 const store = useStore();
 const activeProjectId = computed(() => store.getters['devspace/activeProjectId']);
+const currentProject = computed(() => store.getters['devspace/activeProject']);
 
 const loading = ref(false);
 const metrics = ref({});
@@ -79,27 +84,45 @@ const contributorCount = ref(0);
 const topContributors = ref([]);
 
 const fetchData = async () => {
-  if (!activeProjectId.value) return;
+  if (!activeProjectId.value) {
+    // Clear metrics when no project is selected
+    metrics.value = {};
+    topContributors.value = [];
+    contributorCount.value = 0;
+    return;
+  }
+  
+  console.log('[TelemetryPage] Fetching analytics for project:', activeProjectId.value);
   
   loading.value = true;
   try {
     const analytics = await DevtelService.getTeamAnalytics(activeProjectId.value);
     
+    console.log('[TelemetryPage] Received analytics:', analytics);
+    
     metrics.value = {
-      totalPoints: analytics.totalPoints,
-      totalCompleted: analytics.totalCompleted
+      totalPoints: analytics.totalPoints || 0,
+      totalCompleted: analytics.totalCompleted || 0
     };
     
     // Process contributors
-    if (analytics.completionsByUser) {
+    if (analytics.completionsByUser && Array.isArray(analytics.completionsByUser)) {
         topContributors.value = analytics.completionsByUser
-            .sort((a, b) => b.storyPoints - a.storyPoints)
+            .sort((a, b) => (b.storyPoints || 0) - (a.storyPoints || 0))
             .slice(0, 5);
         contributorCount.value = analytics.completionsByUser.length;
+    } else {
+        topContributors.value = [];
+        contributorCount.value = 0;
     }
     
   } catch (error) {
     console.error('Failed to fetch telemetry:', error);
+    
+    // Clear data on error
+    metrics.value = {};
+    topContributors.value = [];
+    contributorCount.value = 0;
     
     // Provide more specific error messages
     if (error.response?.status === 404) {
@@ -114,12 +137,14 @@ const fetchData = async () => {
   }
 };
 
-watch(activeProjectId, (newVal) => {
+watch(activeProjectId, (newVal, oldVal) => {
+  console.log('[TelemetryPage] Project changed from', oldVal, 'to', newVal);
   if (newVal) {
     fetchData();
   } else {
     metrics.value = {};
     topContributors.value = [];
+    contributorCount.value = 0;
   }
 });
 

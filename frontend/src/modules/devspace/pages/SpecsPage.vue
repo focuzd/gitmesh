@@ -18,7 +18,16 @@
       </div>
     </div>
 
-    <div v-if="loading" class="loading-state">
+    <!-- No Project Connected State -->
+    <div v-if="!projectId" class="no-project-state">
+      <div class="no-project-content">
+        <i class="ri-folder-add-line no-project-icon"></i>
+        <h2>No Project Connected</h2>
+        <p>Connect a project to start creating and managing specs and documentation.</p>
+      </div>
+    </div>
+
+    <div v-else-if="loading" class="loading-state">
       <el-skeleton :rows="5" animated />
     </div>
 
@@ -28,20 +37,35 @@
           v-for="spec in specs" 
           :key="spec.id" 
           class="spec-card"
-          @click="openSpec(spec)"
         >
           <div class="spec-header">
-            <el-icon class="spec-icon"><Document /></el-icon>
-            <el-tag 
-              :type="getStatusType(spec.status)" 
-              size="small"
-            >
-              {{ spec.status }}
-            </el-tag>
+            <el-icon class="spec-icon" @click="openSpec(spec)"><Document /></el-icon>
+            <div class="spec-header-right">
+              <el-tag 
+                :type="getStatusType(spec.status)" 
+                size="small"
+                @click="openSpec(spec)"
+              >
+                {{ spec.status }}
+              </el-tag>
+              <el-dropdown @command="(command) => handleSpecAction(command, spec)" trigger="click">
+                <el-button type="text" size="small" class="spec-menu-btn" @click.stop>
+                  <el-icon><MoreFilled /></el-icon>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="delete" class="delete-item">
+                      <el-icon><Delete /></el-icon>
+                      Delete
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </div>
           </div>
-          <h3 class="spec-title">{{ spec.title }}</h3>
-          <p class="spec-preview">{{ getPreview(spec.content) }}</p>
-          <div class="spec-footer">
+          <h3 class="spec-title" @click="openSpec(spec)">{{ spec.title }}</h3>
+          <p class="spec-preview" @click="openSpec(spec)">{{ getPreview(spec.content) }}</p>
+          <div class="spec-footer" @click="openSpec(spec)">
             <div class="spec-author">
               <el-avatar :size="20">{{ spec.author?.name?.charAt(0) || 'A' }}</el-avatar>
               <span>{{ spec.author?.name || 'Unknown' }}</span>
@@ -59,8 +83,8 @@
     </template>
 
     <!-- Create Modal -->
-    <el-dialog v-model="showCreateModal" title="Create Spec" width="600px">
-      <el-form :model="newSpec" label-position="top">
+    <el-dialog v-model="showCreateModal" title="Create Spec" width="600px" class="create-spec-modal">
+      <el-form :model="newSpec" label-position="top" class="create-spec-form">
         <el-form-item label="Title" required>
           <el-input v-model="newSpec.title" placeholder="Spec title" />
         </el-form-item>
@@ -71,11 +95,12 @@
             <el-option value="approved" label="Approved" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Content">
+        <el-form-item label="Content" class="content-form-item">
           <rich-text-editor
             v-model="newSpec.contentText"
             placeholder="Write your spec content here..."
-            :min-height="'200px'"
+            :min-height="'300px'"
+            class="spec-editor"
           />
         </el-form-item>
       </el-form>
@@ -93,6 +118,20 @@
         :before-close="closeSpecDrawer"
         destroy-on-close
     >
+      <template #header="{ titleId, titleClass }">
+        <div class="drawer-header">
+          <h4 :id="titleId" :class="titleClass">{{ selectedSpec?.title }}</h4>
+          <el-button 
+            type="danger" 
+            size="small" 
+            @click="handleSpecAction('delete', selectedSpec)"
+            :icon="Delete"
+            :loading="deleting"
+          >
+            Delete
+          </el-button>
+        </div>
+      </template>
       <div v-if="selectedSpec" class="spec-drawer-content">
         <div class="spec-main">
           <div class="detail-meta">
@@ -155,14 +194,15 @@
 </template>
 
 <script>
-import { Document, Plus, Search } from '@element-plus/icons-vue';
+import { Document, Plus, Search, Delete, MoreFilled } from '@element-plus/icons-vue';
+import { ElMessageBox, ElMessage } from 'element-plus';
 import { useProject } from '@/modules/devspace/composables/useProject';
 import DevtelService from '@/modules/devspace/services/devtel-api';
 import RichTextEditor from '../components/RichTextEditor.vue';
 
 export default {
   name: 'SpecsPage',
-  components: { Document, Plus, Search, RichTextEditor },
+  components: { Document, Plus, Search, Delete, MoreFilled, RichTextEditor },
   setup() {
     const { activeProjectId } = useProject();
     return { activeProjectId };
@@ -175,7 +215,9 @@ export default {
       showCreateModal: false,
       showSpecDrawer: false,
       creating: false,
+      deleting: false,
       selectedSpec: null,
+      specToDelete: null,
       specComments: [],
       versions: [],
       viewers: [],
@@ -183,7 +225,10 @@ export default {
       newSpec: {
         title: '',
         status: 'draft',
-        contentText: '',
+        contentText: {
+          type: 'doc',
+          content: []
+        },
       },
     };
   },
@@ -195,7 +240,15 @@ export default {
   mounted() {
     if (this.projectId) {
       this.fetchSpecs();
+    } else {
+      this.loading = false;
     }
+    // Add keyboard event listener for delete shortcut
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    // Remove keyboard event listener
+    document.removeEventListener('keydown', this.handleKeydown);
   },
   methods: {
     async fetchSpecs() {
@@ -206,7 +259,7 @@ export default {
         this.specs = data.rows || [];
       } catch (e) {
         console.error('Failed to fetch specs', e);
-        this.$message.error('Failed to load specs');
+        ElMessage.error('Failed to load specs');
       } finally {
         this.loading = false;
       }
@@ -215,16 +268,19 @@ export default {
       if (!this.newSpec.title) return;
       this.creating = true;
       try {
-        const spec = await DevtelService.createSpec(this.projectId, {
+        const payload = {
           title: this.newSpec.title,
           status: this.newSpec.status,
-          content: this.newSpec.contentText, // RichTextEditor returns HTML string or JSON
-        });
+          content: this.newSpec.contentText || {}, // Send as JSON object, fallback to empty object
+        };
+        const spec = await DevtelService.createSpec(this.projectId, payload);
         this.specs.unshift(spec);
         this.showCreateModal = false;
-        this.newSpec = { title: '', status: 'draft', contentText: '' };
+        this.newSpec = { title: '', status: 'draft', contentText: { type: 'doc', content: [] } };
+        ElMessage.success('Spec created successfully');
       } catch (e) {
         console.error('Failed to create spec', e);
+        ElMessage.error('Failed to create spec');
       } finally {
         this.creating = false;
       }
@@ -264,7 +320,7 @@ export default {
         this.selectedSpec = null;
     },
     async updateSpecContent(content) {
-        if (!this.selectedSpec || content === this.selectedSpec.content) return;
+        if (!this.selectedSpec || JSON.stringify(content) === JSON.stringify(this.selectedSpec.content)) return;
         try {
             await DevtelService.updateSpec(this.projectId, this.selectedSpec.id, { content });
             this.selectedSpec.content = content;
@@ -298,13 +354,78 @@ export default {
     handleSearch() {
       this.fetchSpecs();
     },
+    handleKeydown(event) {
+      // Delete key when spec drawer is open
+      if (event.key === 'Delete' && this.showSpecDrawer && this.selectedSpec) {
+        event.preventDefault();
+        this.confirmDeleteSpec(this.selectedSpec);
+      }
+    },
+    handleSpecAction(command, spec) {
+      if (command === 'delete') {
+        this.confirmDeleteSpec(spec);
+      }
+    },
+    confirmDeleteSpec(spec) {
+      ElMessageBox.confirm(
+        `Are you sure you want to delete "${spec.title}"? This action cannot be undone.`,
+        'Delete Spec',
+        {
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+          confirmButtonClass: 'el-button--danger',
+        }
+      ).then(() => {
+        this.deleteSpec(spec);
+      }).catch(() => {
+        // User cancelled
+      });
+    },
+    async deleteSpec(spec) {
+      this.deleting = true;
+      try {
+        await DevtelService.deleteSpec(this.projectId, spec.id);
+        
+        // Remove from specs list
+        this.specs = this.specs.filter(s => s.id !== spec.id);
+        
+        // Close drawer if this spec is currently open
+        if (this.selectedSpec && this.selectedSpec.id === spec.id) {
+          this.closeSpecDrawer();
+        }
+        
+        ElMessage.success('Spec deleted successfully');
+      } catch (e) {
+        console.error('Failed to delete spec', e);
+        ElMessage.error('Failed to delete spec');
+      } finally {
+        this.deleting = false;
+      }
+    },
     getStatusType(status) {
       const types = { draft: 'info', review: 'warning', approved: 'success' };
       return types[status] || 'info';
     },
     getPreview(content) {
       if (!content) return '';
-      // Simple HTML tag strip
+      
+      // If content is a JSON object (Tiptap format), extract text
+      if (typeof content === 'object') {
+        const extractText = (node) => {
+          let text = '';
+          if (node.text) {
+            text += node.text;
+          }
+          if (node.content && Array.isArray(node.content)) {
+            text += node.content.map(extractText).join('');
+          }
+          return text;
+        };
+        return extractText(content);
+      }
+      
+      // Fallback for HTML strings (legacy support)
       const tmp = document.createElement("DIV");
       tmp.innerHTML = content;
       return tmp.textContent || tmp.innerText || "";
@@ -351,19 +472,53 @@ export default {
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
   padding: 16px;
-  cursor: pointer;
   transition: all 0.2s;
+  position: relative;
 }
 .spec-card:hover {
   border-color: var(--el-color-primary);
   background-color: #18181b;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
+.spec-title, .spec-preview, .spec-footer, .spec-icon {
+  cursor: pointer;
+}
 .spec-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+}
+.spec-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spec-menu-btn {
+  padding: 4px;
+  color: var(--el-text-color-secondary);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.spec-card:hover .spec-menu-btn {
+  opacity: 1;
+}
+.spec-menu-btn:hover {
+  color: var(--el-text-color-primary);
+  background-color: var(--el-fill-color-light);
+}
+.delete-item {
+  color: var(--el-color-danger);
+}
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.drawer-header h4 {
+  margin: 0;
+  flex: 1;
 }
 .spec-icon {
   font-size: 20px;
@@ -503,5 +658,83 @@ export default {
 }
 .loading-state {
   padding: 40px 0;
+}
+
+/* No Project State */
+.no-project-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+}
+.no-project-content {
+  text-align: center;
+  max-width: 400px;
+}
+.no-project-icon {
+  font-size: 64px;
+  color: var(--el-text-color-placeholder);
+  margin-bottom: 24px;
+}
+.no-project-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--el-text-color-primary);
+}
+.no-project-content p {
+  font-size: 14px;
+  color: var(--el-text-color-secondary);
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+/* Create Spec Modal Styles */
+.create-spec-modal :deep(.el-dialog__body) {
+  padding: 20px;
+}
+
+.create-spec-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.content-form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-form-item :deep(.el-form-item__label) {
+  margin-bottom: 8px;
+}
+
+.content-form-item :deep(.el-form-item__content) {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 300px !important;
+}
+
+.spec-editor {
+  width: 100%;
+  min-height: 300px !important;
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.spec-editor :deep(.rich-text-editor) {
+  min-height: 300px !important;
+  border: none;
+}
+
+.spec-editor :deep(.editor-content) {
+  min-height: 250px !important;
+  overflow-y: auto !important;
+}
+
+.spec-editor :deep(.ProseMirror) {
+  min-height: 250px !important;
 }
 </style>
