@@ -41,9 +41,14 @@
       </div>
 
       <!-- Team Member Capacity -->
-      <div class="team-capacity">
+      <div class="team-capacity section">
         <h2>Team Members</h2>
-        <div class="member-list">
+        <div v-if="teamMembers.length === 0" class="empty-state">
+          <i class="ri-team-line empty-icon"></i>
+          <p class="empty-text">No team members found</p>
+          <p class="empty-hint">Add team members to your project to track capacity</p>
+        </div>
+        <div v-else class="member-list">
           <div v-for="member in teamMembers" :key="member.id" class="member-card">
             <div class="member-header">
               <el-avatar :size="40">{{ member.name?.charAt(0) || 'U' }}</el-avatar>
@@ -66,24 +71,33 @@
               </span>
             </div>
 
-
             <div class="member-issues">
-              <div v-for="issue in (member.assignedIssues || []).slice(0, 3)" :key="issue.id" class="issue-chip">
-                <span class="issue-key">{{ issue.issueKey }}</span>
-                <span class="issue-points">{{ issue.storyPoints || 1 }}pts</span>
+              <div v-if="(member.assignedIssues || []).length === 0" class="no-issues">
+                No assigned issues
               </div>
-              <div v-if="(member.assignedIssues || []).length > 3" class="more-issues">
-                +{{ (member.assignedIssues || []).length - 3 }} more
-              </div>
+              <template v-else>
+                <div v-for="issue in (member.assignedIssues || []).slice(0, 3)" :key="issue.id" class="issue-chip">
+                  <span class="issue-key">{{ issue.issueKey }}</span>
+                  <span class="issue-points">{{ issue.storyPoints || 1 }}pts</span>
+                </div>
+                <div v-if="(member.assignedIssues || []).length > 3" class="more-issues">
+                  +{{ (member.assignedIssues || []).length - 3 }} more
+                </div>
+              </template>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Timeline View -->
-      <div class="timeline-section">
+      <div class="timeline-section section">
         <h2>Weekly Timeline</h2>
-        <div class="timeline-grid">
+        <div v-if="timeline.length === 0" class="empty-state">
+          <i class="ri-calendar-line empty-icon"></i>
+          <p class="empty-text">No scheduled work</p>
+          <p class="empty-hint">Assign issues to team members to see the weekly timeline</p>
+        </div>
+        <div v-else class="timeline-grid">
           <div v-for="day in timeline" :key="day.date" class="timeline-day">
             <div class="day-header">{{ formatDate(day.date) }}</div>
             <draggable
@@ -102,14 +116,22 @@
                     </div>
                 </template>
             </draggable>
+            <div v-if="day.assignments.length === 0" class="day-empty">
+              No work scheduled
+            </div>
           </div>
         </div>
       </div>
 
        <!-- Contribution Activity Heatmap -->
-       <div class="heatmap-section">
+       <div class="heatmap-section section">
          <h2>Contribution Activity</h2>
-         <div class="heatmap-container">
+         <div v-if="contributionData.length === 0" class="empty-state">
+           <i class="ri-bar-chart-line empty-icon"></i>
+           <p class="empty-text">No contribution data</p>
+           <p class="empty-hint">Activity will appear here as team members work on issues</p>
+         </div>
+         <div v-else class="heatmap-container">
             <div class="heatmap-grid">
                 <div 
                   v-for="(day, index) in contributionData" 
@@ -320,6 +342,40 @@ export default {
 }
 .card-value.allocated { color: var(--el-color-warning); }
 .card-value.available { color: var(--el-color-success); }
+
+/* Section spacing */
+.section {
+  margin-bottom: 48px;
+}
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* Empty states */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+}
+.empty-icon {
+  font-size: 48px;
+  color: var(--el-text-color-placeholder);
+  margin-bottom: 16px;
+}
+.empty-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--el-text-color-regular);
+  margin: 0 0 8px 0;
+}
+.empty-hint {
+  font-size: 14px;
+  color: var(--el-text-color-secondary);
+  margin: 0;
+}
+
 .team-capacity h2 {
   font-size: 18px;
   margin-bottom: 16px;
@@ -379,6 +435,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  min-height: 28px;
+}
+.no-issues {
+  font-size: 12px;
+  color: var(--el-text-color-placeholder);
+  font-style: italic;
 }
 .issue-chip {
   display: flex;
@@ -418,12 +480,25 @@ export default {
   border-radius: 8px;
   padding: 12px;
   min-height: 120px;
+  display: flex;
+  flex-direction: column;
 }
 .day-header {
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--el-text-color-secondary);
+}
+.day-items {
+  flex: 1;
+  min-height: 60px;
+}
+.day-empty {
+  font-size: 11px;
+  color: var(--el-text-color-placeholder);
+  font-style: italic;
+  text-align: center;
+  padding: 20px 8px;
 }
 .timeline-item {
   font-size: 11px;
@@ -451,6 +526,10 @@ export default {
 
 .heatmap-section {
     margin-top: 32px;
+}
+.heatmap-section h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
 }
 .heatmap-container {
     background: var(--el-bg-color);

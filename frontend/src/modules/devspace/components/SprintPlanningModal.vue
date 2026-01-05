@@ -315,10 +315,13 @@ export default {
     flex: 1;
     overflow-y: auto;
     padding: 12px;
+    min-height: 0; /* Allow flex child to shrink */
 }
 
 .issue-list {
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .planning-card {
