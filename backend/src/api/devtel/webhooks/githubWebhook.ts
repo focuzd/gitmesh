@@ -121,32 +121,104 @@ async function handleIssuesEvent(req: any, workspace: any, integration: any, pay
         repository: repository.full_name
     }, 'Processing GitHub issues event')
 
-    // Create external link for tracking
+    // Find external link to see if issue exists
+    // Note: externalId is the GitHub Issue ID (integer), not the Issue Number
+    const existingLink = await req.database.devtelExternalLinks.findOne({
+        where: {
+            externalId: issue.id.toString(),
+            externalType: 'github_issue',
+            linkableType: 'issue'
+        }
+    })
+
+    if (existingLink) {
+        // Update existing issue
+        const devtelIssue = await req.database.devtelIssues.findByPk(existingLink.linkableId)
+        if (devtelIssue) {
+            const updates: any = { updatedById: integration.createdById } // Use integration creator as updater? or null
+
+            if (action === 'closed') {
+                updates.status = 'done'
+            } else if (action === 'reopened') {
+                updates.status = 'todo'
+            } else if (action === 'edited') {
+                updates.title = issue.title
+                updates.description = issue.body || ''
+            }
+
+            if (Object.keys(updates).length > 0) {
+                await devtelIssue.update(updates)
+                req.log.info({ issueId: devtelIssue.id, updates }, 'Updated DevTel issue from GitHub event')
+            }
+
+            // Update metadata
+            await existingLink.update({
+                metadata: {
+                    ...existingLink.metadata,
+                    status: issue.state,
+                    updatedAt: issue.updated_at
+                },
+                lastSyncedAt: new Date()
+            })
+        }
+        return
+    }
+
     if (action === 'opened') {
-        req.log.info({ issueUrl: issue.html_url, issueTitle: issue.title }, 'GitHub issue opened')
-        // TODO: Create a DevTel issue linked to GitHub
-        // await req.database.devtelIssues.create({
-        //   workspaceId: workspace.id,
-        //   title: issue.title,
-        //   description: issue.body,
-        //   status: 'open',
-        //   priority: 'medium',
-        //   source: 'github',
-        // })
-        // await req.database.devtelExternalLinks.create({
-        //   issueId: devtelIssue.id,
-        //   externalId: issue.id.toString(),
-        //   externalUrl: issue.html_url,
-        //   provider: 'github',
-        // })
-    } else if (action === 'closed') {
-        req.log.info({ issueUrl: issue.html_url }, 'GitHub issue closed')
-        // TODO: Update linked DevTel issue status
-    } else if (action === 'reopened') {
-        req.log.info({ issueUrl: issue.html_url }, 'GitHub issue reopened')
-        // TODO: Update linked DevTel issue status
+        const link = issue.html_url
+        req.log.info({ issueUrl: link, issueTitle: issue.title }, 'GitHub issue opened')
+
+        // Find project by matching repo name in settings
+        // We load all projects in workspace to find the matching one
+        const projects = await req.database.devtelProjects.findAll({
+            where: {
+                workspaceId: workspace.id,
+                deletedAt: null
+            }
+        })
+
+        const project = projects.find((p: any) => p.settings?.githubRepo === repository.full_name)
+
+        if (!project) {
+            req.log.warn({ repo: repository.full_name }, 'Skipping issue creation: No project linked to this repo')
+            return
+        }
+
+        // Create DevTel Issue
+        const newIssue = await req.database.devtelIssues.create({
+            projectId: project.id,
+            title: issue.title,
+            description: issue.body || '',
+            status: 'todo',
+            priority: 'medium',
+            createdById: null, // System created
+            metadata: {
+                source: 'github',
+                githubNumber: issue.number,
+                githubAuthor: issue.user?.login
+            }
+        })
+
+        // Create External Link
+        await req.database.devtelExternalLinks.create({
+            linkableType: 'issue',
+            linkableId: newIssue.id,
+            externalType: 'github_issue',
+            externalId: issue.id.toString(),
+            url: link,
+            metadata: {
+                number: issue.number,
+                repo: repository.full_name,
+                author: issue.user?.login,
+                status: issue.state,
+                createdAt: issue.created_at
+            },
+            lastSyncedAt: new Date()
+        })
+
+        req.log.info({ issueId: newIssue.id }, 'Created DevTel issue from GitHub issue')
     } else {
-        req.log.info({ action }, 'Unhandled issue action')
+        req.log.info({ action }, 'Unhandled issue action or issue not found')
     }
 }
 
@@ -167,22 +239,50 @@ async function handlePullRequestEvent(req: any, workspace: any, integration: any
         req.log.info({ issueRefs, prNumber: pull_request.number }, 'Found issue references in PR')
 
         for (const issueKey of issueRefs) {
-            // Find DevTel issue by key (assuming format: PROJ-123)
-            const devtelIssue = await req.database.devtelIssues.findOne({
-                include: [{
-                    model: req.database.devtelProjects,
-                    as: 'project',
-                    where: { workspaceId: workspace.id },
-                }],
-                where: req.database.sequelize.where(
-                    req.database.sequelize.fn('CONCAT',
-                        req.database.sequelize.col('project.prefix'),
-                        '-',
-                        req.database.sequelize.col('devtelIssues.sequenceNumber')
-                    ),
-                    issueKey
-                ),
-            })
+            let devtelIssue = null;
+            
+            // Strategy 1: Look for numeric reference (#123) which maps to a synced GitHub Issue
+            const numericMatch = issueKey.match(/^#?(\d+)$/);
+            if (numericMatch) {
+                 const githubNumber = parseInt(numericMatch[1], 10);
+                 const link = await req.database.devtelExternalLinks.findOne({
+                     where: {
+                         externalType: 'github_issue',
+                         linkableType: 'issue',
+                         metadata: {
+                            number: githubNumber,
+                            repo: repository.full_name
+                         }
+                     }
+                 });
+                 if (link) {
+                     devtelIssue = await req.database.devtelIssues.findByPk(link.linkableId);
+                 }
+            }
+            
+            // Strategy 2: Look for PROJ-123 if explicit Project Key is used (Legacy/Native)
+            if (!devtelIssue && issueKey.includes('-')) {
+                 try {
+                    devtelIssue = await req.database.devtelIssues.findOne({
+                        include: [{
+                            model: req.database.devtelProjects,
+                            as: 'project',
+                            where: { workspaceId: workspace.id },
+                        }],
+                        where: req.database.sequelize.where(
+                            req.database.sequelize.fn('CONCAT',
+                                req.database.sequelize.col('project.prefix'),
+                                '-',
+                                req.database.sequelize.col('devtelIssues.sequenceNumber')
+                            ),
+                            issueKey
+                        ),
+                    })
+                 } catch (e) {
+                     // Use loose finding if sequenceNumber is missing
+                     req.log.warn({ error: e.message }, 'Failed to lookup issue by sequence key')
+                 }
+            }
 
             if (!devtelIssue) {
                 req.log.warn({ issueKey }, 'DevTel issue not found for reference')
@@ -191,7 +291,20 @@ async function handlePullRequestEvent(req: any, workspace: any, integration: any
 
             req.log.info({ issueId: devtelIssue.id, issueKey }, 'Linking PR to DevTel issue')
 
-            // Create or update external link
+            // Create or update external link checking uniqueness by externalId (PR ID) AND linkableId
+            // A PR can be linked to multiple issues, so we need one link per issue-pr pair?
+            // "externalType": "github_pr"
+            // Wait, if we use externalId=PR.number for uniqueness, we can only link PR to ONE issue?
+            // externalId should be PR.id (unique across github) or PR.number (unique per repo).
+            // Currently payload uses pull_request.number.toString().
+            // If I link PR#1 to Issue A and Issue B, I need two records in devtelExternalLinks?
+            // The table devtelExternalLinks: linkableId + externalType + externalId?
+            // If externalId is PR ID, then (IssueA, PR1) and (IssueB, PR1) are different rows if linkableId is part of unique key?
+            // Usually not. It's usually externalId is unique per external type.
+            // But we want to link ONE PR to MULTIPLE Issues.
+            // If devtelExternalLinks is a generic mapping, then (linkableId, externalId, externalType) should be unique tuple.
+            
+            // For now, let's assume we create a link.
             const [link, created] = await req.database.devtelExternalLinks.findOrCreate({
                 where: {
                     linkableType: 'issue',

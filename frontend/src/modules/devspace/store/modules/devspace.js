@@ -59,6 +59,9 @@ const mutations = {
         if (state.activeProject?.id === projectId) {
             state.activeProject = null;
         }
+        if (localStorage.getItem('devspace_active_project') === projectId) {
+            localStorage.removeItem('devspace_active_project');
+        }
     },
     SET_LOADING(state, loading) {
         state.loading = loading;

@@ -228,13 +228,8 @@ export default class DevtelProjectService extends LoggerBase {
                 throw new Error400(this.options.language, 'devtel.project.notFound')
             }
 
-            await project.update(
-                {
-                    deletedAt: new Date(),
-                    updatedById: this.options.currentUser?.id,
-                },
-                { transaction },
-            )
+            // Permanently delete the project and all associated data (via DB Cascade)
+            await project.destroy({ transaction, force: true })
 
             await SequelizeRepository.commitTransaction(transaction)
 

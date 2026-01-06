@@ -666,6 +666,11 @@ export default (sequelize) => {
                 type: DataTypes.JSONB,
                 defaultValue: [],
             },
+            storyPointScale: {
+                type: DataTypes.STRING(20),
+                defaultValue: 'fibonacci',
+                allowNull: true,
+            },
         },
         {
             tableName: 'devtelWorkspaceSettings',

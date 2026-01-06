@@ -543,6 +543,15 @@ export default class DevtelService {
         return response.data;
     }
 
+    static async updateIntegration(workspaceId, integrationId, data) {
+        const tenantId = getTenantId();
+        const response = await authAxios.put(
+            `/tenant/${tenantId}/devtel/settings/integrations/${integrationId}`,
+            data
+        );
+        return response.data;
+    }
+
     static async testIntegration(workspaceId, integrationId) {
         const tenantId = getTenantId();
         const response = await authAxios.post(

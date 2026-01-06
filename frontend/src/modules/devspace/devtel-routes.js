@@ -82,7 +82,7 @@ export default [
                         name: 'devspace-project-settings',
                         path: 'project-settings',
                         component: SettingsPage,
-                        meta: { auth: true, title: 'Project Settings' },
+                        meta: { auth: true, title: 'Active Project Settings' },
                     },
                 ],
             },

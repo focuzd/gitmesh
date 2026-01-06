@@ -18,6 +18,7 @@ export default async (req, res) => {
         where: { workspaceId: workspace.id },
         attributes: ['id', 'provider', 'status', 'settings', 'lastSyncedAt', 'createdAt'],
         order: [['createdAt', 'DESC']],
+        raw: true,
     })
 
     await req.responseHandler.success(req, res, integrations)

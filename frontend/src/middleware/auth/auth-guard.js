@@ -79,6 +79,14 @@ export default async function ({
     // Protect onboard routes if user is already onboarded
     if ((to.path === '/onboard' || (from.path !== '/onboard' && to.path === '/onboard/demo'))
       && (!permissionChecker.isEmptyTenant && store.getters['auth/currentTenant'].onboardedAt)) {
+      // If this is a GitHub callback, redirect to integrations page with the query params
+      if (to.query.source === 'github' || to.query.code || to.query.installation_id) {
+        router.push({
+          path: '/integrations',
+          query: to.query,
+        });
+        return;
+      }
       router.push('/');
       return;
     }

@@ -123,6 +123,7 @@ const handleGithubInstallation = async () => {
   const code = params.get('code');
   const installId = params.get('installation_id');
   const source = params.get('source');
+  const state = params.get('state');
 
   if (source === 'discord' && params.get('guild_id')) {
     await store.dispatch('integration/doDiscordConnect', {
@@ -140,6 +141,15 @@ const handleGithubInstallation = async () => {
         setupAction: params.get('setup_action') || 'install',
       });
       window.history.replaceState({}, document.title, window.location.pathname);
+      
+      // If state parameter indicates user came from integrations page, redirect there
+      if (state) {
+        const decodedState = decodeURIComponent(state);
+        if (decodedState.includes('/integrations')) {
+          window.location.href = '/integrations';
+          return;
+        }
+      }
     } catch (error) {
       console.error('GitHub connection failed:', error);
       if (source === 'github' && !installId) showManualInputDialog();

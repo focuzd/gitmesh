@@ -17,6 +17,7 @@
       <div class="header-actions">
         <connection-status class="mr-3" />
         <el-button 
+          v-if="!isSettingsPage"
           type="primary" 
           icon="ri-add-line"
           @click="openNewIssueModal"
@@ -73,6 +74,10 @@ const showNewIssueModal = ref(false);
 const showNewProjectModal = ref(false);
 
 const activeProjectId = computed(() => store.getters['devspace/activeProjectId']);
+
+const isSettingsPage = computed(() => {
+  return route.path.includes('/devspace/settings');
+});
 
 const pageTitle = computed(() => {
   return route.meta.title || 'DevSpace';

@@ -14,9 +14,18 @@ defineProps({ integration: Object });
 const route = useRoute();
 const router = useRouter();
 
-// Build GitHub installation URL - GitHub App is configured with setup URL pointing to /onboard?source=github
+// Build GitHub installation URL with state parameter to track where to redirect back
 const githubConnectUrl = computed(() => {
-  return config.gitHubInstallationUrl;
+  const baseUrl = config.gitHubInstallationUrl;
+  // Add state parameter to track the source page
+  const currentPath = route.path;
+  const state = encodeURIComponent(currentPath);
+  // GitHub App installation URL format: append state if URL supports it
+  // The state will be passed back in the callback
+  if (baseUrl.includes('?')) {
+    return `${baseUrl}&state=${state}`;
+  }
+  return `${baseUrl}?state=${state}`;
 });
 
 const connect = () => {

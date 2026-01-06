@@ -1,6 +1,7 @@
 <template>
   <el-select 
     v-model="activeProjectId" 
+    :key="componentKey"
     placeholder="Select Project" 
     filterable 
     class="project-selector"
@@ -26,7 +27,13 @@ const activeProjectId = computed({
   set: (val) => store.dispatch('devspace/setActiveProjectId', val)
 });
 
-const projects = computed(() => store.state.devspace.projects || []);
+const projects = computed(() => store.getters['devspace/projects'] || []);
+
+// Compute a key that changes when the active project name changes to force re-render of label
+const componentKey = computed(() => {
+    const active = projects.value.find(p => p.id === activeProjectId.value);
+    return active ? `${active.id}-${active.name}` : 'default';
+});
 
 onMounted(() => {
   if (projects.value.length === 0) {

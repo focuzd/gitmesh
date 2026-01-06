@@ -1,10 +1,19 @@
 <template>
   <div class="settings-page devspace-page">
-    <div class="page-header">
+    <div class="page-header" v-if="activeProject">
       <h1>Settings</h1>
     </div>
 
-    <div class="settings-layout">
+    <!-- Empty State / Access Control -->
+    <div v-if="!activeProject" class="no-project-state">
+      <el-empty description="No Project Selected">
+        <template #description>
+          <p>Please select a project from the top navigation dropdown to manage its settings.</p>
+        </template>
+      </el-empty>
+    </div>
+
+    <div v-else class="settings-layout">
       <!-- Settings Navigation -->
       <div class="settings-nav">
         <div 
@@ -23,76 +32,203 @@
       <div class="settings-content">
         <!-- General Settings -->
         <div v-show="activeSection === 'general'" class="settings-section">
-          <h2>General Settings</h2>
-          <el-form label-position="top" class="settings-form">
-            <el-form-item label="Project Name">
-              <el-input v-model="settings.projectName" placeholder="Project name" />
-            </el-form-item>
-            <el-form-item label="Project Key">
-              <el-input v-model="settings.projectKey" placeholder="e.g., PROJ" />
-            </el-form-item>
-            <el-form-item label="Default Cycle Length">
-              <el-select v-model="settings.cycleLength" style="width: 100%">
-                <el-option :value="7" label="1 Week" />
-                <el-option :value="14" label="2 Weeks" />
-                <el-option :value="21" label="3 Weeks" />
-                <el-option :value="30" label="1 Month" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Story Point Scale">
-              <el-select v-model="settings.storyPointScale" style="width: 100%">
-                <el-option value="fibonacci" label="Fibonacci (1, 2, 3, 5, 8, 13)" />
-                <el-option value="linear" label="Linear (1-10)" />
-                <el-option value="tshirt" label="T-Shirt (XS, S, M, L, XL)" />
-              </el-select>
-            </el-form-item>
-            <el-button type="primary" @click="saveGeneralSettings">Save Changes</el-button>
-          </el-form>
+          <!-- Project Identity -->
+          <el-card shadow="never" class="settings-card">
+            <template #header>
+              <div class="card-header">
+                <h3>Change Project Details</h3>
+              </div>
+            </template>
+            <el-form label-position="top" class="settings-form" v-loading="loading">
+              <div class="form-row">
+                 <el-form-item class="flex-1">
+                   <template #label>
+                     <span class="field-label">
+                       Project Name
+                       <el-tooltip content="The display name of the project used throughout the workspace." placement="top">
+                         <el-icon class="info-icon"><InfoFilled /></el-icon>
+                       </el-tooltip>
+                     </span>
+                   </template>
+                   <el-input 
+                    v-model="settings.projectName" 
+                    placeholder="Project name" 
+                    @input="handleProjectNameInput" 
+                   />
+                 </el-form-item>
+                 <el-form-item class="flex-1">
+                   <template #label>
+                     <span class="field-label">
+                       Project Key
+                       <el-tooltip content="A short identifier used as a prefix for issue IDs (e.g., PROJ-123)." placement="top">
+                         <el-icon class="info-icon"><InfoFilled /></el-icon>
+                       </el-tooltip>
+                     </span>
+                   </template>
+                   <el-input v-model="settings.projectKey" placeholder="e.g., PROJ" :maxlength="10" />
+                 </el-form-item>
+              </div>
+              <el-form-item>
+                <template #label>
+                  <span class="field-label">
+                    Description
+                    <el-tooltip content="A brief summary of what this project is about." placement="top">
+                      <el-icon class="info-icon"><InfoFilled /></el-icon>
+                    </el-tooltip>
+                  </span>
+                </template>
+                <el-input v-model="settings.projectDescription" type="textarea" :rows="3" placeholder="Brief description of the project" />
+              </el-form-item>
+            </el-form>
+          </el-card>
+
+          <!-- Agile Configuration -->
+          <el-card shadow="never" class="settings-card mt-4">
+            <template #header>
+               <div class="card-header">
+                 <h3>Agile Configuration</h3>
+               </div>
+            </template>
+            <el-form label-position="top" class="settings-form" v-loading="loading">
+              <div class="form-row">
+                <el-form-item class="flex-1">
+                   <template #label>
+                     <span class="field-label">
+                       Default Cycle Length
+                       <el-tooltip content="The standard duration for sprints or cycles in this project." placement="top">
+                         <el-icon class="info-icon"><InfoFilled /></el-icon>
+                       </el-tooltip>
+                     </span>
+                   </template>
+                  <el-select v-model="settings.cycleLength" style="width: 100%">
+                    <el-option :value="7" label="1 Week" />
+                    <el-option :value="14" label="2 Weeks" />
+                    <el-option :value="21" label="3 Weeks" />
+                    <el-option :value="30" label="1 Month" />
+                  </el-select>
+                </el-form-item>
+                <el-form-item class="flex-1">
+                   <template #label>
+                     <span class="field-label">
+                       Story Point Scale
+                       <el-tooltip content="The estimation scale used for sizing issues (Fibonacci, Linear, etc.)." placement="top">
+                         <el-icon class="info-icon"><InfoFilled /></el-icon>
+                       </el-tooltip>
+                     </span>
+                   </template>
+                  <el-select v-model="settings.storyPointScale" style="width: 100%">
+                    <el-option value="fibonacci" label="Fibonacci (1, 2, 3, 5, 8, 13)" />
+                    <el-option value="linear" label="Linear (1-10)" />
+                    <el-option value="tshirt" label="T-Shirt (XS, S, M, L, XL)" />
+                  </el-select>
+                </el-form-item>
+              </div>
+            </el-form>
+          </el-card>
+
+          <div class="form-actions mt-4">
+             <el-button type="primary" @click="saveGeneralSettings">Save Changes</el-button>
+          </div>
+
+          <!-- Danger Zone -->
+          <div class="danger-zone mt-8">
+            <div class="danger-action">
+              <div>
+                <h4>Delete Project "{{ activeProject.name }}"</h4>
+                <p>This action cannot be undone. All issues and cycles in <strong>{{ activeProject.name }}</strong> will be deleted.</p>
+              </div>
+              <el-button type="danger" plain @click="confirmDeleteProject">Delete {{ activeProject.name }}</el-button>
+            </div>
+          </div>
         </div>
 
         <!-- Integrations -->
         <div v-show="activeSection === 'integrations'" class="settings-section">
           <h2>Integrations</h2>
-          <div class="integrations-list">
-            <div v-for="integration in integrations" :key="integration.id" class="integration-card">
+          
+          <el-alert
+            title="Configure Project Integrations"
+            type="info"
+            description="Link this project to external tools. Ensure the integration is first connected at the workspace level."
+            show-icon
+            :closable="false"
+            class="mb-4"
+          />
+
+          <el-card shadow="never" class="settings-card">
+              <template #header>
+                  <div class="card-header">
+                      <h3>GitHub Sync</h3>
+                  </div>
+              </template>
+             <div class="integration-item">
               <div class="integration-info">
-                <div class="integration-icon" :class="integration.provider">
-                  {{ integration.provider.charAt(0).toUpperCase() }}
-                </div>
+                <div class="integration-icon github">G</div>
                 <div>
-                  <h4>{{ integration.provider }}</h4>
-                  <p>{{ integration.status }}</p>
+                  <h4>Repository Configuration</h4>
+                  <p>Sync issues and pull requests two-way.</p>
                 </div>
               </div>
-              <div class="integration-actions">
-                <el-tag :type="integration.status === 'connected' ? 'success' : 'info'">
-                  {{ integration.status }}
-                </el-tag>
-                <el-button size="small" @click="testIntegration(integration)">Test</el-button>
-                <el-button size="small" type="danger" @click="removeIntegration(integration)">Remove</el-button>
+              <div class="integration-config pl-4 flex-1">
+                <el-input 
+                  v-model="settings.githubRepo" 
+                  placeholder="owner/repo (e.g., alveoli-app/gitmesh-ce)"
+                  :disabled="!isWorkspaceIntegrationConnected('github')"
+                >
+                  <template #append>
+                    <el-button @click="saveIntegrationSettings" :disabled="!isWorkspaceIntegrationConnected('github')">Save</el-button>
+                  </template>
+                </el-input>
+                <div class="mt-2 text-xs text-secondary" v-if="!isWorkspaceIntegrationConnected('github')">
+                  <span class="text-warning">GitHub not connected.</span> 
+                  <a @click="goToIntegrationsPage" class="link cursor-pointer ml-1">Connect in Workspace Integrations</a>
+                </div>
               </div>
             </div>
-            <div class="add-integration">
-              <el-button @click="showAddIntegration = true">
-                <el-icon><Plus /></el-icon>
-                Add Integration
-              </el-button>
+          </el-card>
+
+          <div class="mt-6">
+            <h4 class="mb-3 text-secondary uppercase text-xs font-bold tracking-wide">Workspace Connections</h4>
+            <div v-for="provider in availableProviders" :key="provider.id" class="integration-card-row mb-2">
+              <div class="flex items-center gap-3">
+                <div class="integration-icon-small" :class="provider.id">{{ provider.icon }}</div>
+                <span class="font-medium text-sm">{{ provider.name }}</span>
+              </div>
+              <el-tag 
+                :type="isWorkspaceIntegrationConnected(provider.id) ? 'success' : 'info'"
+                size="small"
+                effect="plain"
+              >
+                {{ isWorkspaceIntegrationConnected(provider.id) ? 'Connected' : 'Not Connected' }}
+              </el-tag>
             </div>
+             <el-button link type="primary" size="small" @click="goToIntegrationsPage" class="mt-2">Manage All Connections &rarr;</el-button>
           </div>
         </div>
+
 
         <!-- AI Settings -->
         <div v-show="activeSection === 'ai'" class="settings-section">
           <h2>AI Agent Settings</h2>
-          <el-form label-position="top" class="settings-form">
+          <el-form label-position="top" class="settings-form" v-loading="loading">
             <el-form-item label="Enabled Agents">
-              <el-checkbox-group v-model="aiSettings.enabledAgents">
-                <el-checkbox label="prioritize">Issue Prioritization</el-checkbox>
-                <el-checkbox label="suggest-sprint">Sprint Suggestions</el-checkbox>
-                <el-checkbox label="breakdown">Issue Breakdown</el-checkbox>
-                <el-checkbox label="assignee">Assignee Suggestions</el-checkbox>
-                <el-checkbox label="generate-spec">Spec Generation</el-checkbox>
-              </el-checkbox-group>
+              <div class="checkbox-list">
+                <el-checkbox v-model="aiSettings.enabledAgents" label="prioritize">
+                  <span class="custom-checkbox-label">Issue Prioritization</span>
+                </el-checkbox>
+                <el-checkbox v-model="aiSettings.enabledAgents" label="suggest-sprint">
+                  <span class="custom-checkbox-label">Sprint Suggestions</span>
+                </el-checkbox>
+                <el-checkbox v-model="aiSettings.enabledAgents" label="breakdown">
+                  <span class="custom-checkbox-label">Issue Breakdown</span>
+                </el-checkbox>
+                <el-checkbox v-model="aiSettings.enabledAgents" label="assignee">
+                  <span class="custom-checkbox-label">Assignee Suggestions</span>
+                </el-checkbox>
+                <el-checkbox v-model="aiSettings.enabledAgents" label="generate-spec">
+                  <span class="custom-checkbox-label">Spec Generation</span>
+                </el-checkbox>
+              </div>
             </el-form-item>
             <el-form-item label="Approval Required">
               <el-switch v-model="aiSettings.approvalRequired" />
@@ -109,22 +245,25 @@
         <!-- Webhooks -->
         <div v-show="activeSection === 'webhooks'" class="settings-section">
           <h2>Webhooks</h2>
-          <div class="webhooks-list">
-            <div v-for="webhook in webhooks" :key="webhook.id" class="webhook-card">
-              <div class="webhook-info">
-                <code class="webhook-url">{{ webhook.url }}</code>
-                <div class="webhook-events">
-                  <el-tag v-for="event in webhook.events?.slice(0, 3)" :key="event" size="small">
-                    {{ event }}
-                  </el-tag>
-                  <span v-if="webhook.events?.length > 3">+{{ webhook.events.length - 3 }}</span>
+          <div class="webhooks-list" v-loading="loading">
+            <template v-if="webhooks.length > 0">
+              <div v-for="webhook in webhooks" :key="webhook.id" class="webhook-card">
+                <div class="webhook-info">
+                  <code class="webhook-url">{{ webhook.url }}</code>
+                  <div class="webhook-events">
+                    <el-tag v-for="event in webhook.events?.slice(0, 3)" :key="event" size="small">
+                      {{ event }}
+                    </el-tag>
+                    <span v-if="webhook.events?.length > 3">+{{ webhook.events.length - 3 }}</span>
+                  </div>
+                </div>
+                <div class="webhook-actions">
+                  <el-switch v-model="webhook.enabled" @change="toggleWebhook(webhook)" />
+                  <el-button size="small" type="danger" @click="removeWebhook(webhook)">Delete</el-button>
                 </div>
               </div>
-              <div class="webhook-actions">
-                <el-switch v-model="webhook.enabled" @change="toggleWebhook(webhook)" />
-                <el-button size="small" type="danger" @click="removeWebhook(webhook)">Delete</el-button>
-              </div>
-            </div>
+            </template>
+            <el-empty v-else description="No webhooks configured" :image-size="80" />
             <div class="add-webhook">
               <el-button @click="showAddWebhook = true">
                 <el-icon><Plus /></el-icon>
@@ -154,26 +293,6 @@
       </div>
     </div>
 
-    <!-- Add Integration Modal -->
-    <el-dialog v-model="showAddIntegration" title="Add Integration" width="500px">
-      <el-form label-position="top">
-        <el-form-item label="Provider">
-          <el-select v-model="newIntegration.provider" style="width: 100%">
-            <el-option value="github" label="GitHub" />
-            <el-option value="jira" label="Jira" />
-            <el-option value="slack" label="Slack" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="API Token">
-          <el-input v-model="newIntegration.token" type="password" show-password />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <el-button @click="showAddIntegration = false">Cancel</el-button>
-        <el-button type="primary" @click="addIntegration">Connect</el-button>
-      </template>
-    </el-dialog>
-
     <!-- Add Webhook Modal -->
     <el-dialog v-model="showAddWebhook" title="Add Webhook" width="500px">
       <el-form label-position="top">
@@ -181,12 +300,22 @@
           <el-input v-model="newWebhook.url" placeholder="https://..." />
         </el-form-item>
         <el-form-item label="Events">
-          <el-checkbox-group v-model="newWebhook.events">
-            <el-checkbox label="issue.created">Issue Created</el-checkbox>
-            <el-checkbox label="issue.updated">Issue Updated</el-checkbox>
-            <el-checkbox label="cycle.started">Cycle Started</el-checkbox>
-            <el-checkbox label="cycle.completed">Cycle Completed</el-checkbox>
-          </el-checkbox-group>
+          <div class="checkbox-list">
+            <el-checkbox-group v-model="newWebhook.events" class="flex flex-col gap-2">
+                <el-checkbox label="issue.created">
+                    <span class="custom-checkbox-label">Issue Created</span>
+                </el-checkbox>
+                <el-checkbox label="issue.updated">
+                    <span class="custom-checkbox-label">Issue Updated</span>
+                </el-checkbox>
+                <el-checkbox label="cycle.started">
+                    <span class="custom-checkbox-label">Cycle Started</span>
+                </el-checkbox>
+                <el-checkbox label="cycle.completed">
+                    <span class="custom-checkbox-label">Cycle Completed</span>
+                </el-checkbox>
+            </el-checkbox-group>
+          </div>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -198,12 +327,13 @@
 </template>
 
 <script>
-import { Setting, Link, Cpu, Connection, Plus, Lock } from '@element-plus/icons-vue';
+import { Setting, Link, Cpu, Connection, Plus, InfoFilled } from '@element-plus/icons-vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
 import DevtelService from '@/modules/devspace/services/devtel-api';
 
 export default {
   name: 'SettingsPage',
-  components: { Setting, Link, Cpu, Connection, Plus, Lock },
+  components: { Setting, Link, Cpu, Connection, Plus, InfoFilled },
   data() {
     return {
       activeSection: 'general',
@@ -212,33 +342,45 @@ export default {
         { id: 'integrations', label: 'Integrations', icon: 'Link' },
         { id: 'ai', label: 'AI Agents', icon: 'Cpu' },
         { id: 'webhooks', label: 'Webhooks', icon: 'Connection' },
-        { id: 'access', label: 'Access Control', icon: 'Lock' },
+      ],
+      availableProviders: [
+        { id: 'github', name: 'GitHub', icon: 'G', description: 'Sync issues and pull requests' },
+        { id: 'slack', name: 'Slack', icon: 'S', description: 'Send notifications to Slack channels' },
       ],
       settings: {
         projectName: '',
         projectKey: '',
+        projectDescription: '',
         cycleLength: 14,
         storyPointScale: 'fibonacci',
+        githubRepo: '',
       },
-      integrations: [],
       webhooks: [],
       aiSettings: {
         enabledAgents: ['prioritize', 'suggest-sprint'],
         approvalRequired: true,
         temperature: 0.7,
       },
-      showAddIntegration: false,
       showAddWebhook: false,
-      newIntegration: { provider: 'github', token: '' },
       newWebhook: { url: '', events: [] },
+      loading: false,
+      workspaceData: null,
+      projectData: null,
     };
   },
   computed: {
     projectId() {
       return this.$store.getters['devspace/activeProject']?.id;
     },
+    activeProject() {
+      return this.$store.getters['devspace/activeProject'];
+    },
     workspaceId() {
       return this.$store.getters['devspace/activeWorkspace']?.id;
+    },
+    workspaceIntegrations() {
+      // Get integrations from the global integration store (same as /integrations page)
+      return this.$store.getters['integration/listByPlatform'] || {};
     },
   },
   watch: {
@@ -248,87 +390,221 @@ export default {
         if (val) this.fetchSettings();
       },
     },
+    // React to project changes in the global dropdown
+    activeProject: {
+      deep: true,
+      handler(newVal, oldVal) {
+        // Only fetch if project ID actually changed to avoid cycles or unnecessary reloads
+        if (newVal?.id !== oldVal?.id) {
+          this.fetchSettings();
+        }
+      }
+    }
+  },
+  async mounted() {
+    // Ensure the integration store is loaded when mounting the settings page
+    if (this.$store.state.integration.count === 0) {
+      await this.$store.dispatch('integration/doFetch');
+    }
   },
   methods: {
+    isWorkspaceIntegrationConnected(provider) {
+      const integration = this.workspaceIntegrations?.[provider];
+      return !!(integration && (integration.status === 'done' || integration.status === 'in-progress'));
+    },
+    getIntegrationStatusText(provider) {
+      const integration = this.workspaceIntegrations?.[provider];
+      if (!integration) {
+        return 'Not connected - click Connect to set up';
+      }
+      if (integration.status === 'done') {
+        return 'Connected and syncing';
+      }
+      if (integration.status === 'in-progress') {
+        return 'Connection in progress';
+      }
+      return `Status: ${integration.status}`;
+    },
+    goToIntegrationsPage() {
+      this.$router.push('/integrations');
+    },
     async fetchSettings() {
+      // Don't wait for workspaceId watcher, if activeProject exists, use it immediately
+      if (this.activeProject) {
+        // Initialize with project data first so UI isn't blank
+        this.settings = {
+          projectName: this.activeProject.name || '',
+          projectKey: this.activeProject.prefix || '',
+          projectDescription: this.activeProject.description || '',
+          cycleLength: this.activeProject.settings?.cycleLength || 14,
+          storyPointScale: this.activeProject.settings?.storyPointScale || 'fibonacci',
+          githubRepo: this.activeProject.settings?.githubRepo || '',
+        };
+        this.projectData = this.activeProject;
+      }
+
       if (!this.workspaceId) return;
+      
+      this.loading = true;
       try {
-        const [integrations, webhooks, aiSettings] = await Promise.all([
-          DevtelService.listIntegrations(this.workspaceId),
+        const [webhooks, agentSettings, generalSettings] = await Promise.all([
           DevtelService.listWebhooks(this.workspaceId),
           DevtelService.getAgentSettings(this.workspaceId),
+          DevtelService.getGeneralSettings(this.workspaceId),
         ]);
-        this.integrations = integrations.rows || [];
-        this.webhooks = webhooks.rows || [];
-        if (aiSettings) {
-          this.aiSettings = { ...this.aiSettings, ...aiSettings };
+        
+        this.webhooks = Array.isArray(webhooks) ? webhooks : (webhooks?.rows || []);
+        
+        if (agentSettings) {
+          this.aiSettings = {
+            enabledAgents: agentSettings.enabledAgents || ['prioritize', 'suggest-sprint'],
+            approvalRequired: agentSettings.approvalRequired ?? true,
+            temperature: parseFloat(agentSettings.temperature) || 0.7,
+          };
         }
 
-        // Fetch General Settings
-        const generalSettings = await DevtelService.getGeneralSettings(this.workspaceId);
+        // Store workspace data
         if (generalSettings) {
-            this.settings = { ...this.settings, ...generalSettings };
+          this.workspaceData = generalSettings;
         }
+
+        // Re-apply project settings (case where activeProject might have updated during fetch)
+        if (this.activeProject) {
+            const workspaceSettings = generalSettings?.workspaceSettings || {};
+            this.settings.cycleLength = this.activeProject.settings?.cycleLength || workspaceSettings.defaultCycleLength || 14;
+            this.settings.storyPointScale = this.activeProject.settings?.storyPointScale || workspaceSettings.storyPointScale || 'fibonacci';
+        }
+
       } catch (e) {
         console.error('Failed to fetch settings', e);
+        ElMessage.error('Failed to load settings');
+      } finally {
+        this.loading = false;
       }
     },
-    async saveGeneralSettings() {
-        try {
-            await DevtelService.updateGeneralSettings(this.workspaceId, this.settings);
-            this.$message.success('Settings saved');
-        } catch (e) {
-            this.$message.error('Failed to save settings');
+    handleProjectNameInput(val) {
+        // If key hasn't been manually edited and is empty or matches previous generation, auto-generate
+        // Simple logic: if key is empty or matches part of name, update it.
+        // For safer UX, only auto-fill if key is empty to avoid overwriting user intent
+        if (!this.settings.projectKey) {
+            this.settings.projectKey = val.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
         }
+    },
+    async saveGeneralSettings() {
+      if (!this.settings.projectName) {
+          ElMessage.warning('Project Name is required');
+          return;
+      }
+      
+      try {
+        if (!this.activeProject) return;
+
+        // Warning for critical changes
+        if (this.settings.projectName !== this.activeProject.name || this.settings.projectKey !== this.activeProject.prefix) {
+             const confirmed = await ElMessageBox.confirm(
+                'You are modifying critical project identity (Name or Key). This may affect search results and issue links. Are you sure you want to proceed?',
+                'Confirm Project Update',
+                {
+                    confirmButtonText: 'Yes, Update',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }
+             ).then(() => true).catch(() => false);
+             
+             if (!confirmed) return;
+        }
+
+        const projectUpdate = {
+          name: this.settings.projectName,
+          prefix: this.settings.projectKey,
+          description: this.settings.projectDescription,
+          settings: {
+            ...this.activeProject.settings,
+            cycleLength: this.settings.cycleLength,
+            storyPointScale: this.settings.storyPointScale,
+          }
+        };
+          
+        await this.$store.dispatch('devspace/updateProject', {
+          id: this.activeProject.id,
+          data: projectUpdate
+        });
+        
+        await this.$store.dispatch('devspace/fetchProjects');
+        
+        ElMessage.success('Settings saved');
+      } catch (e) {
+        console.error('Failed to save settings', e);
+        ElMessage.error('Failed to save settings');
+      }
+    },
+    async saveIntegrationSettings() {
+      try {
+        if (!this.activeProject) return;
+
+        const projectUpdate = {
+            settings: {
+                ...this.activeProject.settings,
+                githubRepo: this.settings.githubRepo,
+            }
+        };
+
+        await DevtelService.updateProject(this.activeProject.id, projectUpdate);
+        await this.$store.dispatch('devspace/fetchProjects'); // re-fetch to update state
+        ElMessage.success('Integration settings saved');
+      } catch (e) {
+        console.error(e);
+        ElMessage.error('Failed to save integration settings');
+      }
+    },
+    async confirmDeleteProject() {
+      try {
+        await ElMessageBox.confirm(
+          `Are you sure you want to delete the project "${this.activeProject.name}"? This will permanently delete all issues, cycles, and history associated with this project. This action cannot be undone.`,
+          `Delete Project: ${this.activeProject.name}`,
+          {
+            confirmButtonText: `Delete ${this.activeProject.name}`,
+            cancelButtonText: 'Cancel',
+            type: 'warning',
+            confirmButtonClass: 'el-button--danger',
+          }
+        );
+
+        await this.$store.dispatch('devspace/deleteProject', this.activeProject.id);
+        ElMessage.success('Project deleted');
+        
+        // Refresh project list to ensure we switch to a valid remaining project
+        await this.$store.dispatch('devspace/fetchProjects');
+        this.$router.push('/devspace'); 
+        
+      } catch (e) {
+        if (e !== 'cancel') {
+          console.error(e);
+          ElMessage.error('Failed to delete project');
+        }
+      }
     },
     async saveAiSettings() {
       try {
         await DevtelService.updateAgentSettings(this.workspaceId, this.aiSettings);
-        this.$message.success('AI settings saved');
+        ElMessage.success('AI settings saved');
       } catch (e) {
-        this.$message.error('Failed to save');
-      }
-    },
-    async addIntegration() {
-      try {
-        const integration = await DevtelService.createIntegration(this.workspaceId, {
-          provider: this.newIntegration.provider,
-          credentials: { token: this.newIntegration.token },
-        });
-        this.integrations.push(integration);
-        this.showAddIntegration = false;
-        this.newIntegration = { provider: 'github', token: '' };
-        this.$message.success('Integration added');
-      } catch (e) {
-        this.$message.error('Failed to connect');
-      }
-    },
-    async testIntegration(integration) {
-      try {
-        await DevtelService.testIntegration(this.workspaceId, integration.id);
-        this.$message.success('Connection successful');
-      } catch (e) {
-        this.$message.error('Connection failed');
-      }
-    },
-    async removeIntegration(integration) {
-      try {
-        await DevtelService.deleteIntegration(this.workspaceId, integration.id);
-        this.integrations = this.integrations.filter(i => i.id !== integration.id);
-        this.$message.success('Integration removed');
-      } catch (e) {
-        this.$message.error('Failed to remove');
+        ElMessage.error('Failed to save');
       }
     },
     async addWebhook() {
+      if (!this.newWebhook.url) {
+        ElMessage.warning('Please enter a webhook URL');
+        return;
+      }
       try {
         const webhook = await DevtelService.createWebhook(this.workspaceId, this.newWebhook);
         this.webhooks.push(webhook);
         this.showAddWebhook = false;
         this.newWebhook = { url: '', events: [] };
-        this.$message.success('Webhook created');
+        ElMessage.success('Webhook created');
       } catch (e) {
-        this.$message.error('Failed to create');
+        ElMessage.error('Failed to create webhook');
       }
     },
     async toggleWebhook(webhook) {
@@ -336,15 +612,16 @@ export default {
         await DevtelService.updateWebhook(this.workspaceId, webhook.id, { enabled: webhook.enabled });
       } catch (e) {
         webhook.enabled = !webhook.enabled;
+        ElMessage.error('Failed to update webhook');
       }
     },
     async removeWebhook(webhook) {
       try {
         await DevtelService.deleteWebhook(this.workspaceId, webhook.id);
         this.webhooks = this.webhooks.filter(w => w.id !== webhook.id);
-        this.$message.success('Webhook deleted');
+        ElMessage.success('Webhook deleted');
       } catch (e) {
-        this.$message.error('Failed to delete');
+        ElMessage.error('Failed to delete webhook');
       }
     },
   },
@@ -354,6 +631,16 @@ export default {
 <style scoped>
 @import '../styles/devspace-common.css';
 
+.no-project-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  background: var(--el-bg-color);
+  border-radius: 8px;
+  border: 1px dashed var(--el-border-color);
+  margin-top: 24px;
+}
 .settings-page {
   padding: 24px;
 }
@@ -399,8 +686,20 @@ export default {
   padding: 24px;
 }
 .settings-section h2 {
-  margin: 0 0 20px;
+  margin: 0 0 8px;
   font-size: 18px;
+}
+.section-description {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: var(--el-text-color-secondary);
+}
+.section-description a {
+  color: var(--el-color-primary);
+  text-decoration: none;
+}
+.section-description a:hover {
+  text-decoration: underline;
 }
 .settings-form {
   max-width: 500px;
@@ -456,6 +755,9 @@ export default {
   align-items: center;
   gap: 8px;
 }
+.integration-actions .el-switch.is-disabled {
+  cursor: pointer;
+}
 .webhook-url {
   font-size: 12px;
   padding: 4px 8px;
@@ -469,5 +771,111 @@ export default {
 }
 .add-integration, .add-webhook {
   margin-top: 8px;
+}
+
+.settings-card {
+  margin-bottom: 24px;
+}
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.form-row {
+  display: flex;
+  gap: 24px;
+}
+.flex-1 {
+  flex: 1;
+}
+.field-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.info-icon {
+    font-size: 14px;
+    color: var(--el-text-color-secondary);
+    cursor: help;
+}
+.danger-zone {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--el-border-color);
+}
+.danger-zone h3 {
+  color: var(--el-color-danger);
+  margin-bottom: 16px;
+}
+.danger-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--el-color-danger);
+  background: #1a1a1a; /* Dark background matching the requested theme */
+  border-radius: 8px;
+}
+.danger-action h4 {
+  margin: 0 0 4px;
+  font-weight: 600;
+  color: var(--el-color-white); /* Ensure text is visible on dark background */
+}
+.danger-action p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--el-text-color-secondary);
+}
+
+/* Integrations Styles */
+.integration-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0;
+}
+.integration-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--el-fill-color-light);
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+.integration-card-row:hover {
+    background: var(--el-fill-color);
+    border-color: var(--el-border-color-light);
+}
+.integration-icon-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+.integration-icon-small.github { background: #333; }
+.integration-icon-small.jira { background: #0052CC; }
+.integration-icon-small.slack { background: #4A154B; }
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.checkbox-list .el-checkbox {
+  margin-right: 0;
+  height: auto;
+}
+.custom-checkbox-label {
+    color: var(--el-text-color-primary) !important;
+    opacity: 1 !important;
+    font-weight: normal;
+}
+.checkbox-list .el-checkbox__label {
+    display: inline-block;
 }
 </style>

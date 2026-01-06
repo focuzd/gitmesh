@@ -251,6 +251,10 @@ export default (app) => {
         `/tenant/:tenantId/devtel/settings/integrations`,
         safeWrap(require('./settings/integrationCreate').default),
     )
+    app.put(
+        `/tenant/:tenantId/devtel/settings/integrations/:integrationId`,
+        safeWrap(require('./settings/integrationUpdate').default),
+    )
     app.delete(
         `/tenant/:tenantId/devtel/settings/integrations/:integrationId`,
         safeWrap(require('./settings/integrationDestroy').default),
