@@ -2,6 +2,7 @@ import Layout from '@/modules/layout/components/layout.vue';
 
 // Lazy-loaded page components
 const DevtelLayout = () => import('@/modules/devspace/pages/DevtelLayout.vue');
+const OverviewPage = () => import('@/modules/devspace/pages/OverviewPage.vue');
 const TelemetryPage = () => import('@/modules/devspace/pages/TelemetryPage.vue');
 const ReportListPage = () => import('@/modules/report/pages/report-list-page.vue');
 const BoardPage = () => import('@/modules/devspace/pages/BoardPage.vue');
@@ -27,7 +28,7 @@ export default [
                     {
                         name: 'devspace-overview',
                         path: 'overview',
-                        component: TelemetryPage,
+                        component: OverviewPage,
                         meta: { auth: true, title: 'Project Overview' },
                     },
                     {

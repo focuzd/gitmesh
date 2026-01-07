@@ -77,6 +77,12 @@ export default class DevtelService {
         return response.data;
     }
 
+    static async getProjectOverview(projectId, params = {}) {
+        const tenantId = getTenantId();
+        const response = await authAxios.get(`/tenant/${tenantId}/devtel/projects/${projectId}/overview`, { params });
+        return response.data;
+    }
+
     // ============================================
     // Issues
     // ============================================
