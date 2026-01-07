@@ -10,6 +10,7 @@
           start-placeholder="Start"
           end-placeholder="End"
           size="default"
+          popper-class="capacity-date-picker-popper"
           @change="fetchCapacity"
         />
       </div>
@@ -611,5 +612,12 @@ export default {
     width: 12px;
     height: 12px;
     padding: 0;
+}
+</style>
+
+<style>
+/* Global styles for date picker popper - must be unscoped to work with Element Plus teleported elements */
+.capacity-date-picker-popper {
+  z-index: 10000 !important;
 }
 </style>
