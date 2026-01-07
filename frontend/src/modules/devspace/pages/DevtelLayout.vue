@@ -2,7 +2,7 @@
   <loading-bar />
   <error-boundary>
     <div class="devtel-layout">
-    <header v-if="!isProjectSettingsPage" class="devtel-header">
+    <header v-if="!shouldHideHeader" class="devtel-header">
       <div class="header-left">
         <div class="app-title">
           <i v-if="pageIcon" :class="pageIcon" class="mr-2"></i>
@@ -23,7 +23,7 @@
       </div>
     </header>
 
-    <div class="devtel-content" :class="{ 'no-header': isProjectSettingsPage }">
+    <div class="devtel-content" :class="{ 'no-header': shouldHideHeader }">
       <router-view :key="activeProjectId" />
     </div>
 
@@ -69,6 +69,20 @@ const isSettingsPage = computed(() => {
 
 const isProjectSettingsPage = computed(() => {
   return route.name === 'devspace-project-settings';
+});
+
+const pagesWithoutHeader = [
+  'devspace-project-settings',
+  'devspace-team',
+  'devspace-specs', 
+  'devspace-capacity',
+  'devspace-cycles',
+  'devspace-overview',
+  'devspace-devtel'
+];
+
+const shouldHideHeader = computed(() => {
+  return pagesWithoutHeader.includes(route.name);
 });
 
 const pageTitle = computed(() => {
@@ -249,6 +263,6 @@ watch(activeProjectId, (newProjectId, oldProjectId) => {
 }
 
 .devtel-content.no-header {
-  padding: 0;
+  padding: 24px 24px 24px 24px;
 }
 </style>
