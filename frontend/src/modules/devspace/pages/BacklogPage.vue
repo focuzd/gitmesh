@@ -88,12 +88,24 @@
           </template>
         </el-table-column>
         <el-table-column prop="title" label="Title" min-width="200" sortable />
-        <el-table-column prop="status" label="Status" width="120" sortable>
+        <el-table-column 
+          prop="status" 
+          label="Status" 
+          width="120" 
+          sortable 
+          :sort-method="(a, b) => getStatusOrder(a.status) - getStatusOrder(b.status)"
+        >
           <template #default="{ row }">
             <el-tag size="small">{{ formatStatus(row.status) }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="priority" label="Priority" width="100" sortable>
+        <el-table-column 
+          prop="priority" 
+          label="Priority" 
+          width="100" 
+          sortable
+          :sort-method="(a, b) => getPriorityOrder(a.priority) - getPriorityOrder(b.priority)"
+        >
           <template #default="{ row }">
             <span :class="['priority-badge', `priority-${row.priority}`]">
               {{ row.priority }}
@@ -212,6 +224,22 @@ const { activeProjectId, hasActiveProject } = useProject();
     const teamMembers = computed(() => store.getters['devspace/teamMembers']);
     // Only users (not contacts) can be assigned to issues
     const assignableMembers = computed(() => teamMembers.value.filter(m => m.isUser !== false));
+
+    // Status workflow order for sorting
+    const STATUS_ORDER = ['backlog', 'todo', 'in_progress', 'review', 'done'];
+    
+    const getStatusOrder = (status) => {
+      const index = STATUS_ORDER.indexOf(status);
+      return index === -1 ? 999 : index; // Unknown statuses go to the end
+    };
+
+    // Priority order for sorting (highest to lowest urgency)
+    const PRIORITY_ORDER = ['urgent', 'high', 'medium', 'low'];
+    
+    const getPriorityOrder = (priority) => {
+      const index = PRIORITY_ORDER.indexOf(priority);
+      return index === -1 ? 999 : index; // Unknown priorities go to the end
+    };
 
     // Initial simple filtering (can be expanded)
     const filteredIssues = computed(() => issues.value);
