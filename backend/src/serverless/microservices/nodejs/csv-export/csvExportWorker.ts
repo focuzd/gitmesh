@@ -1,10 +1,9 @@
 import moment from 'moment'
-import { parseAsync } from 'json2csv'
-import { HttpRequest } from '@aws-sdk/protocol-http'
+import { AsyncParser } from '@json2csv/node'
+import { HttpRequest } from '@smithy/protocol-http'
 import { S3RequestPresigner } from '@aws-sdk/s3-request-presigner'
-import { Hash } from '@aws-sdk/hash-node'
-import { parseUrl } from '@aws-sdk/url-parser'
-import { formatUrl } from '@aws-sdk/util-format-url'
+import { Hash } from '@smithy/hash-node'
+import { parseUrl } from '@smithy/url-parser'
 import { getServiceChildLogger } from '@gitmesh/logging'
 import getUserContext from '../../../../database/utils/getUserContext'
 import EmailSender from '../../../../services/emailSender'
@@ -76,7 +75,8 @@ async function csvExportWorker(
     }
   }
 
-  const csv = await parseAsync(data.rows, opts)
+  const parser = new AsyncParser(opts)
+  const csv = await parser.parse(data.rows).promise()
 
   const key = `csv-exports/${moment().format('YYYY-MM-DD')}_${entity}_${tenantId}.csv`
 
@@ -133,7 +133,8 @@ async function getPresignedUrl(objectUrl: string): Promise<string> {
       sha256: Hash.bind(null, 'sha256'),
     })
 
-    const url = formatUrl(await presigner.presign(new HttpRequest(awsS3ObjectUrl)))
+    const presignedRequest = await presigner.presign(new HttpRequest(awsS3ObjectUrl))
+    const url = `${presignedRequest.protocol}//${presignedRequest.hostname}${presignedRequest.path}?${new URLSearchParams(presignedRequest.query as Record<string, string>).toString()}`
     return url
   } catch (error) {
     log.error(error, 'Error on creating pre-signed url!')
