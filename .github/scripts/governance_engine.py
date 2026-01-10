@@ -10,7 +10,7 @@ IST = timezone(timedelta(hours=5, minutes=30))
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
-CANONICAL_REPO = "LF-Decentralized-Trust-labs/gitmesh" # Fork protection target
+CANONICAL_REPO = "focuzd/gitmesh" # Fork protection target
 
 REGISTRY_PATH = "governance/contributors.yaml"
 HISTORY_DIR = "governance/history/users/"
