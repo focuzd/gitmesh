@@ -13,8 +13,6 @@ on:
     - cron: '0 0 * * *' 
   pull_request:
     types: [closed, opened, edited]
-    paths:
-      - 'governance/contributors.yaml'
   issue_comment:
     types: [created]
   push:
@@ -69,6 +67,11 @@ jobs:
 
       # Create a PR with updates instead of pushing directly to main
       - name: Commit and Create/Update PR
+        if: |
+          github.event_name == 'schedule' || 
+          github.event_name == 'workflow_dispatch' ||
+          github.event_name == 'push' ||
+          (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true)
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
