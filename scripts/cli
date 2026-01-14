@@ -42,12 +42,14 @@ function prepare_dev_env() {
         echo "# Here you can put environment variables that you would like to override when using local environment" > "$CLI_HOME/../frontend/.env.override.composed"
     fi
 
-    if [[ ! -f "$CLI_HOME/../chat-orchestrator/.env.override.local" ]]; then
-        echo "# Here you can put environment variables that you would like to override when using local environment" > "$CLI_HOME/../chat-orchestrator/.env.override.local"
-    fi
+    if [[ -d "$CLI_HOME/../chat-orchestrator" ]]; then
+        if [[ ! -f "$CLI_HOME/../chat-orchestrator/.env.override.local" ]]; then
+            echo "# Here you can put environment variables that you would like to override when using local environment" > "$CLI_HOME/../chat-orchestrator/.env.override.local"
+        fi
 
-    if [[ ! -f "$CLI_HOME/../chat-orchestrator/.env.override.composed" ]]; then
-        echo "# Here you can put environment variables that you would like to override when using local environment" > "$CLI_HOME/../chat-orchestrator/.env.override.composed"
+        if [[ ! -f "$CLI_HOME/../chat-orchestrator/.env.override.composed" ]]; then
+            echo "# Here you can put environment variables that you would like to override when using local environment" > "$CLI_HOME/../chat-orchestrator/.env.override.composed"
+        fi
     fi
 
     set +eo pipefail
@@ -538,6 +540,12 @@ function start() {
 
     for SERVICE in $CONTAINERS
     do
+        if [[ "$__EDITION" != "gitmesh-ee" ]]; then
+             if [[ "$SERVICE" == "chat-orchestrator" ]]; then
+                SKIP=1
+             fi
+        fi
+
         if [[ ${#INGORED_SERVICES[@]} -ne 0 ]]; then
             for IGNORED_SERVICE in "${INGORED_SERVICES[@]}"
             do
@@ -597,6 +605,11 @@ do
         ;;
         dev)
             sed -i 's/VUE_APP_EDITION=gitmesh-ee/VUE_APP_EDITION=gitmesh-ce/g' $CLI_HOME/../frontend/.env.override.local
+            if grep -q "EDITION=" $CLI_HOME/../backend/.env.override.local; then
+                    sed -i 's/EDITION=.*/EDITION=gitmesh-ce/g' $CLI_HOME/../backend/.env.override.local
+                else
+                    echo "EDITION=gitmesh-ce" >> $CLI_HOME/../backend/.env.override.local
+            fi
             DEV=1
             start
             exit;
@@ -658,6 +671,11 @@ do
         ;;
         dev-ee)
             sed -i 's/VUE_APP_EDITION=gitmesh-ce/VUE_APP_EDITION=gitmesh-ee/g' $CLI_HOME/../frontend/.env.override.local
+            if grep -q "EDITION=" $CLI_HOME/../backend/.env.override.local; then
+                    sed -i 's/EDITION=.*/EDITION=gitmesh-ee/g' $CLI_HOME/../backend/.env.override.local
+                else
+                    echo "EDITION=gitmesh-ee" >> $CLI_HOME/../backend/.env.override.local
+            fi
             DEV=1
             start
             exit;

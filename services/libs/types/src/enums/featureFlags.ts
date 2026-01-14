@@ -8,6 +8,7 @@ export enum FeatureFlag {
   ORGANIZATION_ENRICHMENT = 'organization-enrichment',
   SEGMENTS = 'segments',
   QUICKSTART_V2 = 'quickstart-v2',
+  AGENTIC_CHAT = 'agentic-chat',
 
   // opensearch
   SYNCHRONOUS_OPENSEARCH_UPDATES = 'synchronous-opensearch-updates',

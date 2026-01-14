@@ -15,11 +15,15 @@ export const FEATURE_FLAGS = {
   developerMode: 'developer-mode',
   quickstartV2: 'quickstart-v2',
   twitter: 'twitter',
+  agenticChat: 'agentic-chat',
 };
 
 class FeatureFlagService {
   constructor() {
     this.flags = FEATURE_FLAGS;
+
+    console.log('FeatureFlagService: config.isCommunityVersion', config.isCommunityVersion);
+    console.log('FeatureFlagService: config.unleash.url', config.unleash.url);
 
     if (!config.isCommunityVersion && config.unleash.url?.length > 0) {
       const unleashConfig = {
@@ -61,6 +65,7 @@ class FeatureFlagService {
     } catch (err) {
       // Silently handle connection errors - Unleash is optional
       console.warn('Unleash server not available, feature flags will default to enabled');
+      this.unleash = null;
       store.dispatch('tenant/doUpdateFeatureFlag', {
         isReady: true,
         hasError: false,
@@ -72,6 +77,7 @@ class FeatureFlagService {
       this.unleash.start();
     } catch (err) {
       captureException(err);
+      this.unleash = null;
       store.dispatch('tenant/doUpdateFeatureFlag', {
         isReady: true,
         hasError: false,
@@ -104,6 +110,15 @@ class FeatureFlagService {
 
   isFlagEnabled(flag) {
     if (config.isCommunityVersion) {
+      // Disable premium features in Community Edition
+      if (flag === FEATURE_FLAGS.agenticChat) {
+        return false;
+      }
+      return true;
+    }
+
+    // Enable all features for Enterprise Edition (including local dev)
+    if (!config.isCommunityVersion) {
       return true;
     }
 
@@ -141,6 +156,10 @@ class FeatureFlagService {
 
   updateContext(tenant) {
     if (config.isCommunityVersion) {
+      return;
+    }
+
+    if (!this.unleash) {
       return;
     }
 

@@ -28,7 +28,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/],
       resolvers: [
         ElementPlusResolver({
-          importStyle: "sass",
+          importStyle: "css",
         }),
       ],
       dts: "components.d.ts",

@@ -14,6 +14,7 @@
           </el-button>
 
           <el-button
+            v-if="isChatEnabled"
             class="top-tab-btn"
             :class="{ active: selectedTop === 'chat' }"
             @click="setTop('chat')"
@@ -182,7 +183,7 @@
 
               <!-- Insights Alert -->
               <div
-                v-if="activeInsightsCount > 0"
+                v-if="activeInsightsCount > 0 && isChatEnabled"
                 class="p-3 mb-2 bg-purple-500/10 border border-purple-500/20 rounded text-sm"
               >
                 <div class="flex items-start">
@@ -223,6 +224,7 @@ import { watch, computed, onMounted, nextTick, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTopNavStore } from '@/modules/layout/store/topNav';
 import { useTabsStore } from '@/modules/layout/store/tabs';
+import { FeatureFlag } from '@/utils/featureFlag';
 import { signalsMainMenu, chatMenu, devspaceMenu } from '@/modules/layout/config/menu';
 import { useStore } from 'vuex';
 import pageStatus from '@/config/page-status.json';
@@ -236,6 +238,8 @@ const store = useStore();
 
 const tabsContainer = ref(null);
 
+const isChatEnabled = computed(() => FeatureFlag.isFlagEnabled(FeatureFlag.flags.agenticChat));
+
 const isDevMode = import.meta.env.DEV;
 const badge = computed(() => {
   // Check if the current route name exists in the page status config
@@ -248,7 +252,9 @@ const badge = computed(() => {
 
 // Check if container needs minor update on mount
 onMounted(() => {
-  store.dispatch('chat/chat/fetchActiveInsightsCount');
+  if (isChatEnabled.value) {
+    store.dispatch('chat/chat/fetchActiveInsightsCount');
+  }
   
   nextTick(() => {
     if (tabsContainer.value) {

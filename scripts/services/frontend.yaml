@@ -27,7 +27,6 @@ services:
       - ../../frontend/.env.dist.composed
       - ../../frontend/.env.override.local
       - ../../frontend/.env.override.composed
-    command: npm run start:dev
     environment:
       - DOCKER_BUILDKIT=1
       - BACKEND_URL=http://api:8080
@@ -36,6 +35,12 @@ services:
     networks:
       - gitmesh-bridge
     hostname: frontend
+    command: >
+      sh -c "
+      mkdir -p /usr/premium-frontend &&
+      ln -sfn /usr/gitmesh/frontend/node_modules /usr/premium-frontend/node_modules &&
+      npm run start:dev
+      "
     volumes:
       - ../../frontend/src:/usr/gitmesh/frontend/src
       - ../../frontend/public:/usr/gitmesh/frontend/public
