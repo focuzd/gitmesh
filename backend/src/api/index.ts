@@ -217,8 +217,8 @@ setImmediate(async () => {
     './customViews',
     './premium/enrichment',
     './devtel',
-    './chat',
-    './agent-bridge',
+    './premium/chat',
+    './premium/agent-bridge',
   ]
 
   console.log('[API] ===========>  About to load', apiModules.length, 'API modules')

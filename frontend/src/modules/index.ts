@@ -15,7 +15,6 @@ import automation from '@/modules/automation/automation-module';
 import organization from '@/modules/organization/organization-module';
 import task from '@/modules/task/task-module';
 import quickstart from '@/modules/quickstart/quickstart-module';
-import chat from '@/modules/chat/chat-module';
 import user from '@/modules/user/user-module';
 import landing from '@/modules/landing/landing-module';
 import devtel from '@/modules/devspace/devtel-module';
@@ -51,7 +50,6 @@ const modules: Record<string, any> = {
   organization,
   task,
   quickstart,
-  chat,
   user,
   devtel,
   ...premiumModules,
