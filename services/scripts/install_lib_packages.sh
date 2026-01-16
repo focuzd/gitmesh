@@ -20,6 +20,7 @@ FLAGS=$1
 N=1  # sequential installation to avoid npm registry issues
 
 printf '%s\0' $CLI_HOME/../libs/*/ | xargs -0 -n1 -P$N -I{} bash -c '
+    export CI=true
     if [ -f "$0/package.json" ]; then
         lib=$(basename $0)
         printf "${YELLOW}Installing packages for library: $lib! $FLAGS${RESET}\n"
@@ -28,6 +29,7 @@ printf '%s\0' $CLI_HOME/../libs/*/ | xargs -0 -n1 -P$N -I{} bash -c '
 ' {}
 
 printf '%s\0' $CLI_HOME/../archetypes/*/ | xargs -0 -n1 -P$N -I{} bash -c '
+    export CI=true
     if [ -f "$0/package.json" ]; then
         archetype=$(basename $0)
         printf "${YELLOW}Installing packages for archetype: $archetype! $FLAGS${RESET}\n"

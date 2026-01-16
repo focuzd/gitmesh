@@ -65,6 +65,25 @@ setImmediate(async () => {
   // Store chat socket globally for service access
   global.devtelWebSocket = chatSocketInstance
 
+  // Fix stuck integrations on startup
+  try {
+    const { sequelize } = await databaseInit()
+    const stuckIntegrations = await sequelize.query(
+      `UPDATE integrations 
+       SET status = 'done', "updatedAt" = NOW() 
+       WHERE status IN ('mapping', 'in-progress', 'processing') 
+       AND "updatedAt" < NOW() - INTERVAL '30 minutes' 
+       AND "deletedAt" IS NULL
+       RETURNING id, platform, status`,
+      { type: QueryTypes.UPDATE }
+    )
+    if (stuckIntegrations && stuckIntegrations[0] && stuckIntegrations[0].length > 0) {
+      serviceLogger.info({ count: stuckIntegrations[0].length, integrations: stuckIntegrations[0] }, 'Fixed stuck integrations on startup')
+    }
+  } catch (err) {
+    serviceLogger.warn(err, 'Failed to fix stuck integrations on startup')
+  }
+
   const pubSubReceiver = new RedisPubSubReceiver(
     'api-pubsub',
     redisPubSubPair.subClient,

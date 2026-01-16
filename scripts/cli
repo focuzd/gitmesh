@@ -405,7 +405,7 @@ function source_edition() {
 function check_init_premium() {
     source_edition
     if [ $__EDITION == "gitmesh-ee" ]; then
-        $_DC --compatibility -p $PROJECT_NAME -f $CLI_HOME/premium-scaffold.yaml up -d --build --remove-orphans
+        $_DC --compatibility -p $PROJECT_NAME -f $CLI_HOME/premium-scaffold.yaml up -d --build
         init_unleash
     fi
 }

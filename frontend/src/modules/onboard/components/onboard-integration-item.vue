@@ -74,8 +74,11 @@
             <span v-else-if="isWaitingForAction" class="text-orange-500 flex items-center gap-2 font-bold">
               <i class="ri-alert-line text-xs"></i> REQ_ACTION
             </span>
-            <span v-else-if="isConnected" class="text-zinc-400 flex items-center gap-2">
-              <i class="ri-loader-4-line animate-spin text-xs"></i> SYNCING_BUFFER
+            <span v-else-if="isSyncing" class="text-zinc-400 flex items-center gap-2">
+              <i class="ri-loader-4-line animate-spin text-xs"></i> SYNCING
+            </span>
+            <span v-else-if="isConnected" class="text-emerald-400 flex items-center gap-2">
+              <i class="ri-checkbox-circle-line text-xs"></i> READY
             </span>
             <span v-else class="text-zinc-700 flex items-center gap-2">
               <span class="w-1.5 h-1.5 border border-zinc-800"></span> OFFLINE
@@ -158,8 +161,13 @@ const isCurrentDateAfterGivenWorkingDays = (date, workingDays) => {
   return diffDays > workingDays;
 };
 
-// --- Computed States (Unchanged) ---
+// --- Computed States ---
 const isConnected = computed(() => props.integration.status !== undefined);
+const isSyncing = computed(() => 
+  props.integration.status === 'mapping' || 
+  props.integration.status === 'in-progress' ||
+  props.integration.status === 'processing'
+);
 const isDone = computed(() => 
   props.integration.status === 'done' || 
   (props.integration.status === 'error' && !isCurrentDateAfterGivenWorkingDays(props.integration.updatedAt, ERROR_BANNER_WORKING_DAYS_DISPLAY))
@@ -171,12 +179,13 @@ const isError = computed(() =>
 const isNoData = computed(() => props.integration.status === 'no-data');
 const isWaitingForAction = computed(() => props.integration.status === 'pending-action');
 
-// --- Visual Logic (Unchanged but adapted colors) ---
+// --- Visual Logic ---
 const statusColor = computed(() => {
   if (isDone.value) return 'bg-emerald-500';
   if (isError.value || isNoData.value) return 'bg-red-600';
   if (isWaitingForAction.value) return 'bg-orange-500';
-  if (isConnected.value) return 'bg-zinc-700';
+  if (isSyncing.value) return 'bg-blue-500';
+  if (isConnected.value) return 'bg-emerald-500';
   return 'bg-zinc-900'; 
 });
 
@@ -186,7 +195,7 @@ const statusBgColor = computed(() => {
    return 'bg-zinc-800';
 });
 
-// --- Actions (Unchanged) ---
+// --- Actions ---
 const handleDisconnect = () => {
   loadingDisconnect.value = true;
   store.dispatch('integration/doDestroy', props.integration.id).finally(() => {
