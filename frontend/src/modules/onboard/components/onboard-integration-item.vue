@@ -75,7 +75,11 @@
               <i class="ri-alert-line text-xs"></i> REQ_ACTION
             </span>
             <span v-else-if="isSyncing" class="text-zinc-400 flex items-center gap-2">
-              <i class="ri-loader-4-line animate-spin text-xs"></i> SYNCING
+              <i class="ri-loader-4-line animate-spin text-xs"></i> 
+              <span v-if="progressData && progressData.hasRun && progressData.progress > 0">
+                SYNCING {{ progressData.progress }}%
+              </span>
+              <span v-else>SYNCING</span>
             </span>
             <span v-else-if="isConnected" class="text-emerald-400 flex items-center gap-2">
               <i class="ri-checkbox-circle-line text-xs"></i> READY
@@ -86,6 +90,21 @@
           </div>
 
           <span class="text-zinc-800 text-[8px]">v.2.5.0</span>
+        </div>
+
+        <!-- Progress Details -->
+        <div v-if="isSyncing && progressData && progressData.hasRun" class="font-mono text-[8px] text-zinc-500 border-l-2 border-zinc-800 pl-2">
+          <div v-if="progressData.stats && progressData.stats.total > 0" class="flex items-center gap-2">
+            <span class="text-zinc-600">STREAMS:</span>
+            <span class="text-zinc-400">{{ progressData.stats.processed }}/{{ progressData.stats.total }}</span>
+          </div>
+          <div v-if="progressData.statusMessage" class="mt-1 text-zinc-600 italic">
+            {{ progressData.statusMessage }}
+          </div>
+          <div v-if="progressData.isStuck" class="mt-1 text-orange-500 flex items-center gap-1">
+            <i class="ri-alert-line"></i>
+            <span>WARNING: NO_PROGRESS_DETECTED</span>
+          </div>
         </div>
 
         <app-integration-connect
@@ -137,9 +156,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import AppIntegrationConnect from '@/modules/integration/components/integration-connect.vue';
+import { IntegrationService } from '@/modules/integration/integration-service';
 
 const store = useStore();
 const emit = defineEmits(['allowRedirect', 'inviteColleagues']);
@@ -151,6 +171,8 @@ const props = defineProps({
 });
 
 const loadingDisconnect = ref(false);
+const progressData = ref(null);
+let progressInterval = null;
 
 const ERROR_BANNER_WORKING_DAYS_DISPLAY = 7;
 
@@ -160,6 +182,56 @@ const isCurrentDateAfterGivenWorkingDays = (date, workingDays) => {
   const diffDays = Math.ceil(Math.abs(new Date() - targetDate) / (1000 * 60 * 60 * 24));
   return diffDays > workingDays;
 };
+
+const fetchProgress = async () => {
+  console.log('[PROGRESS DEBUG] fetchProgress called for:', props.integration.id);
+  console.log('[PROGRESS DEBUG] Conditions - isConnected:', isConnected.value, 'isDone:', isDone.value, 'isError:', isError.value);
+  console.log('[PROGRESS DEBUG] Integration status:', props.integration.status);
+  
+  if (!isConnected.value || isDone.value || isError.value) {
+    console.log('[PROGRESS DEBUG] Skipping fetch - conditions not met');
+    return;
+  }
+  
+  try {
+    console.log('[PROGRESS DEBUG] Calling API for integration:', props.integration.id);
+    const data = await IntegrationService.getProgress(props.integration.id);
+    console.log('[PROGRESS DEBUG] API Response:', data);
+    
+    // Only update if we got valid data
+    if (data && typeof data === 'object') {
+      progressData.value = data;
+      console.log('[PROGRESS DEBUG] Progress data updated:', progressData.value);
+    } else {
+      console.log('[PROGRESS DEBUG] Invalid data received:', data);
+    }
+  } catch (error) {
+    console.error('[PROGRESS DEBUG] Error fetching progress:', error);
+    console.debug('Integration progress not available yet:', error.message);
+  }
+};
+
+onMounted(() => {
+  console.log('[PROGRESS DEBUG] Component mounted for:', props.integration.id);
+  console.log('[PROGRESS DEBUG] Integration object:', props.integration);
+  console.log('[PROGRESS DEBUG] Mount conditions - isConnected:', isConnected.value, 'isDone:', isDone.value, 'isError:', isError.value);
+  
+  // Fetch progress immediately if in progress
+  if (isConnected.value && !isDone.value && !isError.value) {
+    console.log('[PROGRESS DEBUG] Starting progress polling');
+    fetchProgress();
+    // Poll every 10 seconds
+    progressInterval = setInterval(fetchProgress, 10000);
+  } else {
+    console.log('[PROGRESS DEBUG] NOT starting progress polling - conditions not met');
+  }
+});
+
+onUnmounted(() => {
+  if (progressInterval) {
+    clearInterval(progressInterval);
+  }
+});
 
 // --- Computed States ---
 const isConnected = computed(() => props.integration.status !== undefined);
