@@ -29,11 +29,11 @@ contributors:
   last_activity: '2026-01-11'
   notes: Lead CE maintainer; handles community PR triage.
 - username: ruriazz
-  role: Newbie Contributor
+  role: Active Contributor
   team: CE
   status: active
-  assigned_by: GitMesh-Steward-bot
-  assigned_at: '2025-09-14T06:29:39Z'
+  assigned_by: focuzd
+  assigned_at: '2026-01-18T16:23:34+05:30'
   last_activity: '2025-12-24'
   notes: Automatically onboarded after first merged PR.
 - username: Copilot
