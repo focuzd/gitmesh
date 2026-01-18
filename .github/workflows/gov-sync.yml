@@ -112,7 +112,7 @@ jobs:
           
           # Extract Code Owners from .github/CODEOWNERS for notification
           CODE_OWNERS=""
-          if [ "${{ github.repository }}" == "LF-Decentralized-Trust-labs/gitmesh" ] && [ -f ".github/CODEOWNERS" ]; then
+          if [ "${{ github.repository }}" == "focuzd/gitmesh" ] && [ -f ".github/CODEOWNERS" ]; then
             # Find line matching governance/contributors.yaml and extract @usernames
             CODE_OWNERS=$(grep "governance/contributors.yaml" .github/CODEOWNERS | grep -o "@[a-zA-Z0-9-]*" | tr '\n' ' ')
           fi
