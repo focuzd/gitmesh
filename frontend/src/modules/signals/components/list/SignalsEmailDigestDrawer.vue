@@ -250,7 +250,7 @@ import {
   mapState,
 } from '@/shared/vuex/vuex.helpers';
 import Message from '@/shared/message/message';
-import platformOptions from '@/modules/signals/constants/signals-platforms.json';
+import platformOptions from '@/shared/signals/constants/signals-platforms.json';
 import AppFormItem from '@/shared/form/form-item.vue';
 import formChangeDetector from '@/shared/form/form-change';
 import elementChangeDetector from '@/shared/form/element-change';

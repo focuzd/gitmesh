@@ -37,7 +37,7 @@ import {
 import useVuelidate from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import AppFormItem from '@/shared/form/form-item.vue';
-import platformOptions from '@/modules/signals/constants/signals-platforms.json';
+import platformOptions from '@/shared/signals/constants/signals-platforms.json';
 
 const emit = defineEmits(['update:platforms']);
 const props = defineProps({

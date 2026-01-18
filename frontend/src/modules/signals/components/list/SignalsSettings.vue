@@ -127,7 +127,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import platformOptions from '@/modules/signals/constants/signals-platforms.json';
+import platformOptions from '@/shared/signals/constants/signals-platforms.json';
 import SignalsEmailDigestCard from './SignalsEmailDigestCard.vue';
 import SignalsSettingsDrawer from './SignalsSettingsDrawer.vue';
 import { mapGetters } from '@/shared/vuex/vuex.helpers';

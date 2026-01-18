@@ -15,7 +15,7 @@
 
 <script setup>
 import { defineEmits, defineProps, computed } from 'vue';
-import datePublishedOptions from '@/modules/signals/constants/signals-date-published.json';
+import datePublishedOptions from '@/shared/signals/constants/signals-date-published.json';
 
 const emit = defineEmits(['update:datePublished']);
 const props = defineProps({

@@ -195,10 +195,10 @@ import {
 import { useStore } from 'vuex';
 import moment from 'moment';
 import { formatDateToTimeAgo } from '@/utils/date';
-import platformOptions from '@/modules/signals/constants/signals-platforms.json';
+import platformOptions from '@/shared/signals/constants/signals-platforms.json';
 import { withHttp } from '@/utils/string';
 import { mapGetters } from '@/shared/vuex/vuex.helpers';
-import { SignalsService } from '@/modules/signals/services/signalsService';
+import { SignalsService } from '@/shared/signals/services/SignalsService';
 
 const props = defineProps({
   signal: {
