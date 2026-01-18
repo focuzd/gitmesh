@@ -168,8 +168,8 @@ class FeatureFlagService {
       console.log('- Current tenant:', currentTenant);
       
       if (currentTenant) {
-        // All enterprise edition plans have access to signals: Essential, Scale, Enterprise, Growth, Signals
-        const enterprisePlans = ['Essential', 'Scale', 'Enterprise', 'Growth', 'Signals'];
+        // All enterprise edition plans have access to signals: Pro, Teams+, Enterprise
+        const enterprisePlans = ['Pro', 'Teams+', 'Enterprise'];
         const hasEnterprisePlan = enterprisePlans.includes(currentTenant.plan);
         console.log(`- Plan check for ${flag} - Plan="${currentTenant.plan}", HasAccess=${hasEnterprisePlan}`);
         console.log('- Enterprise plans:', enterprisePlans);
@@ -242,14 +242,14 @@ class FeatureFlagService {
     if (config.isCommunityVersion) {
       return 'Enterprise';
     }
-    return 'Scale';
+    return 'Teams+';
   }
 
   scaleFeatureCopy() {
     if (config.isCommunityVersion) {
       return 'Enterprise';
     }
-    return 'Scale';
+    return 'Teams+';
   }
 }
 

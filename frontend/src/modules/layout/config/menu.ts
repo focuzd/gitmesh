@@ -50,7 +50,7 @@ export const signalsMainMenu: MenuLink[] = [
       
       // Check if user has enterprise plan
       if (tenant) {
-        const enterprisePlans = ['Essential', 'Scale', 'Enterprise', 'Growth', 'Signals'];
+        const enterprisePlans = ['Pro', 'Teams+', 'Enterprise'];
         return enterprisePlans.includes(tenant.plan);
       }
       

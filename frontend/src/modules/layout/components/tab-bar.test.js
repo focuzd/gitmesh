@@ -106,7 +106,7 @@ describe('TabBar Component - Edition-Based Navigation', () => {
       // Should redirect to settings with paywall
       expect(mockRouter.push).toHaveBeenCalledWith({
         name: 'settings',
-        query: { activeTab: 'plans', feature: 'signals' }
+        query: { activeTab: 'plans', feature: 'sentinel' }
       });
     });
   });

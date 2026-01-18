@@ -112,7 +112,7 @@ const section = computed(
 const page = computed(() => pageContent[section.value]);
 const computedFeaturePlan = computed(() => {
   if (config.isCommunityVersion) return 'Custom plan';
-  if (page.value?.headerTitle === 'Signals' || page.value?.headerTitle === 'Sentinel') return 'Essential, Scale, Enterprise, Growth, and Signals plans';
+  if (page.value?.headerTitle === 'Signals' || page.value?.headerTitle === 'Sentinel') return 'Pro, Teams+, and Enterprise plans';
   return 'Scale plan';
 });
 </script>

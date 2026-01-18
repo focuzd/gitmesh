@@ -200,7 +200,7 @@ onMounted(() => {
 });
 
 const getBadge = (plan) => {
-  if (plan === gitmeshHostedPlans.scale && [gitmeshHostedPlans.essential, gitmeshHostedPlans.signals].includes(activePlan.value)) {
+  if (plan === gitmeshHostedPlans.teamsPlus && [gitmeshHostedPlans.pro].includes(activePlan.value)) {
     // Recommended plan
     return {
       class: 'text-brand-600 bg-brand-50',
