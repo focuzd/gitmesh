@@ -42,3 +42,7 @@ events:
   type: ROLE_CHANGE
   details: 'Role changed from ''Core Contributor'' to ''Maintainer'' by @focuzd via
     PR #10'
+- timestamp: '2026-01-18T16:56:15+05:30'
+  type: ROLE_CHANGE
+  details: 'Role changed from ''Maintainer'' to ''Core Contributor'' by @focuzd via
+    PR #10'
