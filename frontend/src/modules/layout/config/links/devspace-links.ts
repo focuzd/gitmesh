@@ -85,8 +85,8 @@ export const projectSettings: MenuLink = {
     id: 'settings',
     label: 'Settings',
     icon: 'ri-settings-3-line',
-    routeName: 'devspace-settings',
-    path: '/devspace/settings',
+    routeName: 'devspace-project-settings',
+    path: '/devspace/project-settings',
     display: () => true,
     disable: () => false,
 };

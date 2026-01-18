@@ -234,6 +234,7 @@ import { useTabsStore } from '@/modules/layout/store/tabs';
 import { FeatureFlag } from '@/utils/featureFlag';
 import { signalsMainMenu, chatMenu, devspaceMenu } from '@/modules/layout/config/menu';
 import { useStore } from 'vuex';
+import config from '@/config';
 // import pageStatus from '@/config/page-status.json';
 const pageStatus: Record<string, string> = {
   "dashboard": "NONE",
@@ -246,7 +247,6 @@ const pageStatus: Record<string, string> = {
   "automations": "COMING SOON",
   "integration": "NONE"
 };
-import config from '@/config';
 
 const route = useRoute();
 const router = useRouter();
@@ -257,11 +257,39 @@ const store = useStore();
 
 const tabsContainer = ref(null);
 
-const isChatEnabled = computed(() => FeatureFlag.isFlagEnabled(FeatureFlag.flags.agenticChat));
+const isChatEnabled = computed(() => {
+  // Chat is only available in Enterprise Edition (premium)
+  if ((config as any).isCommunityVersion) {
+    return false;
+  }
+  return FeatureFlag.isFlagEnabled(FeatureFlag.flags.agenticChat);
+});
 
-// Edition-based tab visibility
+// Edition-based tab visibility with improved logic
 const availableTabs = computed(() => topNav.availableTabs);
-const isTabAvailable = (tab: string) => topNav.isTabAvailable(tab as any);
+
+const isTabAvailable = (tab: string) => {
+  // Use topNav store for consistent tab availability logic
+  const available = topNav.isTabAvailable(tab as any);
+  
+  // Additional edition-based checks for specific tabs
+  if (tab === 'chat') {
+    // Chat is premium-only, not available in Community Edition
+    return !(config as any).isCommunityVersion && available;
+  }
+  
+  if (tab === 'signals') {
+    // Signals is available in both editions, but with different features
+    return available;
+  }
+  
+  if (tab === 'devspace') {
+    // DevSpace is available in all editions
+    return available;
+  }
+  
+  return available;
+};
 
 const isDevMode = (import.meta as any).env?.DEV;
 const badge = computed(() => {
@@ -364,14 +392,32 @@ watch(() => topNav.selected, (newVal) => {
     return;
   }
 
-  // Fallback to first menu link
+  // Fallback to first menu link based on tab selection
   let menu = signalsMainMenu;
-  if (newVal === 'chat') menu = chatMenu;
-  if (newVal === 'devspace') menu = devspaceMenu;
+  if (newVal === 'chat') {
+    menu = chatMenu;
+  } else if (newVal === 'devspace') {
+    menu = devspaceMenu;
+  }
+  
+  // For signals tab, ensure we navigate to community edition routes
+  if (newVal === 'signals') {
+    // Navigate to signals dashboard in community edition
+    router.push({ name: 'signals-dashboard' }).catch(() => {
+      // Fallback to signals root if dashboard route doesn't exist
+      router.push('/signals').catch(() => {});
+    });
+    return;
+  }
+  
+  // For other tabs, use the first available menu item
   const first = menu.find((m: any) => m && (m.routeName || m.path));
   if (first) {
-    if (first.routeName) router.push({ name: first.routeName }).catch(() => {});
-    else if (first.path) router.push(first.path).catch(() => {});
+    if (first.routeName) {
+      router.push({ name: first.routeName }).catch(() => {});
+    } else if (first.path) {
+      router.push(first.path).catch(() => {});
+    }
   }
 }, { immediate: false });
 </script>

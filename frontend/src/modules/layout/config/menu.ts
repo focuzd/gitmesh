@@ -1,5 +1,6 @@
 import { MenuLink } from '@/modules/layout/types/MenuLink';
 import { FeatureFlag } from '@/utils/featureFlag';
+import config from '@/config';
 import home from './links/home';
 import contacts from './links/contacts';
 import organizations from './links/organizations';
@@ -18,7 +19,7 @@ import plansBilling from './links/plans-billing';
 import * as chatLinks from './links/chat-links';
 import * as devspaceLinks from './links/devspace-links';
 
-// Signals tab menu: includes sentinel for enterprise plans
+// Signals tab menu: includes sentinel conditionally for premium users
 export const signalsMainMenu: MenuLink[] = [
   {
     id: 'dashboard',
@@ -37,8 +38,13 @@ export const signalsMainMenu: MenuLink[] = [
     icon: 'ri-shield-line',
     routeName: 'signals-sentinel',
     display: ({ user, tenant }) => {
-      // Check if signals feature flag is enabled (enterprise edition only)
-      if (!FeatureFlag.isFlagEnabled(FeatureFlag.flags.signals)) {
+      // Sentinel is only available in Enterprise Edition (premium)
+      if (config.isCommunityVersion) {
+        return false;
+      }
+      
+      // Check if signals sentinel feature flag is enabled (enterprise edition only)
+      if (!FeatureFlag.isFlagEnabled(FeatureFlag.flags.signalsSentinel)) {
         return false;
       }
       
@@ -62,7 +68,7 @@ export const signalsMainMenu: MenuLink[] = [
 export const sentinelMainMenu: MenuLink[] = signalsMainMenu;
 export const sentinelBottomMenu: MenuLink[] = [];
 
-// Chat-only menu
+// Chat-only menu (premium edition only)
 export const chatMenu: MenuLink[] = [
   chatLinks.conversations,
   chatLinks.agents,
@@ -70,7 +76,7 @@ export const chatMenu: MenuLink[] = [
   chatLinks.insights,
 ];
 
-// DevSpace menu (project management + devtel reports)
+// DevSpace menu (available in all editions - community and premium)
 export const devspaceMenu: MenuLink[] = [
   devspaceLinks.overview,
   devspaceLinks.board,

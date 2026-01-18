@@ -50,6 +50,26 @@ export default async (featureFlag: FeatureFlag, req: any): Promise<boolean> => {
     }
   }
 
+  // For signals sentinel feature, allow only enterprise edition plans
+  // This is the premium-only sentinel page functionality
+  if (featureFlag === FeatureFlag.SIGNALS_SENTINEL) {
+    const tenantPlan = req.currentTenant?.plan
+    const enterprisePlans = [
+      Plans.values.essential,
+      Plans.values.scale, 
+      Plans.values.enterprise,
+      Plans.values.growth,
+      Plans.values.signals
+    ]
+    
+    if (enterprisePlans.includes(tenantPlan)) {
+      return true
+    }
+    
+    // Explicitly deny access for non-enterprise plans
+    return false
+  }
+
   return isFeatureEnabled(
     featureFlag,
     async () => getFeatureFlagTenantContext(req.currentTenant, req.database, req.redis, req.log),

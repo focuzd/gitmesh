@@ -53,8 +53,13 @@ describe('FeatureFlagService', () => {
       mockConfig.isCommunityVersion = true;
     });
 
-    test('should disable signals flag in Community Edition', () => {
+    test('should enable signals flag in Community Edition', () => {
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
+      expect(result).toBe(true);
+    });
+
+    test('should disable signalsSentinel flag in Community Edition', () => {
+      const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signalsSentinel);
       expect(result).toBe(false);
     });
 
@@ -84,26 +89,38 @@ describe('FeatureFlagService', () => {
       mockConfig.isCommunityVersion = false;
     });
 
-    test('should enable signals flag in Enterprise Edition with premium plan', () => {
-      mockStore.state.auth.currentTenant = { plan: 'Pro' };
+    test('should enable signals flag in Enterprise Edition with enterprise plan', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Essential' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       expect(result).toBe(true);
     });
 
-    test('should disable signals flag in Enterprise Edition with non-premium plan', () => {
+    test('should enable signalsSentinel flag in Enterprise Edition with enterprise plan', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Scale' };
+      const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signalsSentinel);
+      expect(result).toBe(true);
+    });
+
+    test('should disable signals flag in Enterprise Edition with non-enterprise plan', () => {
       mockStore.state.auth.currentTenant = { plan: 'Basic' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       expect(result).toBe(false);
     });
 
-    test('should enable signals flag with Teams+ plan', () => {
-      mockStore.state.auth.currentTenant = { plan: 'Teams+' };
+    test('should enable signals flag with Growth plan', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Growth' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       expect(result).toBe(true);
     });
 
     test('should enable signals flag with Enterprise plan', () => {
       mockStore.state.auth.currentTenant = { plan: 'Enterprise' };
+      const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
+      expect(result).toBe(true);
+    });
+
+    test('should enable signals flag with Signals plan', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Signals' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       expect(result).toBe(true);
     });
@@ -137,7 +154,7 @@ describe('FeatureFlagService', () => {
       window.store = {
         state: {
           auth: {
-            currentTenant: { plan: 'Pro' }
+            currentTenant: { plan: 'Essential' }
           }
         }
       };
@@ -153,9 +170,15 @@ describe('FeatureFlagService', () => {
       mockConfig.isCommunityVersion = false;
     });
 
-    test('should enable signals flag in Premium Edition with premium plan', () => {
-      mockStore.state.auth.currentTenant = { plan: 'Pro' };
+    test('should enable signals flag in Premium Edition with enterprise plan', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Essential' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
+      expect(result).toBe(true);
+    });
+
+    test('should enable signalsSentinel flag in Premium Edition', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Scale' };
+      const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signalsSentinel);
       expect(result).toBe(true);
     });
 
@@ -171,18 +194,38 @@ describe('FeatureFlagService', () => {
       mockConfig.isCommunityVersion = false;
     });
 
-    test('should reject deprecated Signals plan', () => {
-      mockStore.state.auth.currentTenant = { plan: 'Signals' };
+    test('should accept all enterprise plans for signals', () => {
+      const enterprisePlans = ['Essential', 'Scale', 'Enterprise', 'Growth', 'Signals'];
+      
+      enterprisePlans.forEach(plan => {
+        mockStore.state.auth.currentTenant = { plan };
+        const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
+        expect(result).toBe(true);
+      });
+    });
+
+    test('should accept all enterprise plans for signalsSentinel', () => {
+      const enterprisePlans = ['Essential', 'Scale', 'Enterprise', 'Growth', 'Signals'];
+      
+      enterprisePlans.forEach(plan => {
+        mockStore.state.auth.currentTenant = { plan };
+        const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signalsSentinel);
+        expect(result).toBe(true);
+      });
+    });
+
+    test('should reject non-enterprise plans', () => {
+      mockStore.state.auth.currentTenant = { plan: 'Basic' };
       const result = FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       expect(result).toBe(false);
     });
 
     test('should log plan check details', () => {
-      mockStore.state.auth.currentTenant = { plan: 'Pro' };
+      mockStore.state.auth.currentTenant = { plan: 'Essential' };
       FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       
       expect(console.log).toHaveBeenCalledWith(
-        'FeatureFlagService: Plan check for signals - Plan="Pro", HasAccess=true'
+        expect.stringContaining('Plan check for signals - Plan="Essential", HasAccess=true')
       );
     });
 
@@ -191,7 +234,7 @@ describe('FeatureFlagService', () => {
       FeatureFlag.isFlagEnabled(FEATURE_FLAGS.signals);
       
       expect(console.log).toHaveBeenCalledWith(
-        'FeatureFlagService: Plan Basic does not have access to signals'
+        expect.stringContaining('Plan Basic does not have access to signals')
       );
     });
   });

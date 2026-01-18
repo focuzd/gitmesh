@@ -5,6 +5,7 @@ import { store } from '@/store';
 
 export const FEATURE_FLAGS = {
   signals: 'signals',
+  signalsSentinel: 'signals-sentinel', // Premium-only sentinel page
   organizations: 'organizations',
   automations: 'automations',
   linkedin: 'linkedin',
@@ -129,11 +130,20 @@ class FeatureFlagService {
 
     // Edition-based logic takes precedence over external services
     if (config.isCommunityVersion) {
-      // Community Edition (gitmesh): disable premium features
-      if (flag === FEATURE_FLAGS.signals || flag === FEATURE_FLAGS.agenticChat) {
+      // Community Edition (gitmesh): Handle signals and premium features differently
+      
+      // Signals base functionality is available in Community Edition
+      if (flag === FEATURE_FLAGS.signals) {
+        console.log(`FeatureFlagService: Community Edition - enabling signals base functionality`);
+        return true;
+      }
+      
+      // Premium-only features disabled in Community Edition
+      if (flag === FEATURE_FLAGS.signalsSentinel || flag === FEATURE_FLAGS.agenticChat) {
         console.log(`FeatureFlagService: Community Edition - disabling premium feature ${flag}`);
         return false;
       }
+      
       // Other features enabled in Community Edition
       console.log(`FeatureFlagService: Community Edition - enabling non-premium feature ${flag}`);
       return true;
@@ -142,9 +152,9 @@ class FeatureFlagService {
     // Enterprise Edition (ee/premium): enable all features by default
     console.log(`FeatureFlagService: Enterprise Edition - evaluating feature ${flag}`);
     
-    // For Enterprise Edition, check plan-based access for signals feature
-    if (flag === FEATURE_FLAGS.signals) {
-      console.log('🏢 Enterprise Edition - checking signals feature access');
+    // For Enterprise Edition, check plan-based access for premium signals features
+    if (flag === FEATURE_FLAGS.signals || flag === FEATURE_FLAGS.signalsSentinel) {
+      console.log(`🏢 Enterprise Edition - checking ${flag} feature access`);
       
       let currentTenant = null;
       

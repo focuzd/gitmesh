@@ -20,7 +20,7 @@ export const useTopNavStore = defineStore('topNav', {
     // Computed property to determine available tabs based on edition
     availableTabs(): TabType[] {
       if (config.isCommunityVersion) {
-        // Community Edition: Signals and DevSpace tabs (Chat is EE only)
+        // Community Edition: Signals and DevSpace tabs (Chat is premium-only)
         return ['signals', 'devspace'];
       } else {
         // Enterprise Edition: Signals, Chat, and DevSpace tabs
@@ -30,7 +30,27 @@ export const useTopNavStore = defineStore('topNav', {
     
     // Check if a specific tab is available in current edition
     isTabAvailable(): (tab: TabType) => boolean {
-      return (tab: TabType) => this.availableTabs.includes(tab);
+      return (tab: TabType) => {
+        const baseAvailable = this.availableTabs.includes(tab);
+        
+        // Additional checks for specific tabs
+        if (tab === 'chat') {
+          // Chat is premium-only, not available in Community Edition
+          return !config.isCommunityVersion && baseAvailable;
+        }
+        
+        if (tab === 'signals') {
+          // Signals is available in both editions
+          return baseAvailable;
+        }
+        
+        if (tab === 'devspace') {
+          // DevSpace is available in all editions
+          return baseAvailable;
+        }
+        
+        return baseAvailable;
+      };
     },
   },
   
@@ -90,10 +110,19 @@ export const useTopNavStore = defineStore('topNav', {
         this.persist();
       } else {
         console.warn(`Tab '${selected}' is not available in current edition. Available tabs:`, this.availableTabs);
-        // Optionally redirect to paywall or show upgrade prompt for Community Edition users
+        
+        // Handle premium feature access attempts in Community Edition
         if (config.isCommunityVersion && selected === 'chat') {
-          // Only Chat is premium now, Signals is available in CE
           console.log(`Community Edition user attempted to access premium tab: ${selected}`);
+          // Don't set the tab, let the calling component handle the redirect
+          return;
+        }
+        
+        // Fallback to first available tab if the requested tab is not available
+        const fallbackTab = this.getDefaultTab();
+        if (fallbackTab !== selected) {
+          this.selected = fallbackTab;
+          this.persist();
         }
       }
     },

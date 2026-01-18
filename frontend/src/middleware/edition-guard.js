@@ -99,6 +99,38 @@ export const checkChatAccess = (to, from, next) => {
 };
 
 /**
+ * Route guard specifically for sentinel access
+ * Combines edition check with signals-sentinel feature flag validation
+ * @param {Object} to - Target route
+ * @param {Object} from - Source route
+ * @param {Function} next - Navigation callback
+ */
+export const checkSentinelAccess = (to, from, next) => {
+  if (config.isCommunityVersion) {
+    // Community edition users should be redirected to upgrade
+    redirectToUpgrade(to, from, next);
+    return;
+  }
+
+  // Enterprise edition - check if signals-sentinel feature is enabled
+  if (!FeatureFlag.isFlagEnabled(FeatureFlag.flags.signalsSentinel)) {
+    console.log('Enterprise Edition user lacks required signals-sentinel feature flag for:', to.path);
+    next({
+      name: 'settings',
+      query: { 
+        activeTab: 'plans', 
+        feature: 'sentinel',
+        from: to.path
+      }
+    });
+    return;
+  }
+
+  // All checks passed
+  next();
+};
+
+/**
  * Utility function to check if a feature is available in current edition
  * @param {string} feature - Feature name (e.g., 'signals', 'chat')
  * @returns {boolean} - Whether feature is available
@@ -115,20 +147,8 @@ export const isFeatureAvailable = (feature) => {
     case 'signals':
       return FeatureFlag.isFlagEnabled(FeatureFlag.flags.signals);
     case 'sentinel':
-      // Sentinel requires both signals flag and enterprise plan
-      if (!FeatureFlag.isFlagEnabled(FeatureFlag.flags.signals)) {
-        return false;
-      }
-      // Check if user has enterprise plan
-      let currentTenant = null;
-      if (window.store?.state?.auth?.currentTenant) {
-        currentTenant = window.store.state.auth.currentTenant;
-      }
-      if (currentTenant) {
-        const enterprisePlans = ['Essential', 'Scale', 'Enterprise', 'Growth', 'Signals'];
-        return enterprisePlans.includes(currentTenant.plan);
-      }
-      return false;
+      // Sentinel requires the new signals-sentinel flag
+      return FeatureFlag.isFlagEnabled(FeatureFlag.flags.signalsSentinel);
     case 'chat':
       return FeatureFlag.isFlagEnabled(FeatureFlag.flags.agenticChat);
     default:
