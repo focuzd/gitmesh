@@ -129,7 +129,7 @@ export const plans = {
       key: communityPlans.community,
       title: 'Community',
       description:
-        "Keep ownership of your data and host gitmesh.dev's community version for free on your own premises",
+        "Keep ownership of your data and host GitMesh Community Edition",
       price: 'Free',
       features: [
         'Unlimited seats',
@@ -150,7 +150,7 @@ export const plans = {
       key: communityPlans.custom,
       title: 'Custom',
       description:
-        "Get access to gitmesh.dev's premium features and support, and host the platform on your own premises",
+        "Get access to GitMesh Enterprise Edition (By Alveoli)",
       price: 'On request',
       featuresNote: 'Everything in Community, plus:',
       features: [
