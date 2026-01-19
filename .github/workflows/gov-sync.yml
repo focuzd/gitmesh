@@ -10,7 +10,7 @@ name: GitMesh Steward Bot
 
 on:
   schedule:
-    - cron: '30 1 * * 5' # Weekly on Friday at 07:00 IST (01:30 UTC)
+    - cron: '30 17 * * 1' # Weekly on Monday at 23:00 IST (17:30 UTC)
   issue_comment:
     types: [created]
   workflow_dispatch:  # Allow manual trigger
