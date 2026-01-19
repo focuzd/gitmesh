@@ -1460,55 +1460,6 @@ export default class IntegrationService {
   }
 
   /**
-   * Adds/updates Stack Overflow integration
-   * @param integrationData  to create the integration object
-   * @returns integration object
-   */
-  async stackOverflowConnectOrUpdate(integrationData) {
-    const transaction = await SequelizeRepository.createTransaction(this.options)
-    let integration
-
-    try {
-      this.options.log.info('Creating Stack Overflow integration!')
-      integration = await this.createOrUpdate(
-        {
-          platform: PlatformType.STACKOVERFLOW,
-          settings: {
-            tags: integrationData.tags,
-            keywords: integrationData.keywords,
-            updateMemberAttributes: true,
-          },
-          status: 'in-progress',
-        },
-        transaction,
-      )
-
-      await SequelizeRepository.commitTransaction(transaction)
-    } catch (err) {
-      await SequelizeRepository.rollbackTransaction(transaction)
-      throw err
-    }
-
-    this.options.log.info(
-      { tenantId: integration.tenantId },
-      'Sending StackOverflow message to int-run-worker!',
-    )
-    try {
-      const emitter = await getIntegrationRunWorkerEmitter()
-      await emitter.triggerIntegrationRun(
-        integration.tenantId,
-        integration.platform,
-        integration.id,
-        true,
-      )
-    } catch (err) {
-      this.options.log.error(err, 'Failed to trigger integration run worker')
-    }
-
-    return integration
-  }
-
-  /**
    * Adds/updates Discourse integration
    * @param integrationData  to create the integration object
    * @returns integration object

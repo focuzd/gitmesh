@@ -23,9 +23,16 @@ export * from './hackernews/grid'
 export * from './hackernews/types'
 export * from './hackernews/memberAttributes'
 
-// Premium integrations (Enterprise Edition only)
-// Note: Premium features are added via setup-ee.sh script for EE deployments
-// CE deployments work without these imports
+export * from './premium/linkedin/grid'
+export * from './premium/linkedin/types'
+export * from './premium/linkedin/memberAttributes'
+
+export * from './premium/hubspot/types'
+export * from './premium/hubspot/api/types'
+export * from './premium/hubspot/field-mapper/mapperFactory'
+export { getProperties as getHubspotProperties } from './premium/hubspot/api/properties'
+export { getTokenInfo as getHubspotTokenInfo } from './premium/hubspot/api/tokenInfo'
+export { getLists as getHubspotLists } from './premium/hubspot/api/lists'
 
 export * from './reddit/grid'
 export * from './reddit/types'
@@ -34,10 +41,6 @@ export * from './reddit/memberAttributes'
 export * from './slack/grid'
 export * from './slack/types'
 export * from './slack/memberAttributes'
-
-export * from './stackoverflow/grid'
-export * from './stackoverflow/types'
-export * from './stackoverflow/memberAttributes'
 
 export * from './twitter/grid'
 export * from './twitter/types'
