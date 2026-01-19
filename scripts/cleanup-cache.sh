@@ -8,6 +8,11 @@ PROJECT_ROOT="$(dirname "$CLI_HOME")"
 
 echo "Cleaning up cache files..."
 
+# Remove old compiled JavaScript files from backend to force TypeScript recompilation
+echo "  - Removing old compiled JavaScript files from backend..."
+find "$PROJECT_ROOT/backend/src" -name "*.js" -type f -delete 2>/dev/null || true
+find "$PROJECT_ROOT/backend/src" -name "*.js.map" -type f -delete 2>/dev/null || true
+
 # Remove CubeJS cache files
 # echo "  - Removing CubeJS cache files..."
 find "$PROJECT_ROOT" -name ".cubestore" -type d -exec rm -rf {} + 2>/dev/null || true

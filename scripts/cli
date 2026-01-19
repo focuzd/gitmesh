@@ -624,6 +624,9 @@ do
             exit;
         ;;
         clean-dev)
+            # Clean up cache files and old compiled JS to prevent stale code issues
+            bash $CLI_HOME/cleanup-cache.sh
+            
             if [[ "$2" == "--ee" ]]; then
                 if grep -q "VUE_APP_EDITION=" $CLI_HOME/../frontend/.env.override.local; then
                     sed -i 's/VUE_APP_EDITION=.*/VUE_APP_EDITION=gitmesh-ee/g' $CLI_HOME/../frontend/.env.override.local
@@ -667,6 +670,9 @@ do
             exit;
         ;;
         clean-dev-backend)
+            # Clean up cache files and old compiled JS to prevent stale code issues
+            bash $CLI_HOME/cleanup-cache.sh
+            
             declare -a INGORED_SERVICES=("frontend")
             CLEAN_START=1
             DEV=1
