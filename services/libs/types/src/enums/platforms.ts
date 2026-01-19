@@ -15,6 +15,9 @@ export enum PlatformType {
   PRODUCTHUNT = 'producthunt',
   YOUTUBE = 'youtube',
   DISCOURSE = 'discourse',
+  // TODO: Git integration is temporarily disabled from the UI
+  // Will be re-enabled in the future to support syncing with different Git platforms
+  // (GitLab, Bitbucket, self-hosted Git servers, etc.)
   GIT = 'git',
   CRUNCHBASE = 'crunchbase',
   HUBSPOT = 'hubspot',
@@ -36,6 +39,8 @@ export enum IntegrationType {
   LINKEDIN = 'linkedin',
   GITMESH = 'gitmesh',
   DISCOURSE = 'discourse',
+  // TODO: Git integration is temporarily disabled from the UI
+  // Will be re-enabled in the future to support syncing with different Git platforms
   GIT = 'git',
   HUBSPOT = 'hubspot',
 }

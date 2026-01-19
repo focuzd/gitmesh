@@ -1257,6 +1257,9 @@ export default class IntegrationService {
 
   /**
    * Adds/updates Git integration
+   * TODO: Git integration is temporarily disabled from the UI
+   * Will be re-enabled in the future to support syncing with different Git platforms
+   * (GitLab, Bitbucket, self-hosted Git servers, etc.)
    * @param integrationData  to create the integration object
    * @returns integration object
    */
@@ -1285,6 +1288,8 @@ export default class IntegrationService {
 
   /**
    * Get all remotes for the Git integration, by segment
+   * TODO: Git integration is temporarily disabled from the UI
+   * Will be re-enabled in the future to support syncing with different Git platforms
    * @returns Remotes for the Git integration
    */
   async gitGetRemotes() {
