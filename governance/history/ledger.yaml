@@ -483,3 +483,7 @@ events:
   type: BOT_ADD
   username: dependabot
   details: Added @dependabot to bots (migrated from contributors if existed) by @focuzd
+- timestamp: '2026-01-21T18:27:56+05:30'
+  type: BOT_ADD
+  username: copilot
+  details: Added @copilot to bots (migrated from contributors if existed) by @focuzd
