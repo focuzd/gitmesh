@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  total_contributors: 14
-  active_contributors: 9
+  total_contributors: 13
+  active_contributors: 8
   last_sync: '2026-01-21T18:11:29+05:30'
 contributors:
 - username: rawx18
@@ -35,14 +35,6 @@ contributors:
   assigned_by: GitMesh-Steward-bot
   assigned_at: '2025-09-14T06:29:39Z'
   last_activity: '2025-12-24'
-  notes: Automatically onboarded after first merged PR.
-- username: Copilot
-  role: Newbie Contributor
-  team: CE
-  status: active
-  assigned_by: GitMesh-Steward-bot
-  assigned_at: '2025-09-15T06:38:06Z'
-  last_activity: '2025-09-15'
   notes: Automatically onboarded after first merged PR.
 - username: dependabot[bot]
   role: Newbie Contributor
