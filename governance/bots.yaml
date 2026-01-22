@@ -2,3 +2,6 @@ bots:
 - username: dependabot[bot]
   added_at: '2026-01-22T14:18:14+05:30'
   added_by: focuzd
+- username: copilot
+  added_at: '2026-01-22T14:20:57+05:30'
+  added_by: focuzd
