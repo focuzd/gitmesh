@@ -59,8 +59,8 @@ FROM segments
 ;
 
 CREATE INDEX IF NOT EXISTS mv_members_cube_tenant ON mv_members_cube ("tenantId");
-CREATE INDEX IF NOT EXISTS mv_activities_cube_timestamp ON mv_activities_cube (timestamp);
-CREATE INDEX IF NOT EXISTS mv_activities_cube_date ON mv_activities_cube (datenId");
+CREATE INDEX IF NOT EXISTS mv_activities_cube_date_idx ON mv_activities_cube ("date");
+CREATE INDEX IF NOT EXISTS mv_activities_cube_tenant ON mv_activities_cube ("tenantId");
 
 CREATE UNIQUE INDEX IF NOT EXISTS mv_members_cube_id ON mv_members_cube (id);
 CREATE UNIQUE INDEX IF NOT EXISTS mv_activities_cube_id ON mv_activities_cube (id);

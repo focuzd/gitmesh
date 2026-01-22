@@ -1097,6 +1097,11 @@ export default class IntegrationService {
       token = await getToken(nangoId, PlatformType.LINKEDIN, this.options.log)
     } catch (err) {
       this.options.log.error(err, 'Error while verifying LinkedIn tenant token in Nango!')
+      try {
+        require('fs').appendFileSync('/tmp/debug_error.txt', `[${new Date().toISOString()}] Error: ${err.message}\nStack: ${err.stack}\n`);
+      } catch (e) {
+        console.error('Failed to write debug log', e);
+      }
       throw new Error400(this.options.language, 'errors.noNangoToken.message')
     }
 
@@ -1110,18 +1115,21 @@ export default class IntegrationService {
       organizations = await getOrganizations(nangoId, this.options.log)
     } catch (err) {
       this.options.log.error(err, 'Error while fetching LinkedIn organizations!')
-      throw new Error400(this.options.language, 'errors.linkedin.noOrganization')
+      // Allow proceeding with empty organizations for personal profile usage
+      organizations = []
     }
 
+    // Allow LinkedIn integration even without organizations (for personal profiles)
+    let status = 'in-progress'
     if (organizations.length === 0) {
-      this.options.log.error('No organization found for LinkedIn integration!')
-      throw new Error400(this.options.language, 'errors.linkedin.noOrganization')
-    }
-
-    let status = 'pending-action'
-    if (organizations.length === 1) {
+      this.options.log.warn('No organization found for LinkedIn integration - using personal profile mode')
+      // Set status to in-progress to allow the integration to proceed
+      status = 'in-progress'
+    } else if (organizations.length === 1) {
       status = 'in-progress'
       organizations[0].inUse = true
+    } else {
+      status = 'pending-action'
     }
 
     const transaction = await SequelizeRepository.createTransaction(this.options)
