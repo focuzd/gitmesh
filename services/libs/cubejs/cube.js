@@ -1,6 +1,16 @@
 const path = require('path');
 const fs = require('fs');
 
+// Import enhanced query rewriter
+let enhancedQueryRewrite;
+try {
+  const { enhancedQueryRewrite: rewriter } = require('./dist/cubejs/src/query-rewriter');
+  enhancedQueryRewrite = rewriter;
+} catch (error) {
+  console.warn('Enhanced query rewriter not available, falling back to legacy implementation:', error.message);
+  enhancedQueryRewrite = null;
+}
+
 module.exports = {
   repositoryFactory: () => {
     return {
@@ -41,8 +51,39 @@ module.exports = {
       },
     };
   },
-  queryRewrite: (query, { securityContext }) => {
-    if (!securityContext.tenantId) {
+  queryRewrite: (query, contextArg) => {
+    // Use enhanced query rewriter if available, otherwise fall back to legacy
+    if (enhancedQueryRewrite) {
+      try {
+        return enhancedQueryRewrite(query, contextArg);
+      } catch (error) {
+        // Enhanced error handling with structured logging and user-friendly messages
+        console.error('Enhanced query rewrite failed:', {
+          error: error.message,
+          code: error.code,
+          statusCode: error.statusCode,
+          suggestions: error.suggestions,
+          details: error.details,
+          correlationId: error.correlationId || 'unknown'
+        });
+        
+        // Re-throw with enhanced error information
+        const enhancedError = new Error(error.message);
+        enhancedError.statusCode = error.statusCode || 400;
+        enhancedError.code = error.code || 'QUERY_REWRITE_ERROR';
+        enhancedError.suggestions = error.suggestions || [];
+        enhancedError.details = error.details;
+        throw enhancedError;
+      }
+    }
+
+    // Legacy query rewriter (fallback)
+    console.warn('Using legacy query rewriter - enhanced version not available');
+    
+    const securityContext = (contextArg && contextArg.securityContext) ? contextArg.securityContext : contextArg;
+
+    if (!securityContext || !securityContext.tenantId) {
+      console.error('Security Context Error. Received:', JSON.stringify(contextArg));
       throw new Error('No id found in Security Context!');
     }
     
