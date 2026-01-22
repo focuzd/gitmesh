@@ -114,14 +114,6 @@ events:
   username: Copilot
   details: 'PR #63: Fix branch selector showing stale branches when switching projects'
 - timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: dependabot[bot]
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/67'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: dependabot[bot]
-  details: 'PR #67: Bump next from 14.2.30 to 14.2.32 in /ui'
-- timestamp: '2025-12-27T10:32:14+05:30'
   type: PR_MERGED
   username: Copilot
   details: 'PR #62: Enhance branch selection UI with search and better ordering using
@@ -475,3 +467,8 @@ events:
   username: focuzd
   details: 'Role changed from ''Newbie Contributor'' to ''Active Contributor'' by
     @RAWx18 via PR #343'
+- timestamp: '2026-01-22T14:18:14+05:30'
+  type: BOT_ADD
+  username: dependabot[bot]
+  details: Added @dependabot[bot] to bots (migrated from contributors if existed)
+    by @focuzd

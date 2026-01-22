@@ -44,14 +44,6 @@ contributors:
   assigned_at: '2025-09-15T06:38:06Z'
   last_activity: '2025-09-15'
   notes: Automatically onboarded after first merged PR.
-- username: dependabot[bot]
-  role: Newbie Contributor
-  team: CE
-  status: active
-  assigned_by: GitMesh-Steward-bot
-  assigned_at: '2025-09-15T08:26:46Z'
-  last_activity: '2026-01-19'
-  notes: Automatically onboarded after first merged PR.
 - username: gagan-ahlawat-0
   role: Newbie Contributor
   team: CE
