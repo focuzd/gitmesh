@@ -102,14 +102,6 @@ events:
   username: Ronit-Raj9
   details: 'PR #66: feat: Add clickable GitHub links and discussions integration'
 - timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: dependabot[bot]
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/67'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: dependabot[bot]
-  details: 'PR #67: Bump next from 14.2.30 to 14.2.32 in /ui'
-- timestamp: '2025-12-27T10:32:14+05:30'
   type: PR_MERGED
   username: Parvm1102
   details: 'PR #68: bug: search repo card fix acc to bet 50 for #104 commit'
@@ -444,3 +436,8 @@ events:
   type: BOT_ADD
   username: copilot
   details: Added @copilot to bots (migrated from contributors if existed) by @RAWx18
+- timestamp: '2026-01-22T16:48:49+05:30'
+  type: BOT_ADD
+  username: dependabot[bot]
+  details: Added @dependabot[bot] to bots (migrated from contributors if existed)
+    by @RAWx18
