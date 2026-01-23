@@ -449,3 +449,8 @@ events:
   type: PR_MERGED
   username: RAWx18
   details: 'PR #358: fix updates'
+- timestamp: '2026-01-23T12:11:38+05:30'
+  type: ROLE_CHANGE
+  username: focuzd
+  details: 'Role changed from ''Active Contributor'' to ''Core Contributor'' by @RAWx18
+    via PR #359'
