@@ -1,8 +1,8 @@
 metadata:
   version: 1.0.0
-  total_contributors: 14
-  active_contributors: 9
-  last_sync: '2026-01-22T15:12:50+05:30'
+  total_contributors: 12
+  active_contributors: 7
+  last_sync: '2026-01-23T07:44:03+05:30'
 contributors:
 - username: rawx18
   role: CEO
@@ -82,7 +82,7 @@ contributors:
   status: active
   assigned_by: GitMesh-Steward-bot
   assigned_at: '2025-10-27T09:08:23Z'
-  last_activity: '2026-01-20'
+  last_activity: '2026-01-22'
   notes: Automatically onboarded after first merged PR.
 - username: jason2000-cpu
   role: Newbie Contributor
@@ -98,5 +98,5 @@ contributors:
   status: active
   assigned_by: GitMesh-Steward-bot
   assigned_at: '2026-01-14T15:00:37Z'
-  last_activity: '2026-01-21'
+  last_activity: '2026-01-22'
   notes: Automatically onboarded after first merged PR.
