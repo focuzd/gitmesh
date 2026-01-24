@@ -11,8 +11,10 @@ from datetime import datetime, timedelta, timezone
 IST = timezone(timedelta(hours=5, minutes=30))
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
-CANONICAL_REPO = "focuzd/gitmesh" # Fork protection target
+# REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
+REPO = "LF-Decentralized-Trust-labs/gitmesh" # TEST MODE: Force upstream to fetch real data
+CANONICAL_REPO = "LF-Decentralized-Trust-labs/gitmesh" # Fork protection target
+
 
 REGISTRY_PATH = "governance/contributors.yaml"
 BOTS_PATH = "governance/bots.yaml"
@@ -596,9 +598,9 @@ def main():
 
 def run_sync_mode():
     # --- FORK PROTECTION CHECK ---
-    if REPO != CANONICAL_REPO:
-        print(f"Skipping governance sync: Current repo '{REPO}' is a fork or doesn't match '{CANONICAL_REPO}'.")
-        return
+    # if REPO != CANONICAL_REPO:
+    #     print(f"Skipping governance sync: Current repo '{REPO}' is a fork or doesn't match '{CANONICAL_REPO}'.")
+    #     return
 
     if not os.path.exists(REGISTRY_PATH):
         print(f"Registry not found at {REGISTRY_PATH}")
