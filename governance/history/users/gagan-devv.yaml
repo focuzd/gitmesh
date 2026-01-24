@@ -1,0 +1,12 @@
+username: gagan-devv
+events:
+- timestamp: '2026-01-24T22:32:43+05:30'
+  type: ONBOARDING
+  details: 'Achieved Newbie status via merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/102'
+- timestamp: '2026-01-24T22:32:43+05:30'
+  type: PR_MERGED
+  details: 'Merged PR #102: feat: Add public repo search for GitHub and GitLab projects
+    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/102)'
+- timestamp: '2026-01-24T22:33:30+05:30'
+  type: PR_MERGED
+  details: 'Merged PR #243: Feat/update landing page UI (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/243)'

@@ -1,8 +1,8 @@
 metadata:
   version: 1.0.0
-  total_contributors: 12
-  active_contributors: 7
-  last_sync:
+  total_contributors: 13
+  active_contributors: 8
+  last_sync: '2026-01-24T22:34:35+05:30'
 contributors:
 - username: rawx18
   role: CEO
@@ -10,7 +10,7 @@ contributors:
   status: active
   assigned_by: EE-board
   assigned_at: '2025-12-01T00:01:00'
-  last_activity: '2026-01-22'
+  last_activity: '2026-01-24'
   notes: Lab Leader CE, Final authority on enterprise decisions.
 - username: ronit-raj9
   role: Maintainer
@@ -99,4 +99,12 @@ contributors:
   assigned_by: GitMesh-Steward-bot
   assigned_at: '2026-01-14T15:00:37Z'
   last_activity: '2026-01-22'
+  notes: Automatically onboarded after first merged PR.
+- username: gagan-devv
+  role: Newbie Contributor
+  team: CE
+  status: active
+  assigned_by: GitMesh-Steward-bot
+  assigned_at: '2025-10-19T09:26:46Z'
+  last_activity: '2025-10-19'
   notes: Automatically onboarded after first merged PR.
