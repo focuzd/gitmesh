@@ -94,6 +94,35 @@ def get_now_ist_str():
     """Returns current IST time in ISO format."""
     return datetime.now(IST).strftime("%Y-%m-%dT%H:%M:%S+05:30")
 
+def get_pr_commits(pr_number):
+    """Fetches all commits associated with a Pull Request."""
+    url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}/commits"
+    commits = []
+    page = 1
+    while True:
+        try:
+            paged_url = f"{url}?per_page=100&page={page}"
+            response = requests.get(paged_url, headers=headers)
+            response.raise_for_status()
+            batch = response.json()
+            if not batch:
+                break
+            
+            for c in batch:
+                # Handle cases where author is None (e.g. commits by email not linked to GitHub user)
+                author_login = c['author']['login'] if c.get('author') else c['commit']['author']['name']
+                commits.append({
+                    'sha': c['sha'],
+                    'message': c['commit']['message'].split('\n')[0], # First line only
+                    'author': author_login,
+                    'date': c['commit']['author']['date']
+                })
+            page += 1
+        except Exception as e:
+            print(f"Error fetching commits for PR #{pr_number}: {e}")
+            break
+    return commits
+
 def get_merged_prs(since_date=None, per_page=100):
     """Fetches merged PRs. If since_date is provided, fetches only PRs merged after that date."""
     all_prs = []
@@ -133,9 +162,13 @@ def get_merged_prs(since_date=None, per_page=100):
                 if since_dt and merged_at_dt <= since_dt:
                     continue
                 
+                merged_by = pr.get('merged_by')
+                merged_by_login = merged_by['login'] if merged_by else 'unknown'
+
                 all_prs.append({
                     'username': pr['user']['login'],
                     'merged_at': pr['merged_at'],
+                    'merged_by': merged_by_login,
                     'url': pr['html_url'],
                     'title': pr['title'],
                     'number': pr['number']
@@ -160,14 +193,20 @@ def get_merged_prs(since_date=None, per_page=100):
     return all_prs
 
 def get_last_activity_date(username):
-    """Queries GitHub Events API to find the user's latest public action."""
+    """Queries GitHub Events API to find the user's latest commit or review in this repo."""
     url = f"https://api.github.com/users/{username}/events/public"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             events = response.json()
             if events and isinstance(events, list):
-                return events[0]['created_at'].split('T')[0]
+                # Filter for events that match BOTH the repository AND the specific types
+                allowed_types = {'PushEvent', 'PullRequestReviewEvent'}
+                
+                for event in events:
+                    if (event.get('repo', {}).get('name') == REPO and 
+                        event.get('type') in allowed_types):
+                        return event['created_at'].split('T')[0]
     except Exception as e:
         print(f"Error fetching activity for {username}: {e}")
     return None
@@ -658,7 +697,18 @@ def run_sync_mode():
         if is_bot:
             # Log bot activity to Bot Ledger/History only
             update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=True)
-            update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=True)
+            
+            # Fetch and log individual commits to the Bot Ledger
+            commits = get_pr_commits(pr['number'])
+            if commits:
+                for commit in commits:
+                    details = f"Commit {commit['sha'][:7]}: {commit['message']} (Ref: PR #{pr['number']})"
+                    update_ledger("COMMIT", commit['author'], details, is_bot=True)
+
+            # Log the Merge Event (Attributed to the Merger)
+            merger = pr.get('merged_by', 'unknown')
+            update_ledger("PR_MERGED", merger, f"Merged PR #{pr['number']} from @{username}: {pr['title']}", is_bot=True)
+            
             # Do NOT add to contributors list
             continue
         
@@ -685,7 +735,17 @@ def run_sync_mode():
         
         # 2. Log PR to History
         update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=False)
-        update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=False)
+        
+        # Fetch and log individual commits to the Ledger
+        commits = get_pr_commits(pr['number'])
+        if commits:
+            for commit in commits:
+                details = f"Commit {commit['sha'][:7]}: {commit['message']} (Ref: PR #{pr['number']})"
+                update_ledger("COMMIT", commit['author'], details, is_bot=False)
+
+        # Log the Merge Event (Attributed to the Merger)
+        merger = pr.get('merged_by', 'unknown')
+        update_ledger("PR_MERGED", merger, f"Merged PR #{pr['number']} from @{username}: {pr['title']}", is_bot=False)
 
     # 3. Update Activity Status (for all contributors)
     print("\nUpdating activity status...")
