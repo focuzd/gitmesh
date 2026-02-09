@@ -174,3 +174,9 @@ events:
 - timestamp: '2026-01-23T07:43:58+05:30'
   type: PR_MERGED
   details: 'Merged PR #358: fix updates (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/358)'
+- timestamp: '2026-02-09T18:32:01+05:30'
+  type: MERGE
+  details: 'Merged PR #359: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:32:02+05:30'
+  type: MERGE
+  details: 'Merged PR #360: Fix inifite looping in steward bot'
