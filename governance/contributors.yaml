@@ -100,11 +100,3 @@ contributors:
   assigned_at: '2026-01-14T15:00:37Z'
   last_activity: '2026-01-22'
   notes: Automatically onboarded after first merged PR.
-- username: github-actions[bot]
-  role: Newbie Contributor
-  team: CE
-  status: active
-  assigned_by: GitMesh-Steward-bot
-  assigned_at: '2026-01-23T06:44:56Z'
-  last_activity: '2026-01-23'
-  notes: Automatically onboarded.
