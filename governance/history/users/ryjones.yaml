@@ -1,0 +1,8 @@
+username: ryjones
+events:
+- timestamp: '2026-02-09T18:52:22+05:30'
+  type: ROLE_ASSIGNMENT
+  details: Assigned Newbie Contributor (via PR https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/1)
+- timestamp: '2026-02-09T18:52:22+05:30'
+  type: MERGE
+  details: 'Merged PR #1: Initial codebase migration from RAWx18/Beetle to LFDT-Beetle'

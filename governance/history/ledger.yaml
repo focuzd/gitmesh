@@ -1,461 +1,2096 @@
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
+- timestamp: '2026-02-09T18:52:21+05:30'
   type: ROLE_ASSIGNMENT
   username: rawx18
   details: 'Role: CEO, Assigned by: EE-board'
-- timestamp: '2025-12-27T10:32:14+05:30'
+- timestamp: '2026-02-09T18:52:21+05:30'
   type: ROLE_ASSIGNMENT
   username: ronit-raj9
-  details: 'Role: CTO, Assigned by: EE-board'
-- timestamp: '2025-12-27T10:32:14+05:30'
+  details: 'Role: Maintainer, Assigned by: rawx18'
+- timestamp: '2026-02-09T18:52:21+05:30'
   type: ROLE_ASSIGNMENT
   username: parvm1102
   details: 'Role: Maintainer, Assigned by: rawx18'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: ruriazz
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: gagan-ahlawat-0
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: mithulcrafts
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: focuzd
+  details: 'Role: Core Contributor, Assigned by: RAWx18'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: SK8-infi
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: berkaymuratt
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: Sharkyii
+  details: 'Role: Active Contributor, Assigned by: RAWx18'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: jason2000-cpu
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  username: DarshanCode2005
+  details: 'Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:22+05:30'
+  type: ROLE_ASSIGNMENT
+  username: ryjones
+  details: Onboarded as Newbie Contributor
+- timestamp: '2026-02-09T18:52:22+05:30'
+  type: MERGE
+  username: ryjones
+  details: 'Merged PR #1: Initial codebase migration from RAWx18/Beetle to LFDT-Beetle'
+- timestamp: '2026-02-09T18:52:22+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #1: Initial codebase migration from RAWx18/Beetle to LFDT-Beetle'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Commit 3853a93: initial codebase from RAWx18/Beetle (PR #1)'
+- timestamp: '2026-02-09T18:52:23+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #20: docs: updated contributing.md'
+- timestamp: '2026-02-09T18:52:23+05:30'
+  type: COMMIT
   username: Parvm1102
-  details: 'PR #20: docs: updated contributing.md'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Ronit-Raj9
-  details: 'PR #27: Implement Comprehensive RAG Chat System with Vector StorageImplement
+  details: 'Commit 604a850: docs: updated contributing.md (PR #20)'
+- timestamp: '2026-02-09T18:52:23+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit d643f07: docs: changes made to contributing.md (PR #20)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #27: Implement Comprehensive RAG Chat System with Vector StorageImplement
     Comprehensive RAG Chat System with Vector Storage'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #28: Added .env.example and updated readme'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Commit 91eb7b6: Add python backend RAG system with agents and embeddings
+    (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #30: Updated gitignore and deleted qdrant storage directory'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Commit 226f72e: Updated RAG with proper embedding (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #31: V2'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #34: fix: Hub/overview page data fetching'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #35: feature: profiles added'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #36: Fix: Shifted database to Supabase'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #37: Clean: removed ai + rag code'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Commit d6b7fc8: folder for qdrant storage (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 9a4ddc3: Updated frontend page for chat with repo (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 41d8ed7: Updated backend for RAG chat (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit b5a3f59: Added residual files (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit d582434: Fixed file selection in sidebar (PR #27)'
+- timestamp: '2026-02-09T18:52:25+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #38: Prod'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #39: fix: updated rag pipeline and made UI compatible for branch import'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #40: Fix: RAG + AI works and minor fixes'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #42: fixed minor ui changes for the import page for selecting the files.'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #51: fixed rag speed and reuploading'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #52: fix: Not owned public repo issue'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #53: Fixed Rag Context and file processing issues'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #28: Added .env.example and updated readme'
+- timestamp: '2026-02-09T18:52:25+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #55: Added Control Panel Data for RAG chat context'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: ruriazz
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/54'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: ruriazz
-  details: 'PR #54: fix: Unable to unselect files in /contribution/chat upload UI'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+  details: 'Commit 29de32e: Added .env.example and updated readme (PR #28)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #30: Updated gitignore and deleted qdrant storage directory'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #58: feat: Added FRONTEND_URL environment variable for configurable
+  details: 'Commit d750368: updated gitignore (PR #30)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 84efeb6: Deleted storage files (PR #30)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 6f9ab26: Remove qdrant_storage from tracking (PR #30)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #31: V2'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit b6a0bdf: Add lib folder with API services and utilities (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 7794e6f: updated gitignore (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 2a2c84d: Update Python backend configuration and dependencies (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 0bdc0ad: Update main app configuration and gitignore rules (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 362599e: Add comprehensive API route structure for v1 endpoints
+    (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 3b1ece1: Add database models and API data models (PR #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit d7c3ffe: Add utility functions for various backend operations (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 75bf2fa: Add backend services layer for business logic (PR #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 5f014de: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into v2 (PR #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #34: fix: Hub/overview page data fetching'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit ba93742: fixed fetching issue on the hub/overview page (PR #34)'
+- timestamp: '2026-02-09T18:52:29+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #35: feature: profiles added'
+- timestamp: '2026-02-09T18:52:29+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 1a3d206: feature: profiles added (PR #35)'
+- timestamp: '2026-02-09T18:52:30+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #36: Fix: Shifted database to Supabase'
+- timestamp: '2026-02-09T18:52:30+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 72220df: fix: Shifted successfully to supabase (PR #36)'
+- timestamp: '2026-02-09T18:52:30+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 96cc9ec: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into main (PR #36)'
+- timestamp: '2026-02-09T18:52:31+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #37: Clean: removed ai + rag code'
+- timestamp: '2026-02-09T18:52:31+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 9f3680e: Clean: removed rag (PR #37)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #38: Prod'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 9f3680e: Clean: removed rag (PR #38)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0a42f14: Merge pull request #37 from Parvm1102/main (PR #38)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f654e47: added: new rag (PR #38)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit bb42aeb: fixed some bugs and added rules (PR #38)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6dabb18: fixed some bugs and added rules (PR #38)'
+- timestamp: '2026-02-09T18:52:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3935ff4: rag changes (PR #38)'
+- timestamp: '2026-02-09T18:52:33+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #39: fix: updated rag pipeline and made UI compatible for branch
+    import'
+- timestamp: '2026-02-09T18:52:33+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit c45e5ab: fix: updated rag pipeline and made UI compatible for branch
+    import (PR #39)'
+- timestamp: '2026-02-09T18:52:34+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #40: Fix: RAG + AI works and minor fixes'
+- timestamp: '2026-02-09T18:52:34+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit de53025: fix: RAG working properly (PR #40)'
+- timestamp: '2026-02-09T18:52:34+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit bc7130a: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into main (PR #40)'
+- timestamp: '2026-02-09T18:52:35+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #42: fixed minor ui changes for the import page for selecting
+    the files.'
+- timestamp: '2026-02-09T18:52:35+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit e0f3757: fixed minor UI changes on the import page (PR #42)'
+- timestamp: '2026-02-09T18:52:35+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 6b10c68: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #42)'
+- timestamp: '2026-02-09T18:52:35+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit f36ad22: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #42)'
+- timestamp: '2026-02-09T18:52:36+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #51: fixed rag speed and reuploading'
+- timestamp: '2026-02-09T18:52:36+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 826c00d: fixed rag speed and reuploading (PR #51)'
+- timestamp: '2026-02-09T18:52:36+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #52: fix: Not owned public repo issue'
+- timestamp: '2026-02-09T18:52:37+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit ae5c492: fix: Not owned public repo issue (PR #52)'
+- timestamp: '2026-02-09T18:52:37+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #53: Fixed Rag Context and file processing issues'
+- timestamp: '2026-02-09T18:52:37+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 3fc7f61: Fixed Rag Context and file processing issues (PR #53)'
+- timestamp: '2026-02-09T18:52:38+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #55: Added Control Panel Data for RAG chat context'
+- timestamp: '2026-02-09T18:52:38+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 0ac0de9: Added Control Panel Data for RAG chat context (PR #55)'
+- timestamp: '2026-02-09T18:52:38+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 31c1615: fix(ui): Make file selection sidebar scrollable (PR #55)'
+- timestamp: '2026-02-09T18:52:39+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #54: fix: Unable to unselect files in /contribution/chat upload
+    UI'
+- timestamp: '2026-02-09T18:52:39+05:30'
+  type: COMMIT
+  username: ruriazz
+  details: 'Commit aab85a2: fix: Unable to unselect files in /contribution/chat upload
+    UI (PR #54)'
+- timestamp: '2026-02-09T18:52:40+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #58: feat: Added FRONTEND_URL environment variable for configurable
     frontend URLs'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
+- timestamp: '2026-02-09T18:52:40+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #66: feat: Add clickable GitHub links and discussions integration'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #68: bug: search repo card fix acc to bet 50 for #104 commit'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #74: Add Apache License 2.0'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #75: feat: added gitlab, fixed ui changes, faster inference, added
-    edit mode'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #81: Fixes in chat page'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #95: Fixed #78, #82, #83,  #92, #93, #94'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: Parvm1102
-  details: 'PR #100: chats are now working more smoothly'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: gagan-ahlawat-0
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/102'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: gagan-ahlawat-0
-  details: 'PR #102: feat: Add public repo search for GitHub and GitLab projects'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: "PR #103: fixed bug: Intermittent \u201CCannot read properties of null\
-    \ (reading 'use\u2026"
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: mithulcrafts
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/104'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #104: Improved user experience by making header logo redirect to home
-    page'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #112: Revise README badges and community links'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: focuzd
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/113'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: focuzd
-  details: 'PR #113: feat: implement create new project feature'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #118: feat: Enable live fetching and automatic PR creation'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: focuzd
-  details: 'PR #121: bug fix: fix chat page content shift when sidebar expands'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #123: Docs/enhance readme.md contribution.md'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #125: After updating repo links in CONTRIBUTING.md'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  username: SK8-infi
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/127'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: SK8-infi
-  details: 'PR #127: Redesign and stabilize /hub/settings/local-providers UI'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #128: UX Improvement: Notifications Accessible via Navbar Bell and
-    removing notifications section from settings'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: ONBOARDING
-  username: berkaymuratt
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/130'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: berkaymuratt
-  details: 'PR #130: add remove profile picture functionality'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #132: After fixing the show details button UI in hub/settings/event-log'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #136: Profile image upload failure UI fix'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: ONBOARDING
-  username: Sharkyii
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/135'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: Sharkyii
-  details: 'PR #135: Integrated Additional MCP Servers'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: SK8-infi
-  details: 'PR #137: Add PR Template'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Commit 4d83c16: feat: Add env for frontend url instead of hardcoding in
+    backend code (PR #58)'
+- timestamp: '2026-02-09T18:52:40+05:30'
+  type: COMMIT
   username: Ronit-Raj9
-  details: 'PR #139: chore: untrack .env.production and update production config'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #141: After fixing the setting update toast bug'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: "PR #143: assign distinct colors to notification filter icons for better\
-    \ visual\u2026"
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: ONBOARDING
-  username: jason2000-cpu
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/144'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: jason2000-cpu
-  details: 'PR #144: fix: fixed the color pallet for better content visibility on
-    both dark and light themes'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: focuzd
-  details: 'PR #145: fix: cloning repo loading screen appearing twice'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: focuzd
-  details: 'PR #146: feat/add a toggle to include readme in create new project dialog'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Commit a08a86a: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into main (PR #58)'
+- timestamp: '2026-02-09T18:52:41+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #150: Update README.md'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #151: `fix:After fixing theme-toggle bug`'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  username: mithulcrafts
-  details: 'PR #152: After adding ISSUE_Templates'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #66: feat: Add clickable GitHub links and discussions integration'
+- timestamp: '2026-02-09T18:52:41+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 8926fff: feat: Add clickable GitHub links and discussions integration
+    (PR #66)'
+- timestamp: '2026-02-09T18:52:42+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #154: feat: pivoted version updated'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #64: Fix import popup not closing after pressing import button'
+- timestamp: '2026-02-09T18:52:43+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #155: minor fix'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #63: Fix branch selector showing stale branches when switching
+    projects'
+- timestamp: '2026-02-09T18:52:44+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #156: auth fixed'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #67: Bump next from 14.2.30 to 14.2.32 in /ui'
+- timestamp: '2026-02-09T18:52:45+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #62: Enhance branch selection UI with search and better ordering
+    using real repository data'
+- timestamp: '2026-02-09T18:52:46+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #68: bug: search repo card fix acc to bet 50 for #104 commit'
+- timestamp: '2026-02-09T18:52:46+05:30'
+  type: COMMIT
   username: Parvm1102
-  details: 'PR #163: fix: solved frontend reload errors and cubejs restarting issues'
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Commit 5e93d61: bug: search repo card fix acc to bet 50 for #104 commit
+    (PR #68)'
+- timestamp: '2026-02-09T18:52:47+05:30'
+  type: MERGE
   username: RAWx18
-  details: "PR #200: fixed feat: simplify GitHub integration with automatic App installati\u2026"
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #74: Add Apache License 2.0'
+- timestamp: '2026-02-09T18:52:47+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #201: feat(gov): establish automated governance registry and history
-    ledger'
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Commit 53610ca: Add Apache License 2.0 (PR #74)'
+- timestamp: '2026-02-09T18:52:48+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #203: sync check'
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #75: feat: added gitlab, fixed ui changes, faster inference,
+    added edit mode'
+- timestamp: '2026-02-09T18:52:48+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #210: fixed the steward bot'
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Commit 64bb86d: feat: added gitlab, fixed ui changes, faster inference,
+    added edit mode (PR #75)'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #211: PAT fix'
-- timestamp: '2025-12-27T10:32:16+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #81: Fixes in chat page'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #213: feat: extend governance with auto-synced contributors registry
-    and full contribution history'
-- timestamp: '2025-12-27T13:54:35+05:30'
-  type: PR_MERGED
+  details: 'Commit a75bf57: some ui fixes (PR #81)'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #214: chore(gov): automated governance registry & history sync'
-- timestamp: '2025-12-27T13:54:35+05:30'
-  type: PR_MERGED
+  details: 'Commit 677ec51: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #81)'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #222: fixed two issues'
-- timestamp: '2025-12-27T13:54:35+05:30'
-  type: PR_MERGED
+  details: 'Commit 77bcc97: minor fixes with lint checks (PR #81)'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #224: bug: gitmesh steward bot workflow creates infinite PR loop'
-- timestamp: '2025-12-28T22:59:37+05:30'
-  type: PR_MERGED
+  details: 'Commit 6790e84: bug: fix the appID (PR #81)'
+- timestamp: '2026-02-09T18:52:49+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit daecb72: cloned repo context issue resolved (PR #81)'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #225: chore(gov): automated governance registry & history sync'
-- timestamp: '2025-12-28T22:59:38+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #95: Fixed #78, #82, #83,  #92, #93, #94'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit efae15b: fix: now previous chats opening perfectly (PR #95)'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #239: fixed slack integration'
-- timestamp: '2025-12-28T22:59:38+05:30'
-  type: PR_MERGED
+  details: 'Commit c225630: fixed issue #83 and repo card button to open in gitmesh
+    (PR #95)'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #241: fixed multiple issues'
-- timestamp: '2025-12-28T22:59:38+05:30'
-  type: PR_MERGED
-  username: gagan-ahlawat-0
-  details: 'PR #243: Feat/update landing page UI'
-- timestamp: '2025-12-28T22:59:38+05:30'
-  type: PR_MERGED
+  details: 'Commit 5b8626f: fixed #93 and #82 ui fixes (PR #95)'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #247: fixed an organization bug'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Commit fc1cfd8: added a check for sign-off commit (PR #95)'
+- timestamp: '2026-02-09T18:52:50+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #248: chore(gov): automated governance registry & history sync'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Commit dbc167c: minor fixes in svg not found (PR #95)'
+- timestamp: '2026-02-09T18:52:51+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #250: fixes'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #100: chats are now working more smoothly'
+- timestamp: '2026-02-09T18:52:51+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit e98d83a: chats are now working more smoothly (PR #100)'
+- timestamp: '2026-02-09T18:52:52+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #252: fixed docker issues'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #102: feat: Add public repo search for GitHub and GitLab projects'
+- timestamp: '2026-02-09T18:52:52+05:30'
+  type: ROLE_ASSIGNMENT
+  username: gagan-devv
+  details: Onboarded as Newbie Contributor
+- timestamp: '2026-02-09T18:52:52+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit 8588728: modified search bar on hub/projects page to search in
+    public github repositories (PR #102)'
+- timestamp: '2026-02-09T18:52:53+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit 24d90ca: updated searchbar on hub/projects to search public repos
+    from github and gitlab (PR #102)'
+- timestamp: '2026-02-09T18:52:53+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit 4fa4cfb: updated searchbar on hub/projects to search public repos
+    from github and gitlab (PR #102)'
+- timestamp: '2026-02-09T18:52:53+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit cd14d89: Added UI flag to show the source of project on hub/projects
+    page (PR #102)'
+- timestamp: '2026-02-09T18:52:53+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit ae2d8c4: Added UI flag to show the source of project on hub/projects
+    page (PR #102)'
+- timestamp: '2026-02-09T18:52:54+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #255: fixed envs'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: "Merged PR #103: fixed bug: Intermittent \u201CCannot read properties of\
+    \ null (reading 'use\u2026"
+- timestamp: '2026-02-09T18:52:54+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #258: fixed automation page'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: "Commit 7004214: fixed bug: Intermittent \u201CCannot read properties of\
+    \ null (reading 'useContext')\u201D error fixed #98 (PR #103)"
+- timestamp: '2026-02-09T18:52:55+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #261: Added DevSpace'
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #104: Improved user experience by making header logo redirect
+    to home page'
+- timestamp: '2026-02-09T18:52:55+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 1020a50: Improved user experience by making header logo redirect
+    to home page (PR #104)'
+- timestamp: '2026-02-09T18:52:55+05:30'
+  type: MERGE
   username: RAWx18
-  details: "PR #267: major rebase issue created causing 73 commits rebase, finally\
-    \ conflic\u2026"
-- timestamp: '2026-01-05T21:38:32+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #111: feat: Enforce signed commits with reliable commit-msg
+    hook'
+- timestamp: '2026-02-09T18:52:56+05:30'
+  type: ROLE_ASSIGNMENT
+  username: bhanuprasad14
+  details: Onboarded as Newbie Contributor
+- timestamp: '2026-02-09T18:52:56+05:30'
+  type: COMMIT
+  username: bhanuprasad14
+  details: 'Commit 8e06ccb: feat: Add commit-msg hook to enforce signed commits (PR
+    #111)'
+- timestamp: '2026-02-09T18:52:56+05:30'
+  type: COMMIT
+  username: bhanuprasad14
+  details: 'Commit c9ed52d: fix: Add validation for commit message file in commit-msg
+    hook (PR #111)'
+- timestamp: '2026-02-09T18:52:57+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #270: added fixes for devspace pages'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #112: Revise README badges and community links'
+- timestamp: '2026-02-09T18:52:57+05:30'
+  type: COMMIT
   username: RAWx18
-  details: 'PR #271: chore(gov): automated governance registry & history sync'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
+  details: 'Commit 99119c7: Revise README badges and community links (PR #112)'
+- timestamp: '2026-02-09T18:52:58+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #291: Fixed multiple issues '
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #296: fixes issues'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #298: ip SSRF improper categorization in isPublic fixed'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #300: fixes'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #329: fixed some bugs'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #331: fixed'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: ONBOARDING
-  username: DarshanCode2005
-  details: 'First merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/265'
-- timestamp: '2026-01-14T20:30:58+05:30'
-  type: PR_MERGED
-  username: DarshanCode2005
-  details: 'PR #265: Fix Groups.io integration reliability: cookie refresh, error
-    handling, and webhook validation'
-- timestamp: '2026-01-19T13:53:13+05:30'
-  type: PR_MERGED
-  username: RAWx18
-  details: 'PR #333: chore(gov): automated governance registry & history sync'
-- timestamp: '2026-01-19T13:53:13+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #113: feat: implement create new project feature'
+- timestamp: '2026-02-09T18:52:58+05:30'
+  type: COMMIT
   username: focuzd
-  details: 'PR #338: Fix /gov commands for role change in steward bot.'
-- timestamp: '2026-01-19T13:53:13+05:30'
-  type: PR_MERGED
-  username: focuzd
-  details: 'PR #341: Update GitHub steward bot schedule and fix case mismatch'
-- timestamp: '2026-01-19T13:55:27+05:30'
-  type: ROLE_CHANGE
-  username: focuzd
-  details: 'Role changed from ''Newbie Contributor'' to ''Active Contributor'' by
-    @RAWx18 via PR #343'
-- timestamp: '2026-01-22T15:12:45+05:30'
-  type: PR_MERGED
+  details: 'Commit 1736a89: feat: implement create new project feature (PR #113)'
+- timestamp: '2026-02-09T18:52:58+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #343: chore(gov): automated governance registry & history sync'
-- timestamp: '2026-01-22T15:12:45+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #118: feat: Enable live fetching and automatic PR creation'
+- timestamp: '2026-02-09T18:52:59+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit aac1f62: feat: Enable live fetching and automatic PR creation (PR
+    #118)'
+- timestamp: '2026-02-09T18:52:59+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #344: fixed'
-- timestamp: '2026-01-22T15:12:45+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #121: bug fix: fix chat page content shift when sidebar expands'
+- timestamp: '2026-02-09T18:53:00+05:30'
+  type: COMMIT
   username: focuzd
-  details: 'PR #352: Add Bot Management for a clean separation between bots and contributor'
-- timestamp: '2026-01-22T16:46:18+05:30'
-  type: BOT_ADD
-  username: copilot
-  details: Added @copilot to bots (migrated from contributors if existed) by @RAWx18
-- timestamp: '2026-01-22T16:48:49+05:30'
-  type: BOT_ADD
-  username: dependabot[bot]
-  details: Added @dependabot[bot] to bots (migrated from contributors if existed)
-    by @RAWx18
-- timestamp: '2026-01-23T07:43:57+05:30'
-  type: PR_MERGED
+  details: 'Commit d1c53ef: bug fix: fix chat page content shift when sidebar expands
+    (PR #121)'
+- timestamp: '2026-02-09T18:53:00+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #353: chore(gov): automated governance registry & history sync'
-- timestamp: '2026-01-23T07:43:58+05:30'
-  type: PR_MERGED
+  details: 'Merged PR #123: Docs/enhance readme.md contribution.md'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 0eaa462: After enchancing README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 7e5f570: After making a small modification in README.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 6048fdd: After updating README.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit be4e644: After updating the README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 7cdfdec: After updating the README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:02+05:30'
+  type: MERGE
   username: RAWx18
-  details: 'PR #358: fix updates'
-- timestamp: '2026-01-23T12:11:38+05:30'
-  type: ROLE_CHANGE
-  username: focuzd
-  details: 'Role changed from ''Active Contributor'' to ''Core Contributor'' by @RAWx18
-    via PR #359'
-- timestamp: '2026-01-23T12:14:31+05:30'
-  type: ROLE_CHANGE
+  details: 'Merged PR #125: After updating repo links in CONTRIBUTING.md'
+- timestamp: '2026-02-09T18:53:02+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 208fe2b: After updating repo links in CONTRIBUTING.md (PR #125)'
+- timestamp: '2026-02-09T18:53:03+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #127: Redesign and stabilize /hub/settings/local-providers UI'
+- timestamp: '2026-02-09T18:53:03+05:30'
+  type: COMMIT
+  username: SK8-infi
+  details: 'Commit 4585ec0: ''fix'' (PR #127)'
+- timestamp: '2026-02-09T18:53:04+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #128: UX Improvement: Notifications Accessible via Navbar Bell
+    and removing notifications section from settings'
+- timestamp: '2026-02-09T18:53:04+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit bc802a9: After relocating Notifications Icon (PR #128)'
+- timestamp: '2026-02-09T18:53:05+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #130: add remove profile picture functionality'
+- timestamp: '2026-02-09T18:53:05+05:30'
+  type: COMMIT
+  username: berkaymuratt
+  details: 'Commit 7ebaac0: add remove profile picture functionality (PR #130)'
+- timestamp: '2026-02-09T18:53:05+05:30'
+  type: COMMIT
+  username: berkaymuratt
+  details: 'Commit 4998f87: reset file input on avatar removal to allow same file
+    re-upload (PR #130)'
+- timestamp: '2026-02-09T18:53:06+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #132: After fixing the show details button UI in hub/settings/event-log'
+- timestamp: '2026-02-09T18:53:06+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 3b88da3: After fixing the show details button UI in hub/settings/event-log
+    (PR #132)'
+- timestamp: '2026-02-09T18:53:07+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #136: Profile image upload failure UI fix'
+- timestamp: '2026-02-09T18:53:07+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 2e23e9e: Profile image upload failure ui fix (PR #136)'
+- timestamp: '2026-02-09T18:53:08+05:30'
+  type: MERGE
+  username: Ronit-Raj9
+  details: 'Merged PR #135: Integrated Additional MCP Servers'
+- timestamp: '2026-02-09T18:53:08+05:30'
+  type: COMMIT
   username: Sharkyii
-  details: 'Role changed from ''Newbie Contributor'' to ''Active Contributor'' by
-    @RAWx18 via PR #359'
+  details: 'Commit 49fee49: Integrated Github and slack MCP servers (PR #135)'
+- timestamp: '2026-02-09T18:53:08+05:30'
+  type: COMMIT
+  username: Sharkyii
+  details: 'Commit f33bfdc: MCP servers integerated (PR #135)'
+- timestamp: '2026-02-09T18:53:09+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #137: Add PR Template'
+- timestamp: '2026-02-09T18:53:09+05:30'
+  type: COMMIT
+  username: SK8-infi
+  details: 'Commit d5985de: Add PR Template (PR #137)'
+- timestamp: '2026-02-09T18:53:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6c52edd: Revise PR template for improved structure and guidance
+    (PR #137)'
+- timestamp: '2026-02-09T18:53:10+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #139: chore: untrack .env.production and update production config'
+- timestamp: '2026-02-09T18:53:10+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 6668e22: chore: untrack .env.production and update production config
+    (PR #139)'
+- timestamp: '2026-02-09T18:53:11+05:30'
+  type: COMMIT
+  username: Ronit-Raj9
+  details: 'Commit 1965236: docs: add Docker build and run commands to README (PR
+    #139)'
+- timestamp: '2026-02-09T18:53:12+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #141: After fixing the setting update toast bug'
+- timestamp: '2026-02-09T18:53:12+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 91bceed: After fixing the setting update toast bug (PR #141)'
+- timestamp: '2026-02-09T18:53:13+05:30'
+  type: MERGE
+  username: Ronit-Raj9
+  details: "Merged PR #143: assign distinct colors to notification filter icons for\
+    \ better visual\u2026"
+- timestamp: '2026-02-09T18:53:13+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit d933318: assign distinct colors to notification filter icons for
+    better visual clarity (PR #143)'
+- timestamp: '2026-02-09T18:53:14+05:30'
+  type: MERGE
+  username: Ronit-Raj9
+  details: 'Merged PR #144: fix: fixed the color pallet for better content visibility
+    on both dark and light themes'
+- timestamp: '2026-02-09T18:53:14+05:30'
+  type: COMMIT
+  username: jason2000-cpu
+  details: 'Commit c43c377: fix: fixed the color pallet for better content visibility
+    on both dark and light themes (PR #144)'
+- timestamp: '2026-02-09T18:53:15+05:30'
+  type: MERGE
+  username: Ronit-Raj9
+  details: 'Merged PR #145: fix: cloning repo loading screen appearing twice'
+- timestamp: '2026-02-09T18:53:15+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 995f505: bug: fix cloning repo loading screen appearing twice (PR
+    #145)'
+- timestamp: '2026-02-09T18:53:16+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #146: feat/add a toggle to include readme in create new project
+    dialog'
+- timestamp: '2026-02-09T18:53:16+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit b364942: feat/add a toggle to include readme in create new project
+    dialog (PR #146)'
+- timestamp: '2026-02-09T18:53:17+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #150: Update README.md'
+- timestamp: '2026-02-09T18:53:17+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c80946d: Update README.md (PR #150)'
+- timestamp: '2026-02-09T18:53:18+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #151: `fix:After fixing theme-toggle bug`'
+- timestamp: '2026-02-09T18:53:18+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 48c6fb7: After fixing theme-toggle bug (PR #151)'
+- timestamp: '2026-02-09T18:53:19+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #152: After adding ISSUE_Templates'
+- timestamp: '2026-02-09T18:53:19+05:30'
+  type: COMMIT
+  username: mithulcrafts
+  details: 'Commit 735d379: After adding ISSUE_Templates (PR #152)'
+- timestamp: '2026-02-09T18:53:20+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #154: feat: pivoted version updated'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c6c6e3a: removed some of the config to restructure arch (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ca74fe3: removed scripts to be re written them in vite to improve
+    performance and to use tenant system (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 65b1356: electron and web container gets difficult to host without
+    cloudflare creates scale issues (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 40aab01: arch update required from react to vue (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9bc5529: codebase arch update required (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit bde26c8: services needed to be updated with new arch (PR #154)'
+- timestamp: '2026-02-09T18:53:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8ce3ada: removed old unnecessary images (PR #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4085c12: old wrangler and cloudlfare pkgs and configs removed (PR
+    #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4dc3030: updated icons (PR #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4f0d10b: preparation to cleanup codebase for newer arch and feat
+    pivot (PR #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ef822d6: Prep to update to newer ce and ee arch for sync of codebases
+    (PR #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b9729a4: removing old conducts and management to establish a new
+    governance (PR #154)'
+- timestamp: '2026-02-09T18:53:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1bb6b4c: adding new rules and config for vibe coders (PR #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cc021f1: added aider ide rules (PR #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 16cb8a7: added claude code rules (PR #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 70112f4: added cody cli rules (PR #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b81bd09: added few more most used vibe coding tool''s rules (PR
+    #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f60d62b: added shell cmds to activate and deactivate vibe coding
+    using symlink (PR #154)'
+- timestamp: '2026-02-09T18:53:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a3a2458: new governance structure established for the pivot and
+    to separate ce and ee versions (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4e48b86: added changelog and roadmap to track future and past of
+    project (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 59c7edc: new code of conduct as been established (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8fbc39b: docs to be maintained for future use (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit fc46b02: added required python envs and added templates (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 95b8982: added scripts for builders and deployments (PR #154)'
+- timestamp: '2026-02-09T18:53:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d9b609b: added architectural files (PR #154)'
+- timestamp: '2026-02-09T18:53:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 09ae795: added altering library module (PR #154)'
+- timestamp: '2026-02-09T18:53:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ae0713d: added integrations module (PR #154)'
+- timestamp: '2026-02-09T18:53:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6fb68fb: added conversionations module for services dir (PR #154)'
+- timestamp: '2026-02-09T18:53:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 28ce18b: redis database has been added (PR #154)'
+- timestamp: '2026-02-09T18:53:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 644e321: cubejs has been added (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 20bcab0: added db module (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c5b1eb1: added logging module (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 78522a1: feat added sentimental analysis lib (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9ffd847: now using opensearch for search engine within system to
+    use more opensource components (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f2d9ecf: improvement traces will be tracked now added lib (PR #154)'
+- timestamp: '2026-02-09T18:53:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a59fd3f: added temporal module (PR #154)'
+- timestamp: '2026-02-09T18:53:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 11dc281: added types lib (PR #154)'
+- timestamp: '2026-02-09T18:53:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 87e69c2: added sqs (PR #154)'
+- timestamp: '2026-02-09T18:53:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 93a3116: common lib added (PR #154)'
+- timestamp: '2026-02-09T18:53:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 62aad3b: added feature flags for better sync between ce and ee
+    (PR #154)'
+- timestamp: '2026-02-09T18:53:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2f861c9: added scripts for services adaptibility (PR #154)'
+- timestamp: '2026-02-09T18:53:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1089473: dockerignore added to services (PR #154)'
+- timestamp: '2026-02-09T18:53:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit bd388cb: added automations workers for ci cd (PR #154)'
+- timestamp: '2026-02-09T18:53:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 92a9b98: added temporal codec servers (PR #154)'
+- timestamp: '2026-02-09T18:53:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d6439f5: integrations data workers added (PR #154)'
+- timestamp: '2026-02-09T18:53:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9edc51d: added workers to sync integrations (PR #154)'
+- timestamp: '2026-02-09T18:53:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a9ed7ce: added workers to run integrations (PR #154)'
+- timestamp: '2026-02-09T18:53:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 180dc96: added stream integrations worker (PR #154)'
+- timestamp: '2026-02-09T18:53:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 15685f8: addded email workers (PR #154)'
+- timestamp: '2026-02-09T18:53:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6b04bd0: syncing search using api (PR #154)'
+- timestamp: '2026-02-09T18:53:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d3fb9cd: added consumer template (PR #154)'
+- timestamp: '2026-02-09T18:53:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1646ecf: added app to sync search workers (PR #154)'
+- timestamp: '2026-02-09T18:53:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 86a20db: added workers template (PR #154)'
+- timestamp: '2026-02-09T18:53:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cb344b8: added webhook apis (PR #154)'
+- timestamp: '2026-02-09T18:53:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit e7b0080: workers to sink data (PR #154)'
+- timestamp: '2026-02-09T18:53:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c2a5059: added scripts in frontend (PR #154)'
+- timestamp: '2026-02-09T18:53:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ccfbb61: updates in ui for massive changes for pivoting added (PR
+    #154)'
+- timestamp: '2026-02-09T18:53:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6d886ee: added public data (PR #154)'
+- timestamp: '2026-02-09T18:53:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8db7b10: added site workers (PR #154)'
+- timestamp: '2026-02-09T18:53:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3758fe2: added unit tests (PR #154)'
+- timestamp: '2026-02-09T18:53:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3f3d97e: added some required frontend modules (PR #154)'
+- timestamp: '2026-02-09T18:53:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5efa8a3: server commit added (PR #154)'
+- timestamp: '2026-02-09T18:53:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f0d0344: backend util dir with utility tools added (PR #154)'
+- timestamp: '2026-02-09T18:53:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9904a21: config added for backend (PR #154)'
+- timestamp: '2026-02-09T18:53:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2f90baf:  (PR #154)'
+- timestamp: '2026-02-09T18:53:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 15c17fb:  (PR #154)'
+- timestamp: '2026-02-09T18:53:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit df47f2f:  (PR #154)'
+- timestamp: '2026-02-09T18:53:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ae286cd:  (PR #154)'
+- timestamp: '2026-02-09T18:53:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 92b5ec5:  (PR #154)'
+- timestamp: '2026-02-09T18:53:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c2ee449:  (PR #154)'
+- timestamp: '2026-02-09T18:53:34+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 402bce0:  (PR #154)'
+- timestamp: '2026-02-09T18:53:35+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #155: minor fix'
+- timestamp: '2026-02-09T18:53:35+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit e985776: fix (PR #155)'
+- timestamp: '2026-02-09T18:53:35+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 88cead7: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #155)'
+- timestamp: '2026-02-09T18:53:36+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #156: auth fixed'
+- timestamp: '2026-02-09T18:53:36+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 26b4c24: fix: Clean up JS files and update gitignore to exclude
+    premium directories (PR #156)'
+- timestamp: '2026-02-09T18:53:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1255dce: fix: Remove premium features from CE version (PR #156)'
+- timestamp: '2026-02-09T18:53:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1199f47: fixed ce and ee routing (PR #156)'
+- timestamp: '2026-02-09T18:53:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cbcc673: fixed bugs with func of github (PR #156)'
+- timestamp: '2026-02-09T18:53:38+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #163: fix: solved frontend reload errors and cubejs restarting
+    issues'
+- timestamp: '2026-02-09T18:53:38+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 8d86bb0: fix: solved frontend reload errors and cubejs restarting
+    issues (PR #163)'
+- timestamp: '2026-02-09T18:53:39+05:30'
+  type: COMMIT
+  username: Parvm1102
+  details: 'Commit 987dcca: fix: The 500 internal server errors on Axios resolved
+    (PR #163)'
+- timestamp: '2026-02-09T18:53:40+05:30'
+  type: MERGE
+  username: RAWx18
+  details: "Merged PR #200: fixed feat: simplify GitHub integration with automatic\
+    \ App installati\u2026"
+- timestamp: '2026-02-09T18:53:40+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 36a9b0f: fixed feat: simplify GitHub integration with automatic
+    App installation flow closes #171 (PR #200)'
+- timestamp: '2026-02-09T18:53:41+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #201: feat(gov): establish automated governance registry and
+    history ledger'
+- timestamp: '2026-02-09T18:53:41+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8556642: feat(gov): establish automated governance registry and
+    history ledger (PR #201)'
+- timestamp: '2026-02-09T18:53:42+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #202: fix(workflows): enable push permissions for governance
+    auto-sync workflow'
+- timestamp: '2026-02-09T18:53:43+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #203: sync check'
+- timestamp: '2026-02-09T18:53:44+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4362b25: sync check (PR #203)'
+- timestamp: '2026-02-09T18:53:45+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #204: [WIP] Add auto-synced contributors registry with full
+    contribution history'
+- timestamp: '2026-02-09T18:53:46+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #206: Add DCO workflow and fix governance sync for branch protection'
+- timestamp: '2026-02-09T18:53:47+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #207: fix(dco): exempt merge commits from DCO sign-off requirement'
+- timestamp: '2026-02-09T18:53:48+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #208: fix: resolve YAML syntax error in gov-sync workflow'
+- timestamp: '2026-02-09T18:53:49+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #209: fix: handle missing labels in governance sync workflow'
+- timestamp: '2026-02-09T18:53:50+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #210: fixed the steward bot'
+- timestamp: '2026-02-09T18:53:51+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c228605: fixed the steward bot (PR #210)'
+- timestamp: '2026-02-09T18:53:52+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #211: PAT fix'
+- timestamp: '2026-02-09T18:53:52+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5b3e401: PAT fix (PR #211)'
+- timestamp: '2026-02-09T18:53:52+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b219dc5: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #211)'
+- timestamp: '2026-02-09T18:53:53+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #213: feat: extend governance with auto-synced contributors
+    registry and full contribution history'
+- timestamp: '2026-02-09T18:53:53+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d77e6bf: username fix for auto sync (PR #213)'
+- timestamp: '2026-02-09T18:53:54+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit acc75b0: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #213)'
+- timestamp: '2026-02-09T18:53:55+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #214: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:53:55+05:30'
+  type: ROLE_ASSIGNMENT
+  username: github-actions[bot]
+  details: Onboarded as Newbie Contributor
+- timestamp: '2026-02-09T18:53:55+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 668fcc1: chore(gov): auto-sync activity and history logs (PR #214)'
+- timestamp: '2026-02-09T18:53:56+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #222: fixed two issues'
+- timestamp: '2026-02-09T18:53:56+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 140e53a: feat: add navigation button to return to home during auth
+    flow (PR #222)'
+- timestamp: '2026-02-09T18:53:57+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 26d961d: feat: add configurable Terms & Privacy pages linked from
+    auth flow (PR #222)'
+- timestamp: '2026-02-09T18:53:57+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 70430a5: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #222)'
+- timestamp: '2026-02-09T18:53:58+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #224: bug: gitmesh steward bot workflow creates infinite PR
+    loop'
+- timestamp: '2026-02-09T18:53:58+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d14c0d8: bug: gitmesh steward bot workflow creates infinite PR
+    loop (PR #224)'
+- timestamp: '2026-02-09T18:53:59+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #225: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:53:59+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 5746444: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #225)'
+- timestamp: '2026-02-09T18:54:00+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #239: fixed slack integration'
+- timestamp: '2026-02-09T18:54:01+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c401126: fixed slack integration (PR #239)'
+- timestamp: '2026-02-09T18:54:02+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #241: fixed multiple issues'
+- timestamp: '2026-02-09T18:54:02+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3e18c52: Hacker news integration fixed (PR #241)'
+- timestamp: '2026-02-09T18:54:02+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit bad4a4c: fixed multiple ui and integration bugs (PR #241)'
+- timestamp: '2026-02-09T18:54:03+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ca805fb: fixed ui (PR #241)'
+- timestamp: '2026-02-09T18:54:03+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 305d530: fixed #184 ui bug (PR #241)'
+- timestamp: '2026-02-09T18:54:04+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #243: Feat/update landing page UI'
+- timestamp: '2026-02-09T18:54:04+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit 9d0ec30: feat(landing): clarify community governance and edition
+    positioning (PR #243)'
+- timestamp: '2026-02-09T18:54:04+05:30'
+  type: COMMIT
+  username: gagan-devv
+  details: 'Commit 4112821: feat(ce-landing): refresh Community Edition landing page
+    UI and content (PR #243)'
+- timestamp: '2026-02-09T18:54:05+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #247: fixed an organization bug'
+- timestamp: '2026-02-09T18:54:06+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 7175ee8: fixed an organization bug (PR #247)'
+- timestamp: '2026-02-09T18:54:07+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #248: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:54:07+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 419176e: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #248)'
+- timestamp: '2026-02-09T18:54:08+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #250: fixes'
+- timestamp: '2026-02-09T18:54:08+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 61550e2: ui fix in devtel (PR #250)'
+- timestamp: '2026-02-09T18:54:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 59cc146: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #250)'
+- timestamp: '2026-02-09T18:54:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit be179a9: The tab bar now provides a much better user experience
+    with proper fixed positioning, dedicated space for status information, and smooth
+    scrolling for multiple tabs. (PR #250)'
+- timestamp: '2026-02-09T18:54:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0eaf8b8: fixed The search sync is still attempted, but if it fails,
+    it won''t prevent the activity creation from succeeding. (PR #250)'
+- timestamp: '2026-02-09T18:54:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d88e8be: upgraded opensearch to latest 3.4 (PR #250)'
+- timestamp: '2026-02-09T18:54:10+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #252: fixed docker issues'
+- timestamp: '2026-02-09T18:54:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 840d95d: added dist files required (PR #252)'
+- timestamp: '2026-02-09T18:54:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3fdadde: added dist files required (PR #252)'
+- timestamp: '2026-02-09T18:54:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5160286: fixed bug: docker startup warns about orphan containers
+    in dev setup (PR #252)'
+- timestamp: '2026-02-09T18:54:12+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4bede53: fixed bug: docker startup shows repeated warnings about
+    obsolete version attribute (PR #252)'
+- timestamp: '2026-02-09T18:54:13+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #255: fixed envs'
+- timestamp: '2026-02-09T18:54:13+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6ba89a9: fixed onboarding for contributors with env (PR #255)'
+- timestamp: '2026-02-09T18:54:13+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f1cd82a: ledger added (PR #255)'
+- timestamp: '2026-02-09T18:54:15+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #258: fixed automation page'
+- timestamp: '2026-02-09T18:54:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4eca72d: fixed automation page (PR #258)'
+- timestamp: '2026-02-09T18:54:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 72aec60: updated integrations (PR #258)'
+- timestamp: '2026-02-09T18:54:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9fc58ad: fixed multi tab feature (PR #258)'
+- timestamp: '2026-02-09T18:54:16+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c152fad: fixed quickstart guide (PR #258)'
+- timestamp: '2026-02-09T18:54:16+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit aee0283: charts should now render once and stay completely stable
+    without any flickering or layout shifts (PR #258)'
+- timestamp: '2026-02-09T18:54:17+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #261: Added DevSpace'
+- timestamp: '2026-02-09T18:54:18+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit e2a4cc7: fixed (PR #261)'
+- timestamp: '2026-02-09T18:54:18+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a2b33ed: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #261)'
+- timestamp: '2026-02-09T18:54:18+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 38e8ac7: added requirements for devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:19+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d51315b: added new tables and database configuration for devspace
+    (PR #261)'
+- timestamp: '2026-02-09T18:54:19+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0e64df2: added variables in env (PR #261)'
+- timestamp: '2026-02-09T18:54:19+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f0b241c: added issue management system for devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:19+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 02fb7ce: added features for issues management (PR #261)'
+- timestamp: '2026-02-09T18:54:20+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a9296ce: added capacity management system (PR #261)'
+- timestamp: '2026-02-09T18:54:20+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit edcb598: added complete spec management system (PR #261)'
+- timestamp: '2026-02-09T18:54:20+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4a03d8f: added complete fresh vue frontend for devspace tab and
+    connected pages (PR #261)'
+- timestamp: '2026-02-09T18:54:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b452e44: feat a new cycle management system for productivity added
+    (PR #261)'
+- timestamp: '2026-02-09T18:54:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 824e218: added ai agent settings (PR #261)'
+- timestamp: '2026-02-09T18:54:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit e194e67: added javascript connectors (PR #261)'
+- timestamp: '2026-02-09T18:54:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 882ce77: brand new project management system (PR #261)'
+- timestamp: '2026-02-09T18:54:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 49abeb2: added few tests for devspace system (PR #261)'
+- timestamp: '2026-02-09T18:54:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b89e7f7: added integration management for devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1a019c7: filter added (PR #261)'
+- timestamp: '2026-02-09T18:54:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b610cc3: added devtel ai system (PR #261)'
+- timestamp: '2026-02-09T18:54:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 46adfc0: webhook management system for devspace tab (PR #261)'
+- timestamp: '2026-02-09T18:54:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 288a686: added few index tsc files (PR #261)'
+- timestamp: '2026-02-09T18:54:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 7d0afff: bug fixed for sprint related bugs (PR #261)'
+- timestamp: '2026-02-09T18:54:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ac901cb: added few workers (PR #261)'
+- timestamp: '2026-02-09T18:54:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b2898b0: added few more index files (PR #261)'
+- timestamp: '2026-02-09T18:54:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6d4b500: added project management system (PR #261)'
+- timestamp: '2026-02-09T18:54:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b7225ac: added skills management (PR #261)'
+- timestamp: '2026-02-09T18:54:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 80f0baf: updated devtel files (PR #261)'
+- timestamp: '2026-02-09T18:54:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 757a074: update workspace on devspace changes (PR #261)'
+- timestamp: '2026-02-09T18:54:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 276e570: complete team member management added (PR #261)'
+- timestamp: '2026-02-09T18:54:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 55fe842: fixed nav and tabs (PR #261)'
+- timestamp: '2026-02-09T18:54:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ef2da70: required webhooks and types added (PR #261)'
+- timestamp: '2026-02-09T18:54:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a24e4d8: added main for crewaimanagement (PR #261)'
+- timestamp: '2026-02-09T18:54:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 04cd74f: added scaffold for devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ab2d750: added crewai yaml (PR #261)'
+- timestamp: '2026-02-09T18:54:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9d9e6e9: added script to start devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cc69c7a: updated dockerfiles for devspace (PR #261)'
+- timestamp: '2026-02-09T18:54:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit e257fe8: updated changelog for ledger automation (PR #261)'
+- timestamp: '2026-02-09T18:54:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4903bc4: updated with the new convention for roadmap (PR #261)'
+- timestamp: '2026-02-09T18:54:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 021a743: updated for gitmesh enterprise edition only (PR #261)'
+- timestamp: '2026-02-09T18:54:31+05:30'
+  type: MERGE
+  username: RAWx18
+  details: "Merged PR #267: major rebase issue created causing 73 commits rebase,\
+    \ finally conflic\u2026"
+- timestamp: '2026-02-09T18:54:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d9db73a: major rebase issue created causing 73 commits rebase,
+    finally conflict solved (PR #267)'
+- timestamp: '2026-02-09T18:54:33+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #270: added fixes for devspace pages'
+- timestamp: '2026-02-09T18:54:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a76a59a: rebase issue bug causing different history fix (PR #270)'
+- timestamp: '2026-02-09T18:54:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d4a64de: fixed some ui layout bugs in issue board (PR #270)'
+- timestamp: '2026-02-09T18:54:34+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 530f183: fixed inconsistent state in issue board (PR #270)'
+- timestamp: '2026-02-09T18:54:34+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b48bd06: fixed overview projectid issue (PR #270)'
+- timestamp: '2026-02-09T18:54:34+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f5ab1bc: multiple sidebar bugs and a rich text editor bug fixed
+    (PR #270)'
+- timestamp: '2026-02-09T18:54:35+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2ce982a: fixed contribution acitivity page (PR #270)'
+- timestamp: '2026-02-09T18:54:35+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit dd08ff1: fixed the maximum feat in the rich text editor (PR #270)'
+- timestamp: '2026-02-09T18:54:36+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f8dc241: time based sprint system (PR #270)'
+- timestamp: '2026-02-09T18:54:36+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6c1d1ba: capacity page component to fix the spacing and add empty
+    state messages (PR #270)'
+- timestamp: '2026-02-09T18:54:36+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9ee1d0d: fixed the spec min max functionality (PR #270)'
+- timestamp: '2026-02-09T18:54:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 714527b: added migration and create option for spec (PR #270)'
+- timestamp: '2026-02-09T18:54:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0ce2265: advance cycle system (PR #270)'
+- timestamp: '2026-02-09T18:54:37+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 36288e4: fixed migration issue (PR #270)'
+- timestamp: '2026-02-09T18:54:38+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit da20403: fixed contacts and team page sync to make the contact
+    between teams stronger (PR #270)'
+- timestamp: '2026-02-09T18:54:39+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #271: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:54:39+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit b03130c: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #271)'
+- timestamp: '2026-02-09T18:54:40+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #291: Fixed multiple issues '
+- timestamp: '2026-02-09T18:54:41+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3b0799d: fixed project settings (PR #291)'
+- timestamp: '2026-02-09T18:54:41+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0aa5086: fixed #290 invitation bug fixed (PR #291)'
+- timestamp: '2026-02-09T18:54:41+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f71787b: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #291)'
+- timestamp: '2026-02-09T18:54:42+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b9cc1f5: fixed bug for project in sidebar fixes #275 (PR #291)'
+- timestamp: '2026-02-09T18:54:42+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b34d3cf: initialization logic for project (PR #291)'
+- timestamp: '2026-02-09T18:54:42+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d4eab4d: unwanted top bars in multiple pages of devspace (PR #291)'
+- timestamp: '2026-02-09T18:54:43+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ff4880f: some misc fixes (PR #291)'
+- timestamp: '2026-02-09T18:54:43+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d5dd135: some misc fixes (PR #291)'
+- timestamp: '2026-02-09T18:54:44+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 385f2bd: fixed issue #277 (PR #291)'
+- timestamp: '2026-02-09T18:54:44+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d3e8e6a: fixed #288 and #287 issues (PR #291)'
+- timestamp: '2026-02-09T18:54:44+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 88fa7c0: fixed enhance Devspace Overview with meaningful project-level
+    performance metrics (PR #291)'
+- timestamp: '2026-02-09T18:54:45+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 758678e: bug: capacity date selector dropdown overlaps behind top
+    navbar #281 (PR #291)'
+- timestamp: '2026-02-09T18:54:46+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #296: fixes issues'
+- timestamp: '2026-02-09T18:54:46+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 34417e3: bug: duplicate DevTel routes causing unstable navigation
+    #273 (PR #296)'
+- timestamp: '2026-02-09T18:54:47+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 06c4f5d: bug: project settings do not preload existing project
+    details on first open #276 (PR #296)'
+- timestamp: '2026-02-09T18:54:47+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c4f8470: fixed some devspace cycles issues (PR #296)'
+- timestamp: '2026-02-09T18:54:48+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit def128a: tsc-generated files that were accidentally committed to
+    the repo (PR #296)'
+- timestamp: '2026-02-09T18:54:48+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit b9d1c95: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #296)'
+- timestamp: '2026-02-09T18:54:48+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 85a3fde: fixed issues #279 and #280 (PR #296)'
+- timestamp: '2026-02-09T18:54:49+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d36e4db: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #296)'
+- timestamp: '2026-02-09T18:54:49+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit dd907dc: bug: capacity page shows 404/500 errors causing all capacity
+    metrics to be zero #294 (PR #296)'
+- timestamp: '2026-02-09T18:54:50+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 092b0f8: bug: port 4242 (Unleash) connection refused causing errors
+    on all pages #295 (PR #296)'
+- timestamp: '2026-02-09T18:54:51+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #298: ip SSRF improper categorization in isPublic fixed'
+- timestamp: '2026-02-09T18:54:51+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 7516579: ip SSRF improper categorization in isPublic fixed (PR
+    #298)'
+- timestamp: '2026-02-09T18:54:52+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #300: fixes'
+- timestamp: '2026-02-09T18:54:53+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 142f793: fixed multiple security vulnerabilities (PR #300)'
+- timestamp: '2026-02-09T18:54:53+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f8e94fb: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #300)'
+- timestamp: '2026-02-09T18:54:54+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #329: fixed some bugs'
+- timestamp: '2026-02-09T18:54:55+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9abb30e: fixed some bugs (PR #329)'
+- timestamp: '2026-02-09T18:54:55+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9d0e41b: fixed local env (PR #329)'
+- timestamp: '2026-02-09T18:54:56+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #331: fixed'
+- timestamp: '2026-02-09T18:54:57+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2aea434: updated docs (PR #331)'
+- timestamp: '2026-02-09T18:54:57+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d92c92d: fixed some google auth issues (PR #331)'
+- timestamp: '2026-02-09T18:54:58+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0bc6161: Merge remote-tracking branch ''refs/remotes/origin/main''
+    (PR #331)'
+- timestamp: '2026-02-09T18:54:59+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #265: Fix Groups.io integration reliability: cookie refresh,
+    error handling, and webhook validation'
+- timestamp: '2026-02-09T18:54:59+05:30'
+  type: COMMIT
+  username: DarshanCode2005
+  details: 'Commit 68941e2: DCO Sign (PR #265)'
+- timestamp: '2026-02-09T18:55:00+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #333: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:55:01+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 9a1abe6: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #333)'
+- timestamp: '2026-02-09T18:55:02+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #338: Fix /gov commands for role change in steward bot.'
+- timestamp: '2026-02-09T18:55:02+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 4f10dae: Fix /gov commands for role change in steward bot. (PR
+    #338)'
+- timestamp: '2026-02-09T18:55:03+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #341: Update GitHub steward bot schedule and fix case mismatch'
+- timestamp: '2026-02-09T18:55:04+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 14decca: Update GitHub steward bot schedule and fix case mismatch
+    (PR #341)'
+- timestamp: '2026-02-09T18:55:05+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #343: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:55:05+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 1b04d75: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #343)'
+- timestamp: '2026-02-09T18:55:05+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 8086cc1: chore(gov): update roles via command in PR #343 [skip
+    ci] (PR #343)'
+- timestamp: '2026-02-09T18:55:07+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #344: fixed'
+- timestamp: '2026-02-09T18:55:07+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 0b7a44e: fixing github and gitmesh sync (PR #344)'
+- timestamp: '2026-02-09T18:55:08+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f7b2057: fixed the vibe coding tools (PR #344)'
+- timestamp: '2026-02-09T18:55:08+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5eceb31: fixed integration logs and bugs (PR #344)'
+- timestamp: '2026-02-09T18:55:08+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ef51450: Merge commit ''5eceb31'' (PR #344)'
+- timestamp: '2026-02-09T18:55:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 10663ad: tried fixing mail from sendgrid to brevo & fix github
+    gitmesh dual sync (PR #344)'
+- timestamp: '2026-02-09T18:55:09+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3c306eb: fix sentinel (PR #344)'
+- timestamp: '2026-02-09T18:55:10+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 4e41a24: fixed sentinel feature flags (PR #344)'
+- timestamp: '2026-02-09T18:55:10+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8efc1b3: fixed project settings in devspace and feature flags issue
+    (PR #344)'
+- timestamp: '2026-02-09T18:55:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2590714: fixed shared imports in signals (PR #344)'
+- timestamp: '2026-02-09T18:55:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 91f9df4: multiple unleash and plans error (PR #344)'
+- timestamp: '2026-02-09T18:55:11+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 40fc35d: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #344)'
+- timestamp: '2026-02-09T18:55:12+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 307ed84: fixed sentinel and clear cache for js mapped (PR #344)'
+- timestamp: '2026-02-09T18:55:12+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d7e587c: removed some redundant files (PR #344)'
+- timestamp: '2026-02-09T18:55:13+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 082727f: removed sentinel signals corrupted files (PR #344)'
+- timestamp: '2026-02-09T18:55:13+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f8cc6ab: last set cleanup (PR #344)'
+- timestamp: '2026-02-09T18:55:14+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 6cba7b4: bug fix plans (PR #344)'
+- timestamp: '2026-02-09T18:55:14+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 91e47a6: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #344)'
+- timestamp: '2026-02-09T18:55:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 7fedb18: role updated (PR #344)'
+- timestamp: '2026-02-09T18:55:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a488e8b: minor readme update (PR #344)'
+- timestamp: '2026-02-09T18:55:15+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5f28c57: health checks for ports added (PR #344)'
+- timestamp: '2026-02-09T18:55:17+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #352: Add Bot Management for a clean separation between bots
+    and contributor'
+- timestamp: '2026-02-09T18:55:17+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 9c434ca: Add bot management (PR #352)'
+- timestamp: '2026-02-09T18:55:17+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 762da40: refine bot management (PR #352)'
+- timestamp: '2026-02-09T18:55:18+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #353: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:55:19+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit e1e39d4: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #353)'
+- timestamp: '2026-02-09T18:55:19+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 42fc953: chore(gov): update roles via command in PR #353 [skip
+    ci] (PR #353)'
+- timestamp: '2026-02-09T18:55:19+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 5d7e0d3: chore(gov): update roles via command in PR #353 [skip
+    ci] (PR #353)'
+- timestamp: '2026-02-09T18:55:21+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #358: fix updates'
+- timestamp: '2026-02-09T18:55:21+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d16b278: removed stackoverflow to iterate the v1 faster as unused
+    legacy (PR #358)'
+- timestamp: '2026-02-09T18:55:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 7814cd5: turned off git integration for non-github for current
+    version (PR #358)'
+- timestamp: '2026-02-09T18:55:22+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5903b12: removed leftovers of stackexchange (PR #358)'
+- timestamp: '2026-02-09T18:55:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c0605fb: cleanups stale js compiled files (PR #358)'
+- timestamp: '2026-02-09T18:55:23+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cd41ea8: fix(cubejs): restore schema files and add cube.js config
+    (PR #358)'
+- timestamp: '2026-02-09T18:55:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 8d51a3a: fix(cubejs): correct materialized view column names and
+    joins (PR #358)'
+- timestamp: '2026-02-09T18:55:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9dcbe80: updated config files (PR #358)'
+- timestamp: '2026-02-09T18:55:24+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a2b7f5c: fixed github integration in signals tab (PR #358)'
+- timestamp: '2026-02-09T18:55:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ba2a1e5: fixed nango service (PR #358)'
+- timestamp: '2026-02-09T18:55:25+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit cebcba3: added various tests and error handling for cubejs (PR
+    #358)'
+- timestamp: '2026-02-09T18:55:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit d93f4f6: fixed dashboard cubjes errors (PR #358)'
+- timestamp: '2026-02-09T18:55:26+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3cdb091: added jest tests for cube (PR #358)'
+- timestamp: '2026-02-09T18:55:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit f950688: hubspot connector (PR #358)'
+- timestamp: '2026-02-09T18:55:27+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 2855ce7: vite chunk failures fixed (PR #358)'
+- timestamp: '2026-02-09T18:55:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 1128dcf: fixed some of the tenant and auth issues (PR #358)'
+- timestamp: '2026-02-09T18:55:28+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3fa6db7: updated workers (PR #358)'
+- timestamp: '2026-02-09T18:55:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit ba3a378: reddit connector (PR #358)'
+- timestamp: '2026-02-09T18:55:29+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 5237dde: linkedi connector (PR #358)'
+- timestamp: '2026-02-09T18:55:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 140bad7: fixed tag issue (PR #358)'
+- timestamp: '2026-02-09T18:55:30+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit c10f79f: nango key issue fixed (PR #358)'
+- timestamp: '2026-02-09T18:55:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit aa2194c: cube health and diagnose (PR #358)'
+- timestamp: '2026-02-09T18:55:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 178c666: updated yaml versions (PR #358)'
+- timestamp: '2026-02-09T18:55:31+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit a7a6d7c: updating cli commands for this fix (PR #358)'
+- timestamp: '2026-02-09T18:55:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit def0d85: final misc fixes (PR #358)'
+- timestamp: '2026-02-09T18:55:32+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 9c548f6: Merge branch ''LF-Decentralized-Trust-labs:main'' into
+    main (PR #358)'
+- timestamp: '2026-02-09T18:55:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 02e7812: updated commands for governance (PR #358)'
+- timestamp: '2026-02-09T18:55:33+05:30'
+  type: COMMIT
+  username: RAWx18
+  details: 'Commit 3a9e7f0: fixed imports (PR #358)'
+- timestamp: '2026-02-09T18:55:35+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #359: chore(gov): automated governance registry & history sync'
+- timestamp: '2026-02-09T18:55:35+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit bfaa12c: chore(gov): auto-sync activity and history logs [skip
+    ci] (PR #359)'
+- timestamp: '2026-02-09T18:55:35+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit 40fc55b: chore(gov): update roles via command in PR #359 [skip
+    ci] (PR #359)'
+- timestamp: '2026-02-09T18:55:35+05:30'
+  type: COMMIT
+  username: github-actions[bot]
+  details: 'Commit c9ec335: chore(gov): update roles via command in PR #359 [skip
+    ci] (PR #359)'
+- timestamp: '2026-02-09T18:55:37+05:30'
+  type: MERGE
+  username: RAWx18
+  details: 'Merged PR #360: Fix inifite looping in steward bot'
+- timestamp: '2026-02-09T18:55:37+05:30'
+  type: COMMIT
+  username: focuzd
+  details: 'Commit 224b825: Fix inifite looping in steward bot (PR #360)'

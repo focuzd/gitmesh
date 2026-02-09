@@ -1,51 +1,50 @@
 username: mithulcrafts
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  details: 'Achieved Newbie status via merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/104'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #104: Improved user experience by making header logo redirect
-    to home page (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/104)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #123: Docs/enhance readme.md contribution.md (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/123)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #125: After updating repo links in CONTRIBUTING.md (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/125)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #128: UX Improvement: Notifications Accessible via Navbar Bell
-    and removing notifications section from settings (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/128)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #132: After fixing the show details button UI in hub/settings/event-log
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/132)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #136: Profile image upload failure UI fix (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/136)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #141: After fixing the setting update toast bug (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/141)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: "Merged PR #143: assign distinct colors to notification filter icons for\
-    \ better visual\u2026 (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/143)"
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #151: `fix:After fixing theme-toggle bug` (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/151)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #152: After adding ISSUE_Templates (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/152)'
-- timestamp: '2025-12-27T10:32:18+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-26
-- timestamp: '2025-12-28T22:59:40+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-28
-- timestamp: '2026-01-05T21:38:36+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-31
-- timestamp: '2026-01-14T20:31:01+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-06
+- timestamp: '2026-02-09T18:52:21+05:30'
+  type: ROLE_ASSIGNMENT
+  details: 'Assigned role: Newbie Contributor by GitMesh-Steward-bot'
+- timestamp: '2026-02-09T18:52:55+05:30'
+  type: COMMIT
+  details: 'Commit 1020a50: Improved user experience by making header logo redirect
+    to home page (PR #104)'
+- timestamp: '2026-02-09T18:53:00+05:30'
+  type: COMMIT
+  details: 'Commit 0eaa462: After enchancing README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  details: 'Commit 7e5f570: After making a small modification in README.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  details: 'Commit 6048fdd: After updating README.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  details: 'Commit be4e644: After updating the README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:01+05:30'
+  type: COMMIT
+  details: 'Commit 7cdfdec: After updating the README.md, CONTRIBUTING.md (PR #123)'
+- timestamp: '2026-02-09T18:53:02+05:30'
+  type: COMMIT
+  details: 'Commit 208fe2b: After updating repo links in CONTRIBUTING.md (PR #125)'
+- timestamp: '2026-02-09T18:53:04+05:30'
+  type: COMMIT
+  details: 'Commit bc802a9: After relocating Notifications Icon (PR #128)'
+- timestamp: '2026-02-09T18:53:06+05:30'
+  type: COMMIT
+  details: 'Commit 3b88da3: After fixing the show details button UI in hub/settings/event-log
+    (PR #132)'
+- timestamp: '2026-02-09T18:53:07+05:30'
+  type: COMMIT
+  details: 'Commit 2e23e9e: Profile image upload failure ui fix (PR #136)'
+- timestamp: '2026-02-09T18:53:12+05:30'
+  type: COMMIT
+  details: 'Commit 91bceed: After fixing the setting update toast bug (PR #141)'
+- timestamp: '2026-02-09T18:53:13+05:30'
+  type: COMMIT
+  details: 'Commit d933318: assign distinct colors to notification filter icons for
+    better visual clarity (PR #143)'
+- timestamp: '2026-02-09T18:53:18+05:30'
+  type: COMMIT
+  details: 'Commit 48c6fb7: After fixing theme-toggle bug (PR #151)'
+- timestamp: '2026-02-09T18:53:19+05:30'
+  type: COMMIT
+  details: 'Commit 735d379: After adding ISSUE_Templates (PR #152)'

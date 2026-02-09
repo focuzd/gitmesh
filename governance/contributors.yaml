@@ -1,8 +1,8 @@
 metadata:
   version: 1.0.0
-  total_contributors: 12
-  active_contributors: 7
-  last_sync: 
+  total_contributors: 16
+  active_contributors: 11
+  last_sync: '2026-02-09T18:55:44+05:30'
 contributors:
 - username: rawx18
   role: CEO
@@ -100,3 +100,35 @@ contributors:
   assigned_at: '2026-01-14T15:00:37Z'
   last_activity: '2026-01-22'
   notes: Automatically onboarded after first merged PR.
+- username: ryjones
+  role: Newbie Contributor
+  team: CE
+  status: active
+  assigned_by: GitMesh-Steward-bot
+  assigned_at: '2025-07-25T18:30:31Z'
+  last_activity: '2025-07-25'
+  notes: Automatically onboarded.
+- username: gagan-devv
+  role: Newbie Contributor
+  team: CE
+  status: active
+  assigned_by: GitMesh-Steward-bot
+  assigned_at: '2025-10-19T09:26:46Z'
+  last_activity: '2025-10-19'
+  notes: Automatically onboarded.
+- username: bhanuprasad14
+  role: Newbie Contributor
+  team: CE
+  status: active
+  assigned_by: GitMesh-Steward-bot
+  assigned_at: '2025-10-20T06:11:25Z'
+  last_activity: '2025-10-20'
+  notes: Automatically onboarded.
+- username: github-actions[bot]
+  role: Newbie Contributor
+  team: CE
+  status: active
+  assigned_by: GitMesh-Steward-bot
+  assigned_at: '2025-12-27T05:08:08Z'
+  last_activity: '2025-12-27'
+  notes: Automatically onboarded.

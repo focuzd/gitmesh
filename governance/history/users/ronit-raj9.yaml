@@ -1,46 +1,115 @@
 username: ronit-raj9
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
+- timestamp: '2026-02-09T18:52:21+05:30'
   type: ROLE_ASSIGNMENT
-  details: 'Assigned role: CTO by EE-board'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #27: Implement Comprehensive RAG Chat System with Vector StorageImplement
-    Comprehensive RAG Chat System with Vector Storage (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/27)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #28: Added .env.example and updated readme (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/28)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #30: Updated gitignore and deleted qdrant storage directory
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/30)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #31: V2 (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/31)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #55: Added Control Panel Data for RAG chat context (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/55)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #58: feat: Added FRONTEND_URL environment variable for configurable
-    frontend URLs (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/58)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #66: feat: Add clickable GitHub links and discussions integration
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/66)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #139: chore: untrack .env.production and update production config
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/139)'
-- timestamp: '2025-12-27T10:32:17+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-22
-- timestamp: '2026-01-05T21:38:34+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-03
-- timestamp: '2026-01-14T20:30:59+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-14
-- timestamp: '2026-01-22T15:12:46+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-21
+  details: 'Assigned role: Maintainer by rawx18'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit 91eb7b6: Add python backend RAG system with agents and embeddings
+    (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit 226f72e: Updated RAG with proper embedding (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit d6b7fc8: folder for qdrant storage (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit 9a4ddc3: Updated frontend page for chat with repo (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit 41d8ed7: Updated backend for RAG chat (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit b5a3f59: Added residual files (PR #27)'
+- timestamp: '2026-02-09T18:52:24+05:30'
+  type: COMMIT
+  details: 'Commit d582434: Fixed file selection in sidebar (PR #27)'
+- timestamp: '2026-02-09T18:52:25+05:30'
+  type: COMMIT
+  details: 'Commit 29de32e: Added .env.example and updated readme (PR #28)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
+  details: 'Commit d750368: updated gitignore (PR #30)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
+  details: 'Commit 84efeb6: Deleted storage files (PR #30)'
+- timestamp: '2026-02-09T18:52:26+05:30'
+  type: COMMIT
+  details: 'Commit 6f9ab26: Remove qdrant_storage from tracking (PR #30)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit b6a0bdf: Add lib folder with API services and utilities (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit 7794e6f: updated gitignore (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit 2a2c84d: Update Python backend configuration and dependencies (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit 0bdc0ad: Update main app configuration and gitignore rules (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit 362599e: Add comprehensive API route structure for v1 endpoints
+    (PR #31)'
+- timestamp: '2026-02-09T18:52:27+05:30'
+  type: COMMIT
+  details: 'Commit 3b1ece1: Add database models and API data models (PR #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  details: 'Commit d7c3ffe: Add utility functions for various backend operations (PR
+    #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  details: 'Commit 75bf2fa: Add backend services layer for business logic (PR #31)'
+- timestamp: '2026-02-09T18:52:28+05:30'
+  type: COMMIT
+  details: 'Commit 5f014de: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into v2 (PR #31)'
+- timestamp: '2026-02-09T18:52:38+05:30'
+  type: COMMIT
+  details: 'Commit 0ac0de9: Added Control Panel Data for RAG chat context (PR #55)'
+- timestamp: '2026-02-09T18:52:38+05:30'
+  type: COMMIT
+  details: 'Commit 31c1615: fix(ui): Make file selection sidebar scrollable (PR #55)'
+- timestamp: '2026-02-09T18:52:40+05:30'
+  type: COMMIT
+  details: 'Commit 4d83c16: feat: Add env for frontend url instead of hardcoding in
+    backend code (PR #58)'
+- timestamp: '2026-02-09T18:52:40+05:30'
+  type: COMMIT
+  details: 'Commit a08a86a: Merge branch ''LF-Decentralized-Trust-Mentorships:main''
+    into main (PR #58)'
+- timestamp: '2026-02-09T18:52:41+05:30'
+  type: COMMIT
+  details: 'Commit 8926fff: feat: Add clickable GitHub links and discussions integration
+    (PR #66)'
+- timestamp: '2026-02-09T18:52:59+05:30'
+  type: COMMIT
+  details: 'Commit aac1f62: feat: Enable live fetching and automatic PR creation (PR
+    #118)'
+- timestamp: '2026-02-09T18:53:08+05:30'
+  type: MERGE
+  details: 'Merged PR #135: Integrated Additional MCP Servers'
+- timestamp: '2026-02-09T18:53:10+05:30'
+  type: COMMIT
+  details: 'Commit 6668e22: chore: untrack .env.production and update production config
+    (PR #139)'
+- timestamp: '2026-02-09T18:53:10+05:30'
+  type: COMMIT
+  details: 'Commit 1965236: docs: add Docker build and run commands to README (PR
+    #139)'
+- timestamp: '2026-02-09T18:53:12+05:30'
+  type: MERGE
+  details: "Merged PR #143: assign distinct colors to notification filter icons for\
+    \ better visual\u2026"
+- timestamp: '2026-02-09T18:53:13+05:30'
+  type: MERGE
+  details: 'Merged PR #144: fix: fixed the color pallet for better content visibility
+    on both dark and light themes'
+- timestamp: '2026-02-09T18:53:15+05:30'
+  type: MERGE
+  details: 'Merged PR #145: fix: cloning repo loading screen appearing twice'
