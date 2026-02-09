@@ -155,25 +155,104 @@ def get_merged_prs(since_date=None, per_page=100):
             
         except Exception as e:
             print(f"Error fetching PRs page {page}: {e}")
-            break
-            
     return all_prs
 
-def get_last_activity_date(username):
-    """Queries GitHub Events API to find the user's latest public action."""
-    url = f"https://api.github.com/users/{username}/events/public"
+def get_pr_commits(pr_number):
+    """
+    Fetches all commits for a given PR number.
+    Returns list of dicts with: author, message, sha, timestamp
+    """
+    commits = []
+    url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}/commits?per_page=100"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
-            events = response.json()
-            if events and isinstance(events, list):
-                return events[0]['created_at'].split('T')[0]
+            raw_commits = response.json()
+            for c in raw_commits:
+                # Get the commit author (could be different from PR author)
+                author = c.get('author')
+                if author:
+                    author_login = author.get('login', 'unknown')
+                else:
+                    # Fallback to commit author name if no GitHub user linked
+                    author_login = c['commit']['author'].get('name', 'unknown')
+                
+                commits.append({
+                    'author': author_login,
+                    'message': c['commit']['message'].split('\n')[0],  # First line only
+                    'sha': c['sha'][:7],  # Short SHA
+                    'timestamp': c['commit']['author']['date']  # ISO format
+                })
     except Exception as e:
-        print(f"Error fetching activity for {username}: {e}")
+        print(f"Error fetching commits for PR #{pr_number}: {e}")
+    
+    return commits
+
+def get_pr_merger(pr_number):
+    """
+    Fetches details about who merged a PR.
+    Returns dict with: merger (username), merged_at, title
+    """
+    url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}"
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            pr = response.json()
+            merged_by = pr.get('merged_by')
+            if merged_by:
+                return {
+                    'merger': merged_by.get('login', 'unknown'),
+                    'merged_at': pr.get('merged_at'),
+                    'title': pr.get('title')
+                }
+    except Exception as e:
+        print(f"Error fetching merger for PR #{pr_number}: {e}")
+    
     return None
 
-def update_user_history(username, event_type, details, is_bot=False):
-    """Maintains an append-only audit log for each contributor."""
+def get_last_activity_date(username):
+    """
+    Get the last activity date for a user in THIS repo only.
+    Only considers commits and merged PRs.
+    """
+    latest_date = None
+    
+    # 1. Check commits authored by user in this repo
+    try:
+        commits_url = f"https://api.github.com/repos/{REPO}/commits?author={username}&per_page=1"
+        response = requests.get(commits_url, headers=headers)
+        if response.status_code == 200:
+            commits = response.json()
+            if commits and isinstance(commits, list) and len(commits) > 0:
+                commit_date_str = commits[0]['commit']['author']['date']
+                commit_date = commit_date_str.split('T')[0]
+                if latest_date is None or commit_date > latest_date:
+                    latest_date = commit_date
+    except Exception as e:
+        print(f"Error fetching commits for {username}: {e}")
+    
+    # 2. Check merged PRs created by user in this repo
+    try:
+        prs_url = f"https://api.github.com/repos/{REPO}/pulls?state=closed&creator={username}&sort=updated&direction=desc&per_page=10"
+        response = requests.get(prs_url, headers=headers)
+        if response.status_code == 200:
+            prs = response.json()
+            for pr in prs:
+                if pr.get('merged_at'):
+                    pr_date = pr['merged_at'].split('T')[0]
+                    if latest_date is None or pr_date > latest_date:
+                        latest_date = pr_date
+                    break  # Only need the most recent merged PR
+    except Exception as e:
+        print(f"Error fetching PRs for {username}: {e}")
+    
+    return latest_date
+
+def update_user_history(username, event_type, details, is_bot=False, timestamp=None):
+    """
+    Maintains an append-only audit log for each contributor.
+    timestamp: Optional ISO format timestamp. If None, uses current time.
+    """
     base_dir = HISTORY_BOTS_DIR if is_bot else HISTORY_DIR
     os.makedirs(base_dir, exist_ok=True)
     
@@ -187,20 +266,26 @@ def update_user_history(username, event_type, details, is_bot=False):
             if existing_data:
                 data = existing_data
 
-    # Construct new event
+    # Construct new event with provided or current timestamp
     new_event = {
-        "timestamp": get_now_ist_str(),
+        "timestamp": timestamp if timestamp else get_now_ist_str(),
         "type": event_type,
         "details": details
     }
     
     data['events'].append(new_event)
+    
+    # Sort events by timestamp to maintain chronological order
+    data['events'].sort(key=lambda x: x.get('timestamp', ''))
 
     with open(path, 'w') as f:
         yaml.dump(data, f, sort_keys=False, default_flow_style=False)
 
-def update_ledger(event_type, username, details, is_bot=False):
-    """Maintains a global ledger of all governance events."""
+def update_ledger(event_type, username, details, is_bot=False, timestamp=None):
+    """
+    Maintains a global ledger of all governance events.
+    timestamp: Optional ISO format timestamp. If None, uses current time.
+    """
     ledger_file = BOT_LEDGER_PATH if is_bot else LEDGER_PATH
     os.makedirs(os.path.dirname(ledger_file), exist_ok=True)
     
@@ -212,11 +297,14 @@ def update_ledger(event_type, username, details, is_bot=False):
                 data = existing_data
     
     data['events'].append({
-        "timestamp": get_now_ist_str(),
+        "timestamp": timestamp if timestamp else get_now_ist_str(),
         "type": event_type,
         "username": username,
         "details": details
     })
+    
+    # Sort events by timestamp to maintain chronological order
+    data['events'].sort(key=lambda x: x.get('timestamp', ''))
     
     with open(ledger_file, 'w') as f:
         yaml.dump(data, f, sort_keys=False, default_flow_style=False)
@@ -649,43 +737,133 @@ def run_sync_mode():
     prs_to_process.sort(key=lambda x: x['merged_at'])
 
     for pr in prs_to_process:
-        username = pr['username']
+        pr_author = pr['username']
         merged_at = pr['merged_at']
         pr_url = pr['url']
+        pr_number = pr['number']
+        pr_title = pr['title']
         
-        is_bot = username.lower() in bot_usernames
+        # Get commits and merger info for this PR
+        commits = get_pr_commits(pr_number)
+        merger_info = get_pr_merger(pr_number)
         
-        if is_bot:
-            # Log bot activity to Bot Ledger/History only
-            update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=True)
-            update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=True)
-            # Do NOT add to contributors list
-            continue
+        # Track unique commit authors for this PR
+        commit_authors = set()
         
-        # HUMAN Processing
-        
-        # 1. New Contributor Detection
-        if username.lower() not in existing_usernames:
-            print(f"New contributor detected: {username}")
-            new_contributor = {
-                "username": username, # Keep original casing for display
-                "role": "Newbie Contributor",
-                "team": "CE",
-                "status": "active",
-                "assigned_by": "GitMesh-Steward-bot",
-                "assigned_at": merged_at,
-                "last_activity": merged_at.split('T')[0],
-                "notes": "Automatically onboarded after first merged PR."
-            }
-            contributors.append(new_contributor)
-            existing_usernames.add(username.lower())
+        # Log COMMIT events for each commit
+        for commit in commits:
+            commit_author = commit['author']
+            commit_authors.add(commit_author.lower())
             
-            update_user_history(username, "ONBOARDING", f"Achieved Newbie status via merged PR: {pr_url}", is_bot=False)
-            update_ledger("ONBOARDING", username, f"First merged PR: {pr_url}", is_bot=False)
+            is_commit_author_bot = commit_author.lower() in bot_usernames
+            
+            commit_details = {
+                "message": commit['message'],
+                "sha": commit['sha'],
+                "pr_number": pr_number
+            }
+            
+            update_user_history(
+                commit_author, 
+                "COMMIT", 
+                commit_details, 
+                is_bot=is_commit_author_bot,
+                timestamp=commit['timestamp']
+            )
+            update_ledger(
+                "COMMIT", 
+                commit_author, 
+                commit_details, 
+                is_bot=is_commit_author_bot,
+                timestamp=commit['timestamp']
+            )
+            
+            # New contributor detection for commit authors
+            if not is_commit_author_bot and commit_author.lower() not in existing_usernames:
+                print(f"New contributor detected (via commit): {commit_author}")
+                new_contributor = {
+                    "username": commit_author,
+                    "role": "Newbie Contributor",
+                    "team": "CE",
+                    "status": "active",
+                    "assigned_by": "GitMesh-Steward-bot",
+                    "assigned_at": commit['timestamp'],
+                    "last_activity": commit['timestamp'].split('T')[0],
+                    "notes": "Automatically onboarded after first commit."
+                }
+                contributors.append(new_contributor)
+                existing_usernames.add(commit_author.lower())
+                
+                update_user_history(
+                    commit_author, 
+                    "ROLE_ASSIGNMENT", 
+                    f"Assigned role: Newbie Contributor by GitMesh-Steward-bot (first commit in PR #{pr_number})", 
+                    is_bot=False,
+                    timestamp=commit['timestamp']
+                )
+                update_ledger(
+                    "ROLE_ASSIGNMENT", 
+                    commit_author, 
+                    f"Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot (first commit)", 
+                    is_bot=False,
+                    timestamp=commit['timestamp']
+                )
         
-        # 2. Log PR to History
-        update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=False)
-        update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=False)
+        # Log MERGE event for the merger
+        if merger_info:
+            merger = merger_info['merger']
+            is_merger_bot = merger.lower() in bot_usernames
+            
+            merge_details = {
+                "pr_number": pr_number,
+                "pr_title": pr_title
+            }
+            
+            update_user_history(
+                merger, 
+                "MERGE", 
+                merge_details, 
+                is_bot=is_merger_bot,
+                timestamp=merged_at
+            )
+            update_ledger(
+                "MERGE", 
+                merger, 
+                merge_details, 
+                is_bot=is_merger_bot,
+                timestamp=merged_at
+            )
+            
+            # New contributor detection for merger (if not a bot and not already tracked)
+            if not is_merger_bot and merger.lower() not in existing_usernames:
+                print(f"New contributor detected (via merge): {merger}")
+                new_contributor = {
+                    "username": merger,
+                    "role": "Newbie Contributor",
+                    "team": "CE",
+                    "status": "active",
+                    "assigned_by": "GitMesh-Steward-bot",
+                    "assigned_at": merged_at,
+                    "last_activity": merged_at.split('T')[0],
+                    "notes": "Automatically onboarded after first PR merge."
+                }
+                contributors.append(new_contributor)
+                existing_usernames.add(merger.lower())
+                
+                update_user_history(
+                    merger, 
+                    "ROLE_ASSIGNMENT", 
+                    f"Assigned role: Newbie Contributor by GitMesh-Steward-bot (first merge: PR #{pr_number})", 
+                    is_bot=False,
+                    timestamp=merged_at
+                )
+                update_ledger(
+                    "ROLE_ASSIGNMENT", 
+                    merger, 
+                    f"Role: Newbie Contributor, Assigned by: GitMesh-Steward-bot (first merge)", 
+                    is_bot=False,
+                    timestamp=merged_at
+                )
 
     # 3. Update Activity Status (for all contributors)
     print("\nUpdating activity status...")
@@ -701,8 +879,8 @@ def run_sync_mode():
             old_activity = entry.get('last_activity')
             entry['last_activity'] = last_act
             
-            if old_activity != last_act:
-                update_user_history(username, "ACTIVITY_UPDATE", f"Last activity updated to {last_act}", is_bot=False)
+            # Note: ACTIVITY_UPDATE event removed as per requirements
+            # Activity is tracked in registry but not logged to ledger
             
             # Inactivity Check (90 days)
             last_act_dt = datetime.strptime(last_act, "%Y-%m-%d")
