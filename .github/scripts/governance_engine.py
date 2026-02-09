@@ -95,7 +95,7 @@ def get_now_ist_str():
     return datetime.now(IST).strftime("%Y-%m-%dT%H:%M:%S+05:30")
 
 def get_merged_prs(since_date=None, per_page=100):
-    """Fetches merged PRs. If since_date is provided, fetches only PRs merged after that date."""
+    """Fetches merged PRs from the canonical repo. If since_date is provided, fetches only PRs merged after that date."""
     all_prs = []
     page = 1
     
@@ -107,11 +107,11 @@ def get_merged_prs(since_date=None, per_page=100):
             print(f"Warning: Could not parse since_date '{since_date}'. Fetching all.")
             since_dt = None
 
-    print(f"Fetching merged PRs{' since ' + since_date if since_date else ' (ALL)'}...")
+    print(f"Fetching merged PRs from {CANONICAL_REPO}{' since ' + since_date if since_date else ' (ALL)'}...")
 
     while True:
         # Fetch closed PRs, sorted by updated desc to get recent ones first
-        url = f"https://api.github.com/repos/{REPO}/pulls?state=closed&sort=updated&direction=desc&per_page={per_page}&page={page}"
+        url = f"https://api.github.com/repos/{CANONICAL_REPO}/pulls?state=closed&sort=updated&direction=desc&per_page={per_page}&page={page}"
         try:
             response = requests.get(url, headers=headers)
             response.raise_for_status()
@@ -160,7 +160,7 @@ def get_merged_prs(since_date=None, per_page=100):
     return all_prs
 
 def get_last_activity_date(username):
-    """Queries GitHub Events API to find the user's latest public action in this repo."""
+    """Queries GitHub Events API to find the user's latest public action in the canonical repo."""
     url = f"https://api.github.com/users/{username}/events/public"
     try:
         response = requests.get(url, headers=headers)
@@ -168,7 +168,7 @@ def get_last_activity_date(username):
             events = response.json()
             if events and isinstance(events, list):
                 for event in events:
-                    if event.get('repo', {}).get('name') == REPO:
+                    if event.get('repo', {}).get('name') == CANONICAL_REPO:
                         if event['type'] == 'PushEvent':
                              return event['created_at'].split('T')[0]
                         elif event['type'] == 'PullRequestEvent':
@@ -563,10 +563,8 @@ def main():
         run_sync_mode()
 
 def run_sync_mode():
-    # --- FORK PROTECTION CHECK ---
     if REPO != CANONICAL_REPO:
-        print(f"Skipping governance sync: Current repo '{REPO}' is a fork or doesn't match '{CANONICAL_REPO}'.")
-        return
+        print(f"Running governance sync in test mode on fork '{REPO}'. Fetching data from '{CANONICAL_REPO}'.")
 
     if not os.path.exists(REGISTRY_PATH):
         print(f"Registry not found at {REGISTRY_PATH}")
@@ -660,7 +658,7 @@ def run_sync_mode():
         # 1. Fetch Merge Details (Who merged it?)
         # We need to fetch the single PR endpoint to get 'merged_by'
         try:
-            pr_details_resp = requests.get(f"https://api.github.com/repos/{REPO}/pulls/{pr_number}", headers=headers)
+            pr_details_resp = requests.get(f"https://api.github.com/repos/{CANONICAL_REPO}/pulls/{pr_number}", headers=headers)
             pr_details_resp.raise_for_status()
             pr_details = pr_details_resp.json()
             merged_by_user = pr_details.get('merged_by')
@@ -672,10 +670,7 @@ def run_sync_mode():
         # 2. Fetch Commits (Who committed?)
         commits = []
         try:
-            # Pagination for commits? Usually < 100 per PR, but strictly we should page. 
-            # For simplicity, assuming < 100 or just taking first page is common in scripts, but let's try to be robust if easy.
-            # Using simple 1 page for now as most PRs are small.
-            commits_url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}/commits?per_page=100"
+            commits_url = f"https://api.github.com/repos/{CANONICAL_REPO}/pulls/{pr_number}/commits?per_page=100"
             commits_resp = requests.get(commits_url, headers=headers)
             commits_resp.raise_for_status()
             commits = commits_resp.json()
@@ -751,6 +746,19 @@ def run_sync_mode():
                     entry['status'] = "active"
                     update_user_history(username, "STATUS_CHANGE", "Reactivated status due to new activity.", is_bot=False)
                     update_ledger("STATUS_CHANGE", username, "Reactivated due to new activity", is_bot=False)
+
+    # 4. Update Metadata
+    registry['metadata']['last_sync'] = get_now_ist_str()
+    registry['metadata']['total_contributors'] = len(contributors)
+    registry['metadata']['active_contributors'] = sum(1 for c in contributors if c.get('status') == 'active')
+
+    # Save Registry
+    with open(REGISTRY_PATH, 'w') as f:
+        yaml.dump(registry, f, sort_keys=False, default_flow_style=False)
+    
+    print("\nGovernance sync completed successfully.")
+    print(f"Total contributors: {len(contributors)}")
+    print(f"Active contributors: {registry['metadata']['active_contributors']}")
     
 def onboard_new_contributor(username, contributors, existing_usernames, timestamp, pr_url):
     new_contributor = {
@@ -768,20 +776,6 @@ def onboard_new_contributor(username, contributors, existing_usernames, timestam
     
     update_user_history(username, "ROLE_ASSIGNMENT", f"Assigned Newbie Contributor (via PR {pr_url})", is_bot=False)
     update_ledger("ROLE_ASSIGNMENT", username, f"Onboarded as Newbie Contributor", is_bot=False)
-
-    
-    # 4. Update Metadata
-    registry['metadata']['last_sync'] = get_now_ist_str()
-    registry['metadata']['total_contributors'] = len(contributors)
-    registry['metadata']['active_contributors'] = sum(1 for c in contributors if c.get('status') == 'active')
-
-    # Save Registry
-    with open(REGISTRY_PATH, 'w') as f:
-        yaml.dump(registry, f, sort_keys=False, default_flow_style=False)
-    
-    print("\nGovernance sync completed successfully.")
-    print(f"Total contributors: {len(contributors)}")
-    print(f"Active contributors: {registry['metadata']['active_contributors']}")
 
 if __name__ == "__main__":
     main()
