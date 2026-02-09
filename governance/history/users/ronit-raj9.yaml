@@ -1,46 +1,194 @@
 username: ronit-raj9
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
+- timestamp: '2025-08-22T19:38:11Z'
+  type: COMMIT
+  details:
+    message: Add python backend RAG system with agents and embeddings
+    sha: 91eb7b6
+    pr_number: 27
+- timestamp: '2025-08-23T23:28:33Z'
+  type: COMMIT
+  details:
+    message: Updated RAG with proper embedding
+    sha: 226f72e
+    pr_number: 27
+- timestamp: '2025-08-23T23:29:28Z'
+  type: COMMIT
+  details:
+    message: folder for qdrant storage
+    sha: d6b7fc8
+    pr_number: 27
+- timestamp: '2025-08-23T23:30:31Z'
+  type: COMMIT
+  details:
+    message: Updated frontend page for chat with repo
+    sha: 9a4ddc3
+    pr_number: 27
+- timestamp: '2025-08-23T23:32:08Z'
+  type: COMMIT
+  details:
+    message: Updated backend for RAG chat
+    sha: 41d8ed7
+    pr_number: 27
+- timestamp: '2025-08-23T23:33:14Z'
+  type: COMMIT
+  details:
+    message: Added residual files
+    sha: b5a3f59
+    pr_number: 27
+- timestamp: '2025-08-24T00:11:48Z'
+  type: COMMIT
+  details:
+    message: Fixed file selection in sidebar
+    sha: d582434
+    pr_number: 27
+- timestamp: '2025-08-26T12:32:48Z'
+  type: COMMIT
+  details:
+    message: Added .env.example and updated readme
+    sha: 29de32e
+    pr_number: 28
+- timestamp: '2025-09-01T05:25:00Z'
+  type: COMMIT
+  details:
+    message: updated gitignore
+    sha: d750368
+    pr_number: 30
+- timestamp: '2025-09-01T06:37:57Z'
+  type: COMMIT
+  details:
+    message: Deleted storage files
+    sha: 84efeb6
+    pr_number: 30
+- timestamp: '2025-09-03T12:01:55Z'
+  type: COMMIT
+  details:
+    message: Remove qdrant_storage from tracking
+    sha: 6f9ab26
+    pr_number: 30
+- timestamp: '2025-09-03T12:07:16Z'
+  type: COMMIT
+  details:
+    message: Add lib folder with API services and utilities
+    sha: b6a0bdf
+    pr_number: 31
+- timestamp: '2025-09-03T12:07:45Z'
+  type: COMMIT
+  details:
+    message: updated gitignore
+    sha: 7794e6f
+    pr_number: 31
+- timestamp: '2025-09-03T12:10:32Z'
+  type: COMMIT
+  details:
+    message: Update Python backend configuration and dependencies
+    sha: 2a2c84d
+    pr_number: 31
+- timestamp: '2025-09-03T12:10:39Z'
+  type: COMMIT
+  details:
+    message: Update main app configuration and gitignore rules
+    sha: 0bdc0ad
+    pr_number: 31
+- timestamp: '2025-09-03T12:10:46Z'
+  type: COMMIT
+  details:
+    message: Add comprehensive API route structure for v1 endpoints
+    sha: 362599e
+    pr_number: 31
+- timestamp: '2025-09-03T12:10:53Z'
+  type: COMMIT
+  details:
+    message: Add database models and API data models
+    sha: 3b1ece1
+    pr_number: 31
+- timestamp: '2025-09-03T12:10:59Z'
+  type: COMMIT
+  details:
+    message: Add utility functions for various backend operations
+    sha: d7c3ffe
+    pr_number: 31
+- timestamp: '2025-09-03T12:11:06Z'
+  type: COMMIT
+  details:
+    message: Add backend services layer for business logic
+    sha: 75bf2fa
+    pr_number: 31
+- timestamp: '2025-09-03T12:12:48Z'
+  type: COMMIT
+  details:
+    message: Merge branch 'LF-Decentralized-Trust-Mentorships:main' into v2
+    sha: 5f014de
+    pr_number: 31
+- timestamp: '2025-09-13T23:35:15Z'
+  type: COMMIT
+  details:
+    message: Added Control Panel Data for RAG chat context
+    sha: 0ac0de9
+    pr_number: 55
+- timestamp: '2025-09-14T00:20:34Z'
+  type: COMMIT
+  details:
+    message: 'fix(ui): Make file selection sidebar scrollable'
+    sha: 31c1615
+    pr_number: 55
+- timestamp: '2025-09-14T08:45:51Z'
+  type: COMMIT
+  details:
+    message: 'feat: Add env for frontend url instead of hardcoding in backend code'
+    sha: 4d83c16
+    pr_number: 58
+- timestamp: '2025-09-14T08:46:25Z'
+  type: COMMIT
+  details:
+    message: Merge branch 'LF-Decentralized-Trust-Mentorships:main' into main
+    sha: a08a86a
+    pr_number: 58
+- timestamp: '2025-09-14T20:15:01Z'
+  type: COMMIT
+  details:
+    message: 'feat: Add clickable GitHub links and discussions integration'
+    sha: 8926fff
+    pr_number: 66
+- timestamp: '2025-10-21T13:05:02Z'
+  type: COMMIT
+  details:
+    message: 'feat: Enable live fetching and automatic PR creation'
+    sha: aac1f62
+    pr_number: 118
+- timestamp: '2025-10-27T09:08:23Z'
+  type: MERGE
+  details:
+    pr_number: 135
+    pr_title: Integrated Additional MCP Servers
+- timestamp: '2025-10-29T18:07:53Z'
+  type: COMMIT
+  details:
+    message: 'chore: untrack .env.production and update production config'
+    sha: 6668e22
+    pr_number: 139
+- timestamp: '2025-10-29T22:31:52Z'
+  type: COMMIT
+  details:
+    message: 'docs: add Docker build and run commands to README'
+    sha: '1965236'
+    pr_number: 139
+- timestamp: '2025-11-04T05:37:16Z'
+  type: MERGE
+  details:
+    pr_number: 143
+    pr_title: "assign distinct colors to notification filter icons for better visual\u2026"
+- timestamp: '2025-11-05T09:08:14Z'
+  type: MERGE
+  details:
+    pr_number: 144
+    pr_title: 'fix: fixed the color pallet for better content visibility on both dark
+      and light themes'
+- timestamp: '2025-11-07T07:52:15Z'
+  type: MERGE
+  details:
+    pr_number: 145
+    pr_title: 'fix: cloning repo loading screen appearing twice'
+- timestamp: '2026-02-10T00:46:50+05:30'
   type: ROLE_ASSIGNMENT
-  details: 'Assigned role: CTO by EE-board'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #27: Implement Comprehensive RAG Chat System with Vector StorageImplement
-    Comprehensive RAG Chat System with Vector Storage (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/27)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #28: Added .env.example and updated readme (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/28)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #30: Updated gitignore and deleted qdrant storage directory
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/30)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #31: V2 (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/31)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #55: Added Control Panel Data for RAG chat context (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/55)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #58: feat: Added FRONTEND_URL environment variable for configurable
-    frontend URLs (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/58)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #66: feat: Add clickable GitHub links and discussions integration
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/66)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #139: chore: untrack .env.production and update production config
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/139)'
-- timestamp: '2025-12-27T10:32:17+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-22
-- timestamp: '2026-01-05T21:38:34+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-03
-- timestamp: '2026-01-14T20:30:59+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-14
-- timestamp: '2026-01-22T15:12:46+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-21
+  details: 'Assigned role: Maintainer by rawx18'

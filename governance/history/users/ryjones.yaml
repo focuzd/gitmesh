@@ -1,0 +1,11 @@
+username: ryjones
+events:
+- timestamp: '2025-07-25T18:30:31Z'
+  type: MERGE
+  details:
+    pr_number: 1
+    pr_title: Initial codebase migration from RAWx18/Beetle to LFDT-Beetle
+- timestamp: '2025-07-25T18:30:31Z'
+  type: ROLE_ASSIGNMENT
+  details: 'Assigned role: Newbie Contributor by GitMesh-Steward-bot (first merge:
+    PR #1)'
