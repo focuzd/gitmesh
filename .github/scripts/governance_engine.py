@@ -11,8 +11,13 @@ from datetime import datetime, timedelta, timezone
 IST = timezone(timedelta(hours=5, minutes=30))
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
-CANONICAL_REPO = "LF-Decentralized-Trust-labs/gitmesh" # Fork protection target
+REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo" - used for file operations
+CANONICAL_REPO = "LF-Decentralized-Trust-labs/gitmesh"  # Fork protection target
+
+# DATA_SOURCE_REPO: Where to fetch PR/commit data from
+# - For TESTING on fork: Set to CANONICAL_REPO to fetch main repo data
+# - For PRODUCTION: Set to REPO (or just use REPO directly)
+DATA_SOURCE_REPO = CANONICAL_REPO  # TODO: Change to REPO before merging to main
 
 REGISTRY_PATH = "governance/contributors.yaml"
 BOTS_PATH = "governance/bots.yaml"
@@ -111,7 +116,7 @@ def get_merged_prs(since_date=None, per_page=100):
 
     while True:
         # Fetch closed PRs, sorted by updated desc to get recent ones first
-        url = f"https://api.github.com/repos/{REPO}/pulls?state=closed&sort=updated&direction=desc&per_page={per_page}&page={page}"
+        url = f"https://api.github.com/repos/{DATA_SOURCE_REPO}/pulls?state=closed&sort=updated&direction=desc&per_page={per_page}&page={page}"
         try:
             response = requests.get(url, headers=headers)
             response.raise_for_status()
@@ -163,7 +168,7 @@ def get_pr_commits(pr_number):
     Returns list of dicts with: author, message, sha, timestamp
     """
     commits = []
-    url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}/commits?per_page=100"
+    url = f"https://api.github.com/repos/{DATA_SOURCE_REPO}/pulls/{pr_number}/commits?per_page=100"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -193,7 +198,7 @@ def get_pr_merger(pr_number):
     Fetches details about who merged a PR.
     Returns dict with: merger (username), merged_at, title
     """
-    url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}"
+    url = f"https://api.github.com/repos/{DATA_SOURCE_REPO}/pulls/{pr_number}"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -219,7 +224,7 @@ def get_last_activity_date(username):
     
     # 1. Check commits authored by user in this repo
     try:
-        commits_url = f"https://api.github.com/repos/{REPO}/commits?author={username}&per_page=1"
+        commits_url = f"https://api.github.com/repos/{DATA_SOURCE_REPO}/commits?author={username}&per_page=1"
         response = requests.get(commits_url, headers=headers)
         if response.status_code == 200:
             commits = response.json()
@@ -233,7 +238,7 @@ def get_last_activity_date(username):
     
     # 2. Check merged PRs created by user in this repo
     try:
-        prs_url = f"https://api.github.com/repos/{REPO}/pulls?state=closed&creator={username}&sort=updated&direction=desc&per_page=10"
+        prs_url = f"https://api.github.com/repos/{DATA_SOURCE_REPO}/pulls?state=closed&creator={username}&sort=updated&direction=desc&per_page=10"
         response = requests.get(prs_url, headers=headers)
         if response.status_code == 200:
             prs = response.json()
@@ -645,9 +650,10 @@ def main():
 
 def run_sync_mode():
     # --- FORK PROTECTION CHECK ---
-    if REPO != CANONICAL_REPO:
-        print(f"Skipping governance sync: Current repo '{REPO}' is a fork or doesn't match '{CANONICAL_REPO}'.")
-        return
+    # TODO: Uncomment before merging to main repo
+    # if REPO != CANONICAL_REPO:
+    #     print(f"Skipping governance sync: Current repo '{REPO}' is a fork or doesn't match '{CANONICAL_REPO}'.")
+    #     return
 
     if not os.path.exists(REGISTRY_PATH):
         print(f"Registry not found at {REGISTRY_PATH}")
