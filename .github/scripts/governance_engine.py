@@ -160,14 +160,21 @@ def get_merged_prs(since_date=None, per_page=100):
     return all_prs
 
 def get_last_activity_date(username):
-    """Queries GitHub Events API to find the user's latest public action."""
+    """Queries GitHub Events API to find the user's latest public action in this repo."""
     url = f"https://api.github.com/users/{username}/events/public"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             events = response.json()
             if events and isinstance(events, list):
-                return events[0]['created_at'].split('T')[0]
+                for event in events:
+                    if event.get('repo', {}).get('name') == REPO:
+                        if event['type'] == 'PushEvent':
+                             return event['created_at'].split('T')[0]
+                        elif event['type'] == 'PullRequestEvent':
+                            if event.get('payload', {}).get('action') == 'closed' and \
+                               event.get('payload', {}).get('pull_request', {}).get('merged') == True:
+                                return event['created_at'].split('T')[0]
     except Exception as e:
         print(f"Error fetching activity for {username}: {e}")
     return None
@@ -610,7 +617,7 @@ def run_sync_mode():
         # Fetch ALL merged PRs
         prs_to_process = get_merged_prs(since_date=None)
         
-        # Re-initialize history for existing contributors
+        # Re-initialize history for existing contributors (ROLE_ASSIGNMENT)
         for contributor in contributors:
             username = contributor['username']
             update_user_history(
@@ -635,9 +642,6 @@ def run_sync_mode():
                 f"Bot tracked in registry. Added by: {bot.get('added_by', 'unknown')}",
                 is_bot=True
             )
-            # We don't add to bot_logs here unless we want an init event.
-            # But the 'Added by' event is already in the main ledger if added via command.
-            # If migrating, it's just state.
 
     else:
         print(f"Performing INCREMENTAL SYNC since {last_sync}")
@@ -649,49 +653,77 @@ def run_sync_mode():
     prs_to_process.sort(key=lambda x: x['merged_at'])
 
     for pr in prs_to_process:
-        username = pr['username']
-        merged_at = pr['merged_at']
-        pr_url = pr['url']
+        pr_number = pr['number']
+        pr_title = pr['title']
+        pr_url = pr['url'] # html_url
         
-        is_bot = username.lower() in bot_usernames
-        
-        if is_bot:
-            # Log bot activity to Bot Ledger/History only
-            update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=True)
-            update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=True)
-            # Do NOT add to contributors list
-            continue
-        
-        # HUMAN Processing
-        
-        # 1. New Contributor Detection
-        if username.lower() not in existing_usernames:
-            print(f"New contributor detected: {username}")
-            new_contributor = {
-                "username": username, # Keep original casing for display
-                "role": "Newbie Contributor",
-                "team": "CE",
-                "status": "active",
-                "assigned_by": "GitMesh-Steward-bot",
-                "assigned_at": merged_at,
-                "last_activity": merged_at.split('T')[0],
-                "notes": "Automatically onboarded after first merged PR."
-            }
-            contributors.append(new_contributor)
-            existing_usernames.add(username.lower())
+        # 1. Fetch Merge Details (Who merged it?)
+        # We need to fetch the single PR endpoint to get 'merged_by'
+        try:
+            pr_details_resp = requests.get(f"https://api.github.com/repos/{REPO}/pulls/{pr_number}", headers=headers)
+            pr_details_resp.raise_for_status()
+            pr_details = pr_details_resp.json()
+            merged_by_user = pr_details.get('merged_by')
+            merged_by_login = merged_by_user['login'] if merged_by_user else None
+        except Exception as e:
+            print(f"Error fetching PR details for #{pr_number}: {e}")
+            merged_by_login = None
+
+        # 2. Fetch Commits (Who committed?)
+        commits = []
+        try:
+            # Pagination for commits? Usually < 100 per PR, but strictly we should page. 
+            # For simplicity, assuming < 100 or just taking first page is common in scripts, but let's try to be robust if easy.
+            # Using simple 1 page for now as most PRs are small.
+            commits_url = f"https://api.github.com/repos/{REPO}/pulls/{pr_number}/commits?per_page=100"
+            commits_resp = requests.get(commits_url, headers=headers)
+            commits_resp.raise_for_status()
+            commits = commits_resp.json()
+        except Exception as e:
+            print(f"Error fetching commits for #{pr_number}: {e}")
+
+        # 3. Log MERGE Event
+        if merged_by_login:
+            is_merger_bot = merged_by_login.lower() in bot_usernames
+            # If merger is a bot, log to bot ledger? 
+            # Or if user wants "merge event in the ledger of the person who did the merge", 
+            # and that person is a bot, it goes to bot ledger.
             
-            update_user_history(username, "ONBOARDING", f"Achieved Newbie status via merged PR: {pr_url}", is_bot=False)
-            update_ledger("ONBOARDING", username, f"First merged PR: {pr_url}", is_bot=False)
-        
-        # 2. Log PR to History
-        update_user_history(username, "PR_MERGED", f"Merged PR #{pr['number']}: {pr['title']} ({pr['url']})", is_bot=False)
-        update_ledger("PR_MERGED", username, f"PR #{pr['number']}: {pr['title']}", is_bot=False)
+            # Check if merger is new contributor?
+            if not is_merger_bot and merged_by_login.lower() not in existing_usernames:
+                print(f"New contributor (merger) detected: {merged_by_login}")
+                onboard_new_contributor(merged_by_login, contributors, existing_usernames, pr['merged_at'], pr_url)
+            
+            log_msg = f"Merged PR #{pr_number}: {pr_title}"
+            update_user_history(merged_by_login, "MERGE", log_msg, is_bot=is_merger_bot)
+            update_ledger("MERGE", merged_by_login, log_msg, is_bot=is_merger_bot)
+
+        # 4. Log COMMIT Events
+        for commit in commits:
+            author = commit.get('author')
+            if not author:
+                continue # No GitHub user associated
+            
+            author_login = author['login']
+            commit_msg = commit['commit']['message'].split('\n')[0] # First line
+            sha_short = commit['sha'][:7]
+            
+            is_committer_bot = author_login.lower() in bot_usernames
+            
+            # Check if committer is new contributor?
+            if not is_committer_bot and author_login.lower() not in existing_usernames:
+                print(f"New contributor (committer) detected: {author_login}")
+                onboard_new_contributor(author_login, contributors, existing_usernames, pr['merged_at'], pr_url)
+
+            log_msg = f"Commit {sha_short}: {commit_msg} (PR #{pr_number})"
+            update_user_history(author_login, "COMMIT", log_msg, is_bot=is_committer_bot)
+            update_ledger("COMMIT", author_login, log_msg, is_bot=is_committer_bot)
 
     # 3. Update Activity Status (for all contributors)
     print("\nUpdating activity status...")
     for entry in contributors:
         username = entry['username']
-        # Double check if bot (in case they were added to bots but not removed from contributors manually)
+        # Double check if bot
         if username.lower() in bot_usernames:
              continue
              
@@ -701,8 +733,7 @@ def run_sync_mode():
             old_activity = entry.get('last_activity')
             entry['last_activity'] = last_act
             
-            if old_activity != last_act:
-                update_user_history(username, "ACTIVITY_UPDATE", f"Last activity updated to {last_act}", is_bot=False)
+            # Removed ACTIVITY_UPDATE logging
             
             # Inactivity Check (90 days)
             last_act_dt = datetime.strptime(last_act, "%Y-%m-%d")
@@ -712,6 +743,7 @@ def run_sync_mode():
             if diff > timedelta(days=90):
                 if entry.get('status') != "inactive":
                     entry['status'] = "inactive"
+                    # Status change is type of Role Change/Assignment in broad sense
                     update_user_history(username, "STATUS_CHANGE", "Flagged as inactive due to 90 days of no activity.", is_bot=False)
                     update_ledger("STATUS_CHANGE", username, "Marked as inactive (90+ days)", is_bot=False)
             else:
@@ -719,6 +751,24 @@ def run_sync_mode():
                     entry['status'] = "active"
                     update_user_history(username, "STATUS_CHANGE", "Reactivated status due to new activity.", is_bot=False)
                     update_ledger("STATUS_CHANGE", username, "Reactivated due to new activity", is_bot=False)
+    
+def onboard_new_contributor(username, contributors, existing_usernames, timestamp, pr_url):
+    new_contributor = {
+        "username": username,
+        "role": "Newbie Contributor",
+        "team": "CE",
+        "status": "active",
+        "assigned_by": "GitMesh-Steward-bot",
+        "assigned_at": timestamp,
+        "last_activity": timestamp.split('T')[0],
+        "notes": "Automatically onboarded."
+    }
+    contributors.append(new_contributor)
+    existing_usernames.add(username.lower())
+    
+    update_user_history(username, "ROLE_ASSIGNMENT", f"Assigned Newbie Contributor (via PR {pr_url})", is_bot=False)
+    update_ledger("ROLE_ASSIGNMENT", username, f"Onboarded as Newbie Contributor", is_bot=False)
+
     
     # 4. Update Metadata
     registry['metadata']['last_sync'] = get_now_ist_str()
