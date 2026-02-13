@@ -1,53 +1,59 @@
 username: focuzd
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: ONBOARDING
-  details: 'Achieved Newbie status via merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/113'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #113: feat: implement create new project feature (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/113)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #121: bug fix: fix chat page content shift when sidebar expands
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/121)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #145: fix: cloning repo loading screen appearing twice (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/145)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #146: feat/add a toggle to include readme in create new project
-    dialog (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/146)'
-- timestamp: '2025-12-27T10:32:18+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-25
-- timestamp: '2026-01-05T21:38:37+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-04
-- timestamp: '2026-01-14T20:31:02+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-10
-- timestamp: '2026-01-19T13:53:13+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #338: Fix /gov commands for role change in steward bot. (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/338)'
-- timestamp: '2026-01-19T13:53:13+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #341: Update GitHub steward bot schedule and fix case mismatch
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/341)'
-- timestamp: '2026-01-19T13:53:16+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-19
-- timestamp: '2026-01-19T13:55:27+05:30'
-  type: ROLE_CHANGE
-  details: 'Role changed from ''Newbie Contributor'' to ''Active Contributor'' by
-    @RAWx18 via PR #343'
-- timestamp: '2026-01-22T15:12:45+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #352: Add Bot Management for a clean separation between bots
-    and contributor (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/352)'
-- timestamp: '2026-01-22T15:12:48+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-22
-- timestamp: '2026-01-23T12:11:38+05:30'
-  type: ROLE_CHANGE
-  details: 'Role changed from ''Active Contributor'' to ''Core Contributor'' by @RAWx18
-    via PR #359'
+- timestamp: '2025-10-20T13:18:23Z'
+  type: COMMIT
+  details:
+    message: 'feat: implement create new project feature'
+    sha: 1736a89
+    pr_number: 113
+- timestamp: '2025-10-21T20:28:23Z'
+  type: COMMIT
+  details:
+    message: 'bug fix: fix chat page content shift when sidebar expands'
+    sha: d1c53ef
+    pr_number: 121
+- timestamp: '2025-11-06T16:20:39Z'
+  type: COMMIT
+  details:
+    message: 'bug: fix cloning repo loading screen appearing twice'
+    sha: 995f505
+    pr_number: 145
+- timestamp: '2025-11-07T16:49:12Z'
+  type: COMMIT
+  details:
+    message: feat/add a toggle to include readme in create new project dialog
+    sha: b364942
+    pr_number: 146
+- timestamp: '2026-01-18T12:00:06Z'
+  type: COMMIT
+  details:
+    message: Fix /gov commands for role change in steward bot.
+    sha: 4f10dae
+    pr_number: 338
+- timestamp: '2026-01-18T17:48:08Z'
+  type: COMMIT
+  details:
+    message: Update GitHub steward bot schedule and fix case mismatch
+    sha: 14decca
+    pr_number: 341
+- timestamp: '2026-01-21T12:37:14Z'
+  type: COMMIT
+  details:
+    message: Add bot management
+    sha: 9c434ca
+    pr_number: 352
+- timestamp: '2026-01-22T08:22:25Z'
+  type: COMMIT
+  details:
+    message: refine bot management
+    sha: 762da40
+    pr_number: 352
+- timestamp: '2026-01-24T14:43:32Z'
+  type: COMMIT
+  details:
+    message: Fix inifite looping in steward bot
+    sha: 224b825
+    pr_number: 360
+- timestamp: '2026-02-13T09:31:33+05:30'
+  type: ROLE_ASSIGNMENT
+  details: 'Assigned role: Core Contributor by RAWx18'

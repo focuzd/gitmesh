@@ -1,63 +1,143 @@
 username: parvm1102
 events:
-- timestamp: '2025-12-27T10:32:14+05:30'
+- timestamp: '2025-07-28T19:47:58Z'
+  type: COMMIT
+  details:
+    message: 'docs: updated contributing.md'
+    sha: 604a850
+    pr_number: 20
+- timestamp: '2025-07-28T20:21:37Z'
+  type: COMMIT
+  details:
+    message: 'docs: changes made to contributing.md'
+    sha: d643f07
+    pr_number: 20
+- timestamp: '2025-09-09T16:35:57Z'
+  type: COMMIT
+  details:
+    message: fixed fetching issue on the hub/overview page
+    sha: ba93742
+    pr_number: 34
+- timestamp: '2025-09-10T07:52:43Z'
+  type: COMMIT
+  details:
+    message: 'feature: profiles added'
+    sha: 1a3d206
+    pr_number: 35
+- timestamp: '2025-09-10T09:51:18Z'
+  type: COMMIT
+  details:
+    message: 'fix: Shifted successfully to supabase'
+    sha: 72220df
+    pr_number: 36
+- timestamp: '2025-09-10T09:52:32Z'
+  type: COMMIT
+  details:
+    message: Merge branch 'LF-Decentralized-Trust-Mentorships:main' into main
+    sha: 96cc9ec
+    pr_number: 36
+- timestamp: '2025-09-11T08:34:08Z'
+  type: COMMIT
+  details:
+    message: 'Clean: removed rag'
+    sha: 9f3680e
+    pr_number: 37
+- timestamp: '2025-09-11T08:34:08Z'
+  type: COMMIT
+  details:
+    message: 'Clean: removed rag'
+    sha: 9f3680e
+    pr_number: 38
+- timestamp: '2025-09-12T13:48:12Z'
+  type: COMMIT
+  details:
+    message: 'fix: updated rag pipeline and made UI compatible for branch import'
+    sha: c45e5ab
+    pr_number: 39
+- timestamp: '2025-09-12T18:22:09Z'
+  type: COMMIT
+  details:
+    message: 'fix: RAG working properly'
+    sha: de53025
+    pr_number: 40
+- timestamp: '2025-09-12T18:25:14Z'
+  type: COMMIT
+  details:
+    message: Merge branch 'LF-Decentralized-Trust-Mentorships:main' into main
+    sha: bc7130a
+    pr_number: 40
+- timestamp: '2025-09-13T06:00:31Z'
+  type: COMMIT
+  details:
+    message: fixed minor UI changes on the import page
+    sha: e0f3757
+    pr_number: 42
+- timestamp: '2025-09-13T06:02:42Z'
+  type: COMMIT
+  details:
+    message: Merge remote-tracking branch 'refs/remotes/origin/main'
+    sha: 6b10c68
+    pr_number: 42
+- timestamp: '2025-09-13T06:06:21Z'
+  type: COMMIT
+  details:
+    message: Merge remote-tracking branch 'refs/remotes/origin/main'
+    sha: f36ad22
+    pr_number: 42
+- timestamp: '2025-09-13T09:12:53Z'
+  type: COMMIT
+  details:
+    message: fixed rag speed and reuploading
+    sha: 826c00d
+    pr_number: 51
+- timestamp: '2025-09-13T10:19:43Z'
+  type: COMMIT
+  details:
+    message: 'fix: Not owned public repo issue'
+    sha: ae5c492
+    pr_number: 52
+- timestamp: '2025-09-13T18:13:26Z'
+  type: COMMIT
+  details:
+    message: Fixed Rag Context and file processing issues
+    sha: 3fc7f61
+    pr_number: 53
+- timestamp: '2025-09-28T13:53:51Z'
+  type: COMMIT
+  details:
+    message: 'bug: search repo card fix acc to bet 50 for #104 commit'
+    sha: 5e93d61
+    pr_number: 68
+- timestamp: '2025-10-15T17:19:18Z'
+  type: COMMIT
+  details:
+    message: cloned repo context issue resolved
+    sha: daecb72
+    pr_number: 81
+- timestamp: '2025-10-16T13:57:22Z'
+  type: COMMIT
+  details:
+    message: 'fix: now previous chats opening perfectly'
+    sha: efae15b
+    pr_number: 95
+- timestamp: '2025-10-18T16:35:38Z'
+  type: COMMIT
+  details:
+    message: chats are now working more smoothly
+    sha: e98d83a
+    pr_number: 100
+- timestamp: '2025-12-16T15:42:54Z'
+  type: COMMIT
+  details:
+    message: 'fix: solved frontend reload errors and cubejs restarting issues'
+    sha: 8d86bb0
+    pr_number: 163
+- timestamp: '2025-12-16T16:56:34Z'
+  type: COMMIT
+  details:
+    message: 'fix: The 500 internal server errors on Axios resolved'
+    sha: 987dcca
+    pr_number: 163
+- timestamp: '2026-02-13T09:31:33+05:30'
   type: ROLE_ASSIGNMENT
   details: 'Assigned role: Maintainer by rawx18'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #20: docs: updated contributing.md (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/20)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #34: fix: Hub/overview page data fetching (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/34)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #35: feature: profiles added (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/35)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #36: Fix: Shifted database to Supabase (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/36)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #37: Clean: removed ai + rag code (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/37)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #39: fix: updated rag pipeline and made UI compatible for branch
-    import (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/39)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #40: Fix: RAG + AI works and minor fixes (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/40)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #42: fixed minor ui changes for the import page for selecting
-    the files. (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/42)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #51: fixed rag speed and reuploading (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/51)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #52: fix: Not owned public repo issue (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/52)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #53: Fixed Rag Context and file processing issues (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/53)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #68: bug: search repo card fix acc to bet 50 for #104 commit
-    (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/68)'
-- timestamp: '2025-12-27T10:32:14+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #100: chats are now working more smoothly (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/100)'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #163: fix: solved frontend reload errors and cubejs restarting
-    issues (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/163)'
-- timestamp: '2025-12-27T10:32:17+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-18
-- timestamp: '2025-12-28T22:59:39+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-28
-- timestamp: '2026-01-05T21:38:34+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-29
-- timestamp: '2026-01-14T20:30:59+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2026-01-11

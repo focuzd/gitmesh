@@ -1,11 +1,17 @@
 username: berkaymuratt
 events:
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: ONBOARDING
-  details: 'Achieved Newbie status via merged PR: https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/130'
-- timestamp: '2025-12-27T10:32:15+05:30'
-  type: PR_MERGED
-  details: 'Merged PR #130: add remove profile picture functionality (https://github.com/LF-Decentralized-Trust-labs/gitmesh/pull/130)'
-- timestamp: '2025-12-27T10:32:19+05:30'
-  type: ACTIVITY_UPDATE
-  details: Last activity updated to 2025-12-06
+- timestamp: '2025-10-25T10:48:22Z'
+  type: COMMIT
+  details:
+    message: add remove profile picture functionality
+    sha: 7ebaac0
+    pr_number: 130
+- timestamp: '2025-10-25T11:28:32Z'
+  type: COMMIT
+  details:
+    message: reset file input on avatar removal to allow same file re-upload
+    sha: 4998f87
+    pr_number: 130
+- timestamp: '2026-02-13T09:31:33+05:30'
+  type: ROLE_ASSIGNMENT
+  details: 'Assigned role: Newbie Contributor by GitMesh-Steward-bot'
